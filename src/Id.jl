@@ -115,26 +115,35 @@ function set_qnm(
    
    aval = round(digits=12,a)
   
-   qnmpath = dirname(pwd())*"/qnm"
+   qnmpath = dirname(pwd())*"/TeukEvolution.jl/qnm"
+   #h5f = h5read(
+   #      qnmpath*"/prec1024_nr$(nr)_s$(s)_m$(mv)_n$(n).h5",
+   #      "[a=$(aval),l=$(l)]"
+   #     )
    h5f = h5read(
-         qnmpath*"/prec1024_nr$(nr)_s$(s)_m$(mv)_n$(n).h5",
+         qnmpath*"/s2_m2_n0.h5",
          "[a=$(aval),l=$(l)]"
         )
    rpoly = ChebyshevT(h5f["radial_coef"])
    lpoly = ChebyshevT(h5f["angular_coef"])
    lmin  = max(abs(s),abs(mv))
-   lvals = [i+lmin for i in range(length(lpoly))]
+   # Should be from 0 to length-1?
+   lvals = [i+lmin for i in range(1,length(lpoly),step=1)]
+   
    for j=1:ny
       for i=1:nx 
-         f.n[i,j]  = roply(Rv[i]) 
-         f.n[i,j] *= sum(
-            [lpoly[i]*swal(spin,mv,(i-1)+lmin,Yv[j]) 
-             for i in 0:length(lpoly)
+         f.n[i,j]  = rpoly(Rv[i]) 
+         # Here took spin=s, changed sum to be over k instead of i again
+	 #println(mv, (i-1)+lmin)
+	 f.n[i,j] *= sum(
+            [lpoly[k]*swal(s,mv,(k-1)+lmin,Yv[j]) 
+             for k in 1:length(lpoly)
             ]
          )
       end
    end
-   ## rescale  
+   ## rescale
+   max_val = maximum(abs.(f.n))
    for j=1:ny
       for i=1:nx
          f.n[i,j] *= amp / max_val    
