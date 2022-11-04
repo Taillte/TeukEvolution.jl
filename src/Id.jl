@@ -125,19 +125,18 @@ function set_qnm(
          "[a=$(aval),l=$(l)]"
         )
    rpoly = ChebyshevT(h5f["radial_coef"])
-   lpoly = ChebyshevT(h5f["angular_coef"])
+   lpoly = h5f["angular_coef"]
    lmin  = max(abs(s),abs(mv))
-   # Should be from 0 to length-1?
-   lvals = [i+lmin for i in range(1,length(lpoly),step=1)]
+   # changed sum to: from 0 to length-1
+   lvals = [i+lmin for i in range(0,length(lpoly)-1,step=1)]
    
    for j=1:ny
       for i=1:nx 
          f.n[i,j]  = rpoly(Rv[i]) 
-         # Here took spin=s, changed sum to be over k instead of i again
-	 #println(mv, (i-1)+lmin)
+         # Here took spin=s, changed sum to be over l instead of i again
 	 f.n[i,j] *= sum(
-            [lpoly[k]*swal(s,mv,(k-1)+lmin,Yv[j]) 
-             for k in 1:length(lpoly)
+            [lpoly[l]*swal(s,mv,(l-1)+lmin,Yv[j]) 
+             for l in 1:length(lpoly)
             ]
          )
       end
