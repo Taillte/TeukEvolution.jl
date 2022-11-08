@@ -44,6 +44,7 @@ function launch(paramfile::String)::Nothing
 
    cl  = convert(Float64,params["cl"])
    cfl = convert(Float64,params["cfl"])
+   ## Want to put these inside evolution loop.. still initialize here for minr calculation
    bhs = convert(Float64,params["bhs"])
    bhm = convert(Float64,params["bhm"])
 
@@ -53,6 +54,8 @@ function launch(paramfile::String)::Nothing
    ##===================
    ## Derived parameters
    ##===================
+
+   ## including change in coord for changing bhm bhs? Probably not? should have horizon penetrating coord here & would have to interpolate fields onto new grid at each step
    minr = bhm*(
       1.0 + sqrt(1.0+(bhs/bhm))*sqrt(1.0-(bhs/bhm))
      ) # horizon (uncompactified)
@@ -71,6 +74,7 @@ function launch(paramfile::String)::Nothing
    end
    println("Initializing constant fields")
    Rv = Radial.R_vals(nx, dr)
+   println(Rv)
    Yv = Sphere.Y_vals(ny)
    Cv = Sphere.cos_vals(ny)
    Sv = Sphere.sin_vals(ny)
@@ -107,6 +111,7 @@ function launch(paramfile::String)::Nothing
    ##=======================================
    ## Fixed fields (for evolution equations) 
    ##=======================================
+   ## NEED TO REDEFINE AT EACH EVOLUTION STEP
    println("Initializing psi4 evolution operators")
    evo_psi4 = Initialize_Evo_lin_f(Rvals=Rv,Cvals=Cv,Svals=Sv,Mvals=Mv,bhm=bhm,bhs=bhs,cl=cl,spin=psi_spin)
    
@@ -140,7 +145,13 @@ function launch(paramfile::String)::Nothing
          end
       end
    elseif params["id_kind"]=="qnm"
-      Id.set_qnm!()
+      # n=0
+      for (mi,mv) in enumerate(Mv)
+	    Id.set_qnm(lin_f[mv], lin_p[mv],
+				  psi_spin, params["id_l_ang"][mi], mv,
+				  0, bhs, params["id_amp"] , Rv, Yv)
+            Io.save_csv(t=0.0,mv=mv,outdir=outdir,f=lin_f[mv])
+      end
    else
       throw(DomainError(params["id_kind"],"Unsupported `id_kind` in parameter file")) 
    end
@@ -151,7 +162,21 @@ function launch(paramfile::String)::Nothing
    println("Beginning evolution")
  
    for tc=1:nt
+      ##=======================================
+      ## Fixed fields (for evolution equations)
+      ##=======================================
+      println("Initializing psi4 evolution operators")
+      evo_psi4 = Initialize_Evo_lin_f(Rvals=Rv,Cvals=Cv,Svals=Sv,Mvals=Mv,bhm=bhm,bhs=bhs,cl=cl,spin=psi_spin)
+
+      println("Initializing GHP operators")
+      ghp = Initialize_GHP_ops(Rvals=Rv,Cvals=Cv,Svals=Sv,Mvals=Mv,bhm=bhm,bhs=bhs,cl=cl)
+      
+      ## SHOULD MAYBE NOT CHANGE THIS? REDEFINES EPSILON -> DEFINITELY WANT THIS.
+      println("Initializing Background NP operators")
+      bkgrd_np = BackgroundNP.NP_0(Rvals=Rv,Yvals=Yv,Cvals=Cv,Svals=Sv,bhm=bhm,bhs=bhs,cl=cl)
+
       if runtype=="reconstruction"
+	 ## RUNNING FOR EACH POSITIVE M MODE
          for mv in Mv
             if mv>=0
                Linear_evolution!(

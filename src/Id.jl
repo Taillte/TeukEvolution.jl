@@ -132,13 +132,17 @@ function set_qnm(
    
    for j=1:ny
       for i=1:nx 
-         f.n[i,j]  = rpoly(Rv[i]) 
+         #f.n[i,j]  = 1.0
+	 f.n[i,j]  = rpoly(Rv[i]) 
          # Here took spin=s, changed sum to be over l instead of i again
 	 f.n[i,j] *= sum(
             [lpoly[l]*swal(s,mv,(l-1)+lmin,Yv[j]) 
              for l in 1:length(lpoly)
             ]
          )
+	#if j==1
+	#	println(rpoly(Rv[i]))
+	#end
       end
    end
    ## rescale
