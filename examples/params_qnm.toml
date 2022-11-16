@@ -1,10 +1,10 @@
-outdir = "medpsi0"
+outdir = "hrpsi0"
 
 #nx = 128 
 #ny = 24
 nx = 128
 ny = 24
-nt = 200000
+nt = 20000
 ts = 200  # save every ts time steps
 
 psi_spin    = 2 # spin-weight of linear evolution scalar
