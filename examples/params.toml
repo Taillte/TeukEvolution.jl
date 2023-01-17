@@ -1,18 +1,20 @@
-outdir = "med"
+outdir = "medpsi0"
 
 nx = 128 
 ny = 24
-nt = 20000
+nt = 200000
 ts = 400  # save every ts time steps
 
-psi_spin    = -2 # spin-weight of linear evolution scalar
+#psi_spin    = -2 # spin-weight of linear evolution scalar
+psi_spin    = 2
 psi_falloff = -1 # falloff (in r) of linear evolution scalar
 
 m_vals = [-2,2]
 
 id_kind = "gaussian"
 
-runtype = "reconstruction"
+#runtype = "reconstruction"
+runtype = "linear_field"
 
 id_l_ang = [2,2]
 id_ru = [3.0,  3.0]
