@@ -408,8 +408,11 @@ function launch(params::Dict{String,Any})::Nothing
         if tc % ts == 0
             t = tc * dt / bhm
             println("time/bhm ", t)
+	    #println(lin_f[2].sph_lap)
             Threads.@threads for mv in Mv
-                Io.save_csv(t = t, mv = mv, outdir = outdir, f = lin_f[mv])
+		# For some reason getting a problem w/ Threads command when accessing sph_lap
+                #print(lin_fi[mv].sph_lap)
+		Io.save_csv(t = t, mv = mv, outdir = outdir, f = lin_f[mv])
                 Io.save_csv(t = t, mv = mv, outdir = outdir, f = lin_p[mv])
 
                 if runtype == "reconstruction"
