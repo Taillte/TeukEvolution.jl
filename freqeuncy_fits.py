@@ -9,15 +9,17 @@ Imf_MR = np.loadtxt("evol_med/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1
 times_HR = np.loadtxt("evol_high/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
 Ref_HR = np.loadtxt("evol_high/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
 Imf_HR = np.loadtxt("evol_high/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+
 #Ref_XHR = np.loadtxt("evol_xhigh/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
 #Imf_XHR = np.loadtxt("evol_xhigh/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
-#Ref_LR = np.loadtxt("evol_low/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
-#Imf_LR = np.loadtxt("evol_low/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+times_LR = np.loadtxt("evol_low/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
+Ref_LR = np.loadtxt("evol_low/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_LR = np.loadtxt("evol_low/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-file1 = np.loadtxt("mode_comparison2/2_Harm_2_2.csv",delimiter=",", dtype=float)
+file1 = np.loadtxt("mode_comparison_full_xrange/2_Harm_2_2.csv",delimiter=",", dtype=float)
 f_22 = file1[:,1]
-f_23 = np.loadtxt("mode_comparison2/2_Harm_2_3.csv",delimiter=",", dtype=float)[:,1]
-f_24 = np.loadtxt("mode_comparison2/2_Harm_2_4.csv",delimiter=",", dtype=float)[:,1]
+f_23 = np.loadtxt("mode_comparison_full_xrange/2_Harm_2_3.csv",delimiter=",", dtype=float)[:,1]
+f_24 = np.loadtxt("mode_comparison_full_xrange/2_Harm_2_4.csv",delimiter=",", dtype=float)[:,1]
 
 
 #Imf_34 = np.loadtxt("mode_comparison/2_Harm_im_3_4.csv",delimiter=",", dtype=float)[:,1]
@@ -92,9 +94,9 @@ phases_MR = omega_from_f(Ref_MR,Imf_MR,times)
 data_MR,slope_MR = find_period(phases_MR,times)
 amp_MR,wi_MR = find_omegaI(Ref_MR,Imf_MR,times)
 
-#phases_LR = omega_from_f(Ref_LR,Imf_LR,times*0.5)
-#data_LR,slope_LR = find_period(phases_LR,times*0.5)
-#amp_LR,wi_LR = find_omegaI(Ref_LR,Imf_LR,times*0.5)
+phases_LR = omega_from_f(Ref_LR,Imf_LR,times)
+data_LR,slope_LR = find_period(phases_LR,times)
+amp_LR,wi_LR = find_omegaI(Ref_LR,Imf_LR,times)
 
 #phasesHR = omega_from_f(RefHR,ImfHR,timesHR)
 #dataHR,slope2 = find_period(phasesHR,timesHR)
@@ -105,8 +107,8 @@ amp_MR,wi_MR = find_omegaI(Ref_MR,Imf_MR,times)
 
 print('convergence = ',np.log((slope_MR+ 0.5326002435510183)/(slope_HR+0.5326002435510183))/np.log(2))
 print('convergence = ',np.log((wi_MR+0.0807929627407481 )/(wi_HR+0.0807929627407481))/np.log(2))
-#print((np.log(np.abs(slope_MR - slope_HR)**-1 *np.abs(slope_XHR-slope_HR)))/np.log(2))
-#print((np.log(np.abs(wi_HR - wi_MR)**-1 *np.abs(wi_XHR-wi_HR)))/np.log(2))
+print((np.log(np.abs(slope_LR - slope_MR) /np.abs(slope_HR-slope_MR)))/np.log(2))
+print((np.log(np.abs(wi_LR - wi_MR)/np.abs(wi_MR-wi_HR)))/np.log(2))
 
 #print((np.log(np.abs(slope_MR - slope_LR)**-1 *np.abs(slope_MR-slope_HR)))/np.log(2))
 #print((np.log(np.abs(wi_LR - wi_MR)**-1 *np.abs(wi_MR-wi_HR)))/np.log(2))
@@ -128,7 +130,7 @@ plt.figure()
 #plt.plot(timesLRn,data2,'o',label='LR')
 #plt.plot(timesLRn,ImfLRn,label='Imf')
 #plt.plot(times,Imf)
-#plt.plot(0.5*times,np.log(amp_LR),label='LR')
+plt.plot(times_LR,np.log(amp_LR),label='LR')
 plt.plot(times_HR,np.log(amp_HR),label='HR')
 #plt.plot(times,np.log(amp_XHR),label='XHR')
 plt.plot(times,np.log(amp_MR),label='MR')
@@ -142,7 +144,7 @@ pp.close()
 
 pp = PdfPages('./plots/logAmp.pdf')
 plt.figure()
-#plt.plot(0.5*times,data_LR,'o',label='LR')
+plt.plot(times_LR,data_LR,'o',label='LR')
 plt.plot(times,data_MR,'o',label='MR')
 plt.plot(times_HR,data_HR,'o',label='HR')
 #plt.plot(times,data_XHR,'o',label='XHR')
@@ -154,7 +156,7 @@ pp.close()
 
 pp = PdfPages('./plots/Repsi0.pdf')
 plt.figure()
-#plt.plot(0.5*times,Ref_LR,label='lr')
+plt.plot(times_LR,Ref_LR,label='lr')
 plt.plot(times,Ref_MR,label='mr')
 plt.plot(times_HR,Ref_HR,label='hr')
 #plt.plot(times,Ref_XHR,label='xhr')
@@ -181,16 +183,16 @@ pp.close()
 #pp.close()
 
 
-pp = PdfPages('./plots/Mode_amps.pdf')
+pp = PdfPages('./plots/Mode_amps_xrange.pdf')
 plt.figure()
-plt.plot(times,f_22,label='(2,2)')
-plt.plot(times,-f_23,label='-(3,2)')
-plt.plot(times,f_24,label='(4,2)')
+plt.plot(f_22,label='(2,2)')
+plt.plot(f_23,label='(3,2)')
+plt.plot(f_24,label='(4,2)')
 #plt.plot(times,Ref_33,label='(3,3)')
 #plt.plot(times,Ref_34,label='(4,3)')
 plt.legend()
 plt.ylabel('A(l,m)')
-plt.xlabel('t')
+plt.xlabel('x')
 pp.savefig()
 pp.close()
 
