@@ -17,7 +17,8 @@ function save_csv(; t::Real, mv::Integer, outdir::String, f)::Nothing
 
     open("$(outdir)/$(f.name)_re_$mv.csv", "a") do out
         write(out, "$t,$nx,$ny,")
-        for i in [1,nx]
+        #for i =1:nx
+	for i in [1,nx]
             for j = 1:ny
                 write(out, "$(f.np1[i,j].re),")
                 saved_once = true
