@@ -10,6 +10,9 @@ include("GHP.jl")
 include("BackgroundNP.jl")
 include("LinearEvolution.jl")
 
+using Interpolations
+using CSV
+using DataFrames
 using .Fields: Field, Initialize_Field
 import .Io
 import .Radial
@@ -80,7 +83,9 @@ function launch(params::Dict{String,Any})::Nothing
     Cv = Sphere.cos_vals(ny)
     Sv = Sphere.sin_vals(ny)
     Mv = params["m_vals"]
-    time = 0.0
+    
+    # Setting up mass and spin fields
+    time = Float64(0.0)
 
     ##=================
     ## Dynamical fields 
@@ -224,26 +229,27 @@ function launch(params::Dict{String,Any})::Nothing
     ##=======================================
     ## Fixed fields (for evolution equations) 
     ##=======================================
-    println("Initializing psi4 evolution operators")
+    println("Skipped initializing psi4 evolution operators")
+    "
     evo_psi4 = Initialize_Evo_lin_f(
         Rvals = Rv,
         Cvals = Cv,
         Svals = Sv,
         Mvals = Mv,
-        bhm = bhm,
-        bhs = bhs,
+        bhm = BHm(time),
+        bhs = BHs(time),
         cl = cl,
         spin = psi_spin,
     )
-
+    "
     println("Initializing GHP operators")
     ghp = Initialize_GHP_ops(
         Rvals = Rv,
         Cvals = Cv,
         Svals = Sv,
         Mvals = Mv,
-        bhm = bhm,
-        bhs = bhs,
+        bhm = Id.BHm(time),
+        bhs = Id.BHs(time),
         cl = cl,
     )
 
@@ -253,8 +259,8 @@ function launch(params::Dict{String,Any})::Nothing
         Yvals = Yv,
         Cvals = Cv,
         Svals = Sv,
-        bhm = bhm,
-        bhs = bhs,
+        bhm = Id.BHm(time),
+        bhs = Id.BHs(time),
         cl = cl,
     )
     ##=============
@@ -288,6 +294,7 @@ function launch(params::Dict{String,Any})::Nothing
         end
     elseif params["id_kind"] == "qnm"
         for (mi, mv) in enumerate(Mv)
+	    #println("initiating mi,mv = ",mi,mv)
             Id.set_qnm!(
                 lin_f[mv],
                 lin_p[mv],
@@ -299,8 +306,10 @@ function launch(params::Dict{String,Any})::Nothing
                 Rv,
                 Yv,
             )
-            Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lin_f[mv])
-            Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lin_p[mv])
+	    if mv==2
+            	Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lin_f[mv])
+            	Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lin_p[mv])
+	    end
             if runtype == "reconstruction"
                 Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = res_bianchi3_f[mv])
                 Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lam_f[mv])
@@ -316,7 +325,38 @@ function launch(params::Dict{String,Any})::Nothing
     ##===================
     println("Beginning evolution")
 
+    Io.save_csv(t = 0.0, mv = 2, outdir = outdir, f = lin_f[2])
     for tc = 1:nt
+	step1_evo_psi4 = Initialize_Evo_lin_f(
+        	Rvals = Rv,
+      		Cvals = Cv,
+        	Svals = Sv,
+        	Mvals = Mv,
+        	bhm = Id.BHm((tc-1) * dt),
+        	bhs = Id.BHs((tc-1) * dt),
+        	cl = cl,
+        	spin = psi_spin,
+    	)
+	step23_evo_psi4 = Initialize_Evo_lin_f(
+                Rvals = Rv,
+                Cvals = Cv,
+                Svals = Sv,
+                Mvals = Mv,
+                bhm = Id.BHm((tc-0.5) * dt),
+                bhs = Id.BHs((tc-0.5) * dt),
+                cl = cl,
+                spin = psi_spin,
+        )
+	step4_evo_psi4 = Initialize_Evo_lin_f(
+                Rvals = Rv,
+                Cvals = Cv,
+                Svals = Sv,
+                Mvals = Mv,
+                bhm = Id.BHm((tc) * dt),
+                bhs = Id.BHs((tc) * dt),
+                cl = cl,
+                spin = psi_spin,
+        )
         if runtype == "reconstruction"
             for mv in Mv
                 if mv >= 0
@@ -388,7 +428,8 @@ function launch(params::Dict{String,Any})::Nothing
             end
         elseif runtype == "linear_field"
             Threads.@threads for mv in Mv
-                Evolve_lin_f!(lin_f[mv], lin_p[mv], evo_psi4[mv], dr, dt)
+		# HERE WANT TO PASS EITHER SUBSTEP MATRICES OR REINITIALIZE WITH EACH STEP
+                Evolve_lin_f!(lin_f[mv], lin_p[mv], step1_evo_psi4[mv], step23_evo_psi4[mv], step4_evo_psi4[mv], dr, dt)
 
                 lin_f_n = lin_f[mv].n
                 lin_p_n = lin_p[mv].n
@@ -406,7 +447,8 @@ function launch(params::Dict{String,Any})::Nothing
             throw(DomainError(runtype, "Unsupported `runtype` in parameter file"))
         end
         if tc % ts == 0
-            t = tc * dt / bhm
+	    # Choosing units where initial black hole mass is 1
+            t = tc * dt / Id.BHm(0)
             println("time/bhm ", t)
 	    #println(lin_f[2].sph_lap)
             Threads.@threads for mv in Mv

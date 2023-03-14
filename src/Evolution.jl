@@ -183,9 +183,9 @@ end
 """
 Fourth order Runge-Kutta evolution of linear field 
 """
-function Evolve_lin_f!(lin_f, lin_p, Evo::Evo_lin_f, dr::Float64, dt::Float64)::Nothing
-    @assert Evo.mv == lin_f.mv
-    @assert Evo.mv == lin_p.mv
+function Evolve_lin_f!(lin_f, lin_p, Evo_step1::Evo_lin_f, Evo_step23::Evo_lin_f, Evo_step4::Evo_lin_f, dr::Float64, dt::Float64)::Nothing
+    @assert Evo_step1.mv == lin_f.mv
+    @assert Evo_step1.mv == lin_p.mv
 
     ## simplify names for convenience
 
@@ -203,15 +203,35 @@ function Evolve_lin_f!(lin_f, lin_p, Evo::Evo_lin_f, dr::Float64, dt::Float64)::
     p_k = lin_p.k
     p_rd1 = lin_p.rad_d1
 
-    pre = Evo.pre
-    A_pp = Evo.A_pp
-    A_pq = Evo.A_pq
-    B_pp = Evo.B_pp
-    B_pq = Evo.B_pq
-    B_pf = Evo.B_pf
+    pre1 = Evo_step1.pre
+    A_pp1 = Evo_step1.A_pp
+    A_pq1 = Evo_step1.A_pq
+    B_pp1 = Evo_step1.B_pp
+    B_pq1 = Evo_step1.B_pq
+    B_pf1 = Evo_step1.B_pf
 
-    laplM = Evo.S_lapl
-    fltrM = Evo.S_fltr
+    laplM1 = Evo_step1.S_lapl
+    fltrM1 = Evo_step1.S_fltr
+
+    pre23 = Evo_step23.pre
+    A_pp23 = Evo_step23.A_pp
+    A_pq23 = Evo_step23.A_pq
+    B_pp23 = Evo_step23.B_pp
+    B_pq23 = Evo_step23.B_pq
+    B_pf23 = Evo_step23.B_pf
+
+    laplM23 = Evo_step23.S_lapl
+    fltrM23 = Evo_step23.S_fltr
+
+    pre4 = Evo_step4.pre
+    A_pp4 = Evo_step4.A_pp
+    A_pq4 = Evo_step4.A_pq
+    B_pp4 = Evo_step4.B_pp
+    B_pq4 = Evo_step4.B_pq
+    B_pf4 = Evo_step4.B_pf
+
+    laplM4 = Evo_step4.S_lapl
+    fltrM4 = Evo_step4.S_fltr
 
     nx, ny = size(f_n)
 
@@ -220,9 +240,10 @@ function Evolve_lin_f!(lin_f, lin_p, Evo::Evo_lin_f, dr::Float64, dt::Float64)::
     Radial.set_d1!(p_rd1, p_n, dr)
     Radial.set_d2!(f_rd2, f_n, dr)
 
-    Sphere.angular_matrix_mult!(f_sph_lap, f_n, laplM)
+    Sphere.angular_matrix_mult!(f_sph_lap, f_n, laplM1)
 
-    set_kp(p_k, f_rd1, f_rd2, f_sph_lap, p_rd1, f_n, p_n, pre, A_pp, A_pq, B_pp, B_pq, B_pf)
+    set_kp(p_k, f_rd1, f_rd2, f_sph_lap, p_rd1, f_n, p_n, pre1, A_pp1, A_pq1, B_pp1, B_pq1, B_pf1)
+    # t = t0
     for j = 1:ny
         for i = 1:nx
             f_k[i, j] = p_n[i, j]
@@ -239,9 +260,9 @@ function Evolve_lin_f!(lin_f, lin_p, Evo::Evo_lin_f, dr::Float64, dt::Float64)::
     Radial.set_d1!(p_rd1, p_tmp, dr)
     Radial.set_d2!(f_rd2, f_tmp, dr)
 
-    Sphere.angular_matrix_mult!(f_sph_lap, f_tmp, laplM)
+    Sphere.angular_matrix_mult!(f_sph_lap, f_tmp, laplM23)
 
-    set_kp(p_k, f_rd1, f_rd2, f_sph_lap, p_rd1, f_tmp, p_tmp, pre, A_pp, A_pq, B_pp, B_pq, B_pf)
+    set_kp(p_k, f_rd1, f_rd2, f_sph_lap, p_rd1, f_tmp, p_tmp, pre23, A_pp23, A_pq23, B_pp23, B_pq23, B_pf23)
     for j = 1:ny
         for i = 1:nx
             f_k[i, j] = p_tmp[i, j]
@@ -258,9 +279,9 @@ function Evolve_lin_f!(lin_f, lin_p, Evo::Evo_lin_f, dr::Float64, dt::Float64)::
     Radial.set_d1!(p_rd1, p_tmp, dr)
     Radial.set_d2!(f_rd2, f_tmp, dr)
 
-    Sphere.angular_matrix_mult!(f_sph_lap, f_tmp, laplM)
+    Sphere.angular_matrix_mult!(f_sph_lap, f_tmp, laplM23)
 
-    set_kp(p_k, f_rd1, f_rd2, f_sph_lap, p_rd1, f_tmp, p_tmp, pre, A_pp, A_pq, B_pp, B_pq, B_pf)
+    set_kp(p_k, f_rd1, f_rd2, f_sph_lap, p_rd1, f_tmp, p_tmp, pre23, A_pp23, A_pq23, B_pp23, B_pq23, B_pf23)
     for j = 1:ny
         for i = 1:nx
             f_k[i, j] = p_tmp[i, j]
@@ -277,9 +298,9 @@ function Evolve_lin_f!(lin_f, lin_p, Evo::Evo_lin_f, dr::Float64, dt::Float64)::
     Radial.set_d1!(p_rd1, p_tmp, dr)
     Radial.set_d2!(f_rd2, f_tmp, dr)
 
-    Sphere.angular_matrix_mult!(f_sph_lap, f_tmp, laplM)
+    Sphere.angular_matrix_mult!(f_sph_lap, f_tmp, laplM4)
 
-    set_kp(p_k, f_rd1, f_rd2, f_sph_lap, p_rd1, f_tmp, p_tmp, pre, A_pp, A_pq, B_pp, B_pq, B_pf)
+    set_kp(p_k, f_rd1, f_rd2, f_sph_lap, p_rd1, f_tmp, p_tmp, pre4, A_pp4, A_pq4, B_pp4, B_pq4, B_pf4)
     for j = 1:ny
         for i = 1:nx
             f_k[i, j] = p_tmp[i, j]
@@ -296,8 +317,8 @@ function Evolve_lin_f!(lin_f, lin_p, Evo::Evo_lin_f, dr::Float64, dt::Float64)::
             p_tmp[i, j] = p_np1[i, j]
         end
     end
-    Sphere.angular_matrix_mult!(f_np1, f_tmp, fltrM)
-    Sphere.angular_matrix_mult!(p_np1, p_tmp, fltrM)
+    Sphere.angular_matrix_mult!(f_np1, f_tmp, fltrM4)
+    Sphere.angular_matrix_mult!(p_np1, p_tmp, fltrM4)
 
     return nothing
 end

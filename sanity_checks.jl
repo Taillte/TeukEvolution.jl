@@ -330,11 +330,13 @@ function testing_read_in()
 end
 
 
-#filenames = ["evol_med/lin_f_re_2.csv","evol_med/lin_f_im_2.csv","evol_high/lin_f_re_2.csv","evol_high/lin_f_im_2.csv","evol_xhigh/lin_f_re_2.csv","evol_xhigh/lin_f_im_2.csv"]
-#outputs = ["evol_med/2_Harm_re", "evol_med/2_Harm_im","evol_high/2_Harm_re", "evol_high/2_Harm_im","evol_xhigh/2_Harm_re", "evol_xhigh/2_Harm_im"]
+#filenames = ["evol_med/lin_f_re_2.csv","evol_med/lin_f_im_2.csv"]
+#outputs = ["evol_med/2_Harm_re", "evol_med/2_Harm_im"]
 
-filenames = ["evol_med/lin_f_re_2.csv","evol_med/lin_f_im_2.csv","evol_high/lin_f_re_2.csv","evol_high/lin_f_im_2.csv","evol_low/lin_f_re_2.csv","evol_low/lin_f_im_2.csv"]
-outputs = ["evol_med/2_Harm_re","evol_med/2_Harm_im","evol_high/2_Harm_re","evol_high/2_Harm_im","evol_low/2_Harm_re","evol_low/2_Harm_im"]
+filenames = ["evol_med_nodm/lin_f_re_2.csv","evol_med_nodm/lin_f_im_2.csv","evol_high_nodm/lin_f_re_2.csv","evol_high_nodm/lin_f_im_2.csv","evol_xhigh_nodm/lin_f_re_2.csv","evol_xhigh_nodm/lin_f_im_2.csv"]
+outputs = ["evol_med_nodm/2_Harm_re","evol_med_nodm/2_Harm_im","evol_high_nodm/2_Harm_re","evol_high_nodm/2_Harm_im","evol_xhigh_nodm/2_Harm_re","evol_xhigh_nodm/2_Harm_im"]
+
+nt = 2001
 
 for i =1:6
     ny_save,times,mode = modes_from_source(filenames[i],2,2)

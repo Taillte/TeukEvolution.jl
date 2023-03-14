@@ -8,7 +8,7 @@ import .Sphere: swal
 import Polynomials: ChebyshevT
 import HDF5: h5read
 
-export set_gaussian!, set_qnm!
+export set_gaussian!, set_qnm!, BHs, BHm
 
 """
     set_gaussian!(
@@ -140,19 +140,21 @@ function set_qnm!(
     Yv::Vector{<:Real},
 )::Nothing
 
+    #println("Yv = ",Yv)
+    #println("Rv = ",Rv)
     @assert f.mv == mv
     @assert p.mv == mv
     nx, ny = f.nx, f.ny
     # TEMP SETTING a 
     aval = 0.7
-    l = 2
+    lin = 2
 
     # qnmpath = dirname(pwd()) * "/qnm/"
     # h5f = h5read(qnmpath * filename, "[a=0.0,l=2]")
     qnmpath = "./qnm/"
     h5f = h5read(
          qnmpath * filename,
-         "[a=$(aval),l=$(l)]"
+         "[a=$(aval),l=$(lin)]"
         )
     rpoly = ChebyshevT(h5f["radial_coef"])
     #rpoly = _to_real(h5f["radial_coef"],Rv)
@@ -160,8 +162,8 @@ function set_qnm!(
     lmin = max(abs(spin), abs(mv))
     max_val = 0.0
     
-    # Prints twice ??
-    println("num radial coeff in ID = ",length(h5f["radial_coef"])) 
+    # Prints twice for m = +-2
+    #println("spherical harmonic ID = ",lpoly) 
     
     # only set the field if an evolution m matches the m mode in initial data
     if mv==idm
@@ -173,9 +175,9 @@ function set_qnm!(
 		    # CHANGED FOR -1^l FACTOR
                 ])
                 max_val = max(abs(f.n[i, j]), max_val)
-		if j==1
-                    println(rpoly[i].re)
-                end
+		#if j==1
+                #    println(rpoly[i].re)
+                #end
             end
         end
 
@@ -186,7 +188,7 @@ function set_qnm!(
                 f.np1[i, j] = f.n[i, j]
             end
         end
-	println("rs = ", Rv)
+	#println("rs = ", Rv)
         ## p = f,t = -iωf  
         omega = h5f["omega"]
         for j = 1:ny
@@ -198,6 +200,97 @@ function set_qnm!(
 
     end
     return nothing
+end
+
+function BHm(t::Float64)
+    #return 1.0 + 0.01 * t
+    BHmi = Float64(1.0)
+    BHmf = 0.1
+    t1 = 0.0
+    t2 = 50.0
+    if t<t1
+	return BHmi
+    end
+    if t>t2
+	return BHmf
+    end
+    if t>=t1 
+	if t<=t2
+	    return connect_constants(BHmi, BHmf, t1, t2, t)
+	end
+    end
+end
+
+function BHs(t::Float64)
+    BHmi = Float64(1.0)
+    BHmf = 0.1
+    t1 = 0.0
+    t2 = 50.0
+    if t<t1
+        return 0.7*BHmi
+    end
+    if t>t2
+        return 0.7*BHmf
+    end
+    if t>=t1 
+	if t<=t2
+            return 0.7*connect_constants(BHmi, BHmf, t1, t2, t)
+	end
+    end
+end
+function BHm(t::Int64)
+    BHmi = Float64(1.0)
+    BHmf = 0.1
+    t1 = 0.0
+    t2 = 50.0
+    if t<t1
+        return BHmi
+    end
+    if t>t2
+        return BHmf
+    end
+    if t>=t1 
+	if t<=t2
+            return connect_constants(BHmi, BHmf, t1, t2, t)
+    	end
+    end
+end
+
+function BHs(t::Int64)
+    BHmi = Float64(1.0)
+    BHmf = 0.1
+    t1 = 0.0
+    t2 = 50.0
+    if t<t1
+        return 0.7*BHmi
+    end
+    if t>t2
+        return 0.7*BHmf
+    end
+    if t>=t1
+	if t<=t2
+            return 0.7*connect_constants(BHmi, BHmf, t1, t2, t)
+    	end
+    end
+end
+
+function connect_constants(f1::Float64, f2::Float64, x1::Float64, x2::Float64, x::Float64)
+    # Returns C2 polynomial connecting two constant mass functions
+    a = f1
+    d = (10* (f1 - f2))/(x1 - x2)^3
+    e = (15 *(f1 - f2))/(x1 - x2)^4
+    g = (6 *(f1 - f2))/(x1 - x2)^5
+    return  a  + d* (x - x1)^3 + e* (x - x1)^4 + g* (x - x1)^5
+end
+
+function connect_constants(f1::Float64, f2::Float64, x1::Float64, x2::Float64, xp::Int64)
+    # Returns C2 polynomial connecting two constant mass functions
+    x = Float64(xp)
+    a = f1
+    d = (10* (f1 - f2))/(x1 - x2)^3
+    e = (15 *(f1 - f2))/(x1 - x2)^4
+    g = (6 *(f1 - f2))/(x1 - x2)^5
+    return  a  + d* (x - x1)^3 + e* (x - x1)^4 + g* (x - x1)^5
 end
 
 end

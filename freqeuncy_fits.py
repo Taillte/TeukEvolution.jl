@@ -1,17 +1,21 @@
+from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 from scipy import stats
 from matplotlib import pyplot as plt
 
-file1 = np.loadtxt("evol_med/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
+file1 = np.loadtxt("evol_med_nodm/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
 times = file1[:,0]
 Ref_MR = file1[:,1]
-Imf_MR = np.loadtxt("evol_med/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
-times_HR = np.loadtxt("evol_high/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
-Ref_HR = np.loadtxt("evol_high/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
-Imf_HR = np.loadtxt("evol_high/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_MR = np.loadtxt("evol_med_nodm/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-#Ref_XHR = np.loadtxt("evol_xhigh/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
-#Imf_XHR = np.loadtxt("evol_xhigh/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+times_HR = np.loadtxt("evol_high_nodm/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
+Ref_HR = np.loadtxt("evol_high_nodm/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_HR = np.loadtxt("evol_high_nodm/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+
+times_XHR = np.loadtxt("evol_xhigh_nodm/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
+Ref_XHR = np.loadtxt("evol_xhigh_nodm/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_XHR = np.loadtxt("evol_xhigh_nodm/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+
 times_LR = np.loadtxt("evol_low/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
 Ref_LR = np.loadtxt("evol_low/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
 Imf_LR = np.loadtxt("evol_low/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
@@ -82,21 +86,66 @@ def find_omegaI(dataR,dataI,times):
     print('omegaI = ', slope)
     return Amp,slope
 
-#phases_XHR = omega_from_f(Ref_XHR,Imf_XHR,times)
-#data_XHR,slope_XHR = find_period(phases_XHR,times)
-#amp_XHR,wi_XHR = find_omegaI(Ref_XHR,Imf_XHR,times)
+def self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3):
+    nt = dataR1.size
+    if dataR1.size != dataR2.size or dataR1.size != dataR3.size:
+        print('Error: times not aligned')
+    diffR12 = np.zeros(nt)
+    diffR23 = np.zeros(nt)
+    diffI12 = np.zeros(nt)
+    diffI23 = np.zeros(nt)
+    for i in range(nt):
+        diffR12[i] = np.abs(dataR1[i]-dataR2[i])
+        diffR23[i] = np.abs(dataR2[i]-dataR3[i])
+        diffI12[i] = np.abs(dataI1[i]-dataI2[i])
+        diffI23[i] = np.abs(dataI3[i]-dataI2[i])
+    convR = np.log(diffR12 /diffR23)/np.log(2)
+    convI = np.log(diffI12 /diffI23)/np.log(2)
+    print('self convergence = ',np.mean(convR)," ",np.mean(convI))
+    from matplotlib.backends.backend_pdf import PdfPages
+    pp = PdfPages('./plots/convergence.pdf')
+    plt.figure()
+    #plt.plot(times,convR,label='R')
+    #plt.plot(times,convI,label='I')
+    plt.plot(times,diffR12,label='LR->MR')
+    plt.plot(times,diffR23,label='MR->HR')
+    #plt.plot(times,dataR3,label='HR')
+    plt.legend()
+    plt.ylabel('Re(psi0)')
+    plt.xlabel('t')
+    pp.savefig()
+    pp.close()
+
+print(times)
+print(times - times_HR)
+print(times_HR - times_XHR)
+
+phases_XHR = omega_from_f(Ref_XHR,Imf_XHR,times_XHR)
+data_XHR,slope_XHR = find_period(phases_XHR,times_XHR)
+amp_XHR,wi_XHR = find_omegaI(Ref_XHR,Imf_XHR,times_XHR)
 
 phases_HR = omega_from_f(Ref_HR,Imf_HR,times_HR)
 data_HR,slope_HR = find_period(phases_HR,times_HR)
 amp_HR,wi_HR = find_omegaI(Ref_HR,Imf_HR,times_HR)
 
+phases_MR = omega_from_f(Ref_MR[:500],Imf_MR[:500],times[:500])
+data_MR,slope_MR = find_period(phases_MR,times[:500])
+amp_MR,wi_MR = find_omegaI(Ref_MR[:500],Imf_MR[:500],times[:500])
+
+#phases_MR = omega_from_f(Ref_MR[300:],Imf_MR[300:],times[300:])
+#data_MR,slope_MR = find_period(phases_MR,times[300:])
+#amp_MR,wi_MR = find_omegaI(Ref_MR[300:],Imf_MR[300:],times[300:])
+
+
+self_convergence(Ref_MR,Ref_HR,Ref_XHR,Imf_MR,Imf_HR,Imf_XHR)
+
 phases_MR = omega_from_f(Ref_MR,Imf_MR,times)
 data_MR,slope_MR = find_period(phases_MR,times)
 amp_MR,wi_MR = find_omegaI(Ref_MR,Imf_MR,times)
 
-phases_LR = omega_from_f(Ref_LR,Imf_LR,times)
-data_LR,slope_LR = find_period(phases_LR,times)
-amp_LR,wi_LR = find_omegaI(Ref_LR,Imf_LR,times)
+#phases_LR = omega_from_f(Ref_LR,Imf_LR,times)
+#data_LR,slope_LR = find_period(phases_LR,times)
+#amp_LR,wi_LR = find_omegaI(Ref_LR,Imf_LR,times)
 
 #phasesHR = omega_from_f(RefHR,ImfHR,timesHR)
 #dataHR,slope2 = find_period(phasesHR,timesHR)
@@ -107,20 +156,19 @@ amp_LR,wi_LR = find_omegaI(Ref_LR,Imf_LR,times)
 
 print('convergence = ',np.log((slope_MR+ 0.5326002435510183)/(slope_HR+0.5326002435510183))/np.log(2))
 print('convergence = ',np.log((wi_MR+0.0807929627407481 )/(wi_HR+0.0807929627407481))/np.log(2))
-print((np.log(np.abs(slope_LR - slope_MR) /np.abs(slope_HR-slope_MR)))/np.log(2))
-print((np.log(np.abs(wi_LR - wi_MR)/np.abs(wi_MR-wi_HR)))/np.log(2))
 
-#print((np.log(np.abs(slope_MR - slope_LR)**-1 *np.abs(slope_MR-slope_HR)))/np.log(2))
-#print((np.log(np.abs(wi_LR - wi_MR)**-1 *np.abs(wi_MR-wi_HR)))/np.log(2))
+print((np.log(np.abs(slope_HR - slope_MR) /np.abs(slope_HR-slope_XHR)))/np.log(2))
+print((np.log(np.abs(wi_HR - wi_MR)/np.abs(wi_XHR-wi_HR)))/np.log(2))
 
-from matplotlib.backends.backend_pdf import PdfPages
+#print((np.log(np.abs(slope_MR - slope_HR)/ np.abs(slope_XHR-slope_HR)))/np.log(2))
+#print((np.log(np.abs(wi_HR - wi_MR)**-1 *np.abs(wi_XHR-wi_HR)))/np.log(2))
 
 #rc('font',**{'family':'serif','serif':['Palatino']})
 #rc('text', usetex=True)
 #plt.rcParams.update({'font.size': 12})
 
 
-pp = PdfPages('./plots/phases.pdf')
+pp = PdfPages('./plots/logAmp.pdf')
 plt.figure()
 #plt.plot(rs_ID,cheb_ID,label='cheb reconstructed')
 #plt.plot(rs_ID,ID,label='vr solved')
@@ -130,10 +178,10 @@ plt.figure()
 #plt.plot(timesLRn,data2,'o',label='LR')
 #plt.plot(timesLRn,ImfLRn,label='Imf')
 #plt.plot(times,Imf)
-plt.plot(times_LR,np.log(amp_LR),label='LR')
-plt.plot(times_HR,np.log(amp_HR),label='HR')
+#plt.plot(times_LR,np.log(amp_LR),label='LR')
+#plt.plot(times_HR,np.log(amp_HR),label='HR')
 #plt.plot(times,np.log(amp_XHR),label='XHR')
-plt.plot(times,np.log(amp_MR),label='MR')
+plt.plot(times[:300],np.log(amp_MR)[:300],label='MR')
 #plt.plot(timesHR,np.log(ampHR),label='HR')
 #plt.plot(times,-5-times*0.08,label='slope wi')
 plt.legend()
@@ -142,11 +190,11 @@ plt.xlabel('t')
 pp.savefig()
 pp.close()
 
-pp = PdfPages('./plots/logAmp.pdf')
+pp = PdfPages('./plots/phases.pdf')
 plt.figure()
-plt.plot(times_LR,data_LR,'o',label='LR')
-plt.plot(times,data_MR,'o',label='MR')
-plt.plot(times_HR,data_HR,'o',label='HR')
+#plt.plot(times_LR,data_LR,'o',label='LR')
+plt.plot(times,data_MR,label='MR')
+#plt.plot(times_HR,data_HR,label='HR')
 #plt.plot(times,data_XHR,'o',label='XHR')
 plt.legend()
 plt.ylabel('Phase')
@@ -156,9 +204,9 @@ pp.close()
 
 pp = PdfPages('./plots/Repsi0.pdf')
 plt.figure()
-plt.plot(times_LR,Ref_LR,label='lr')
+#plt.plot(times_LR,Ref_LR,label='lr')
 plt.plot(times,Ref_MR,label='mr')
-plt.plot(times_HR,Ref_HR,label='hr')
+#plt.plot(times_HR,Ref_HR,label='hr')
 #plt.plot(times,Ref_XHR,label='xhr')
 plt.legend()
 plt.ylabel('Re(psi0) - 2Y22')

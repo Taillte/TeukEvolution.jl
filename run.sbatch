@@ -4,7 +4,7 @@
 
 #SBATCH --nodes=1
 #SBATCH --output=test.out
-#SBATCH --time=1:00:00
+#SBATCH --time=0:40:00
 
 set -euxo pipefail
 
@@ -14,7 +14,7 @@ date
 
 module load julia/1.6.0
 
-env OMP_NUM_THREADS=40 julia ./sanity_checks.jl
+env OMP_NUM_THREADS=40 julia ./examples/run3.jl
 
 date
 
