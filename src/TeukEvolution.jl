@@ -65,9 +65,13 @@ function launch(params::Dict{String,Any})::Nothing
     ##===================
     minr = bhm * (1 + sqrt(1 - (bhs / bhm)^2) ) # horizon (uncompactified)
     maxR = 1 / minr # dt should not depend on cl
-    dr = maxR / (nx - 0)
+    # NOTE: Included extra point at null infinity -- see also Radial.R_vals
+    dr = maxR / (nx - 1)
+    println("maxR = ",maxR)
     dt = min(cfl * dr * bhm^2, 6 / ny^2) # make the time step roughly proportional to mass instead of inversely proportional
-    println(dt)
+    # added for convergence tests
+    dt = cfl * dr * bhm^2
+    println("dt = ",dt)
     println("Number of threads: $(Threads.nthreads())")
 
     println("Setting up output directory")
@@ -242,6 +246,9 @@ function launch(params::Dict{String,Any})::Nothing
         spin = psi_spin,
     )
     "
+
+    println("time type = ",typeof(time))
+    
     println("Initializing GHP operators")
     ghp = Initialize_GHP_ops(
         Rvals = Rv,
@@ -428,7 +435,7 @@ function launch(params::Dict{String,Any})::Nothing
             end
         elseif runtype == "linear_field"
             Threads.@threads for mv in Mv
-		# HERE WANT TO PASS EITHER SUBSTEP MATRICES OR REINITIALIZE WITH EACH STEP
+		# HERE PASS SUBSTEP MATRICES For evolution on changing background
                 Evolve_lin_f!(lin_f[mv], lin_p[mv], step1_evo_psi4[mv], step23_evo_psi4[mv], step4_evo_psi4[mv], dr, dt)
 
                 lin_f_n = lin_f[mv].n
@@ -448,7 +455,7 @@ function launch(params::Dict{String,Any})::Nothing
         end
         if tc % ts == 0
 	    # Choosing units where initial black hole mass is 1
-            t = tc * dt / Id.BHm(0)
+            t = tc * dt / Id.BHm(Float64(0.0))
             println("time/bhm ", t)
 	    #println(lin_f[2].sph_lap)
             Threads.@threads for mv in Mv

@@ -140,8 +140,8 @@ function set_qnm!(
     Yv::Vector{<:Real},
 )::Nothing
 
-    #println("Yv = ",Yv)
-    #println("Rv = ",Rv)
+    println("Yv = ",Yv[Int64((f.ny+1)/2)])
+    println("Rv = ",Rv[f.nx])
     @assert f.mv == mv
     @assert p.mv == mv
     nx, ny = f.nx, f.ny
@@ -184,7 +184,8 @@ function set_qnm!(
 	
         for j = 1:ny
             for i = 1:nx
-                f.n[i, j] *= amp / max_val
+                f.n[i, j] *= amp
+		#/ max_val
                 f.np1[i, j] = f.n[i, j]
             end
         end
@@ -202,12 +203,12 @@ function set_qnm!(
     return nothing
 end
 
-function BHm(t::Float64)
+function BHm_test(t::Float64)
     #return 1.0 + 0.01 * t
     BHmi = Float64(1.0)
-    BHmf = 0.1
+    BHmf = 1.1
     t1 = 0.0
-    t2 = 50.0
+    t2 = 1.0
     if t<t1
 	return BHmi
     end
@@ -221,11 +222,11 @@ function BHm(t::Float64)
     end
 end
 
-function BHs(t::Float64)
+function BHs_test(t::Float64)
     BHmi = Float64(1.0)
-    BHmf = 0.1
+    BHmf = 1.1
     t1 = 0.0
-    t2 = 50.0
+    t2 = 1.0
     if t<t1
         return 0.7*BHmi
     end
@@ -238,40 +239,20 @@ function BHs(t::Float64)
 	end
     end
 end
-function BHm(t::Int64)
+
+function BHm(t::Float64)
     BHmi = Float64(1.0)
-    BHmf = 0.1
-    t1 = 0.0
-    t2 = 50.0
-    if t<t1
-        return BHmi
-    end
-    if t>t2
-        return BHmf
-    end
-    if t>=t1 
-	if t<=t2
-            return connect_constants(BHmi, BHmf, t1, t2, t)
-    	end
-    end
+    return BHmi + 0.020245021274727132 * physical_change(t)
 end
 
-function BHs(t::Int64)
-    BHmi = Float64(1.0)
-    BHmf = 0.1
-    t1 = 0.0
-    t2 = 50.0
-    if t<t1
-        return 0.7*BHmi
-    end
-    if t>t2
-        return 0.7*BHmf
-    end
-    if t>=t1
-	if t<=t2
-            return 0.7*connect_constants(BHmi, BHmf, t1, t2, t)
-    	end
-    end
+function BHs(t::Float64)
+    BHsi = Float64(0.7)
+    return BHsi + 0.08848482252508819 * physical_change(t)
+end
+
+
+function physical_change(x::Float64)
+    return (1-exp(-0.1615859254814962*x))
 end
 
 function connect_constants(f1::Float64, f2::Float64, x1::Float64, x2::Float64, x::Float64)
@@ -283,14 +264,5 @@ function connect_constants(f1::Float64, f2::Float64, x1::Float64, x2::Float64, x
     return  a  + d* (x - x1)^3 + e* (x - x1)^4 + g* (x - x1)^5
 end
 
-function connect_constants(f1::Float64, f2::Float64, x1::Float64, x2::Float64, xp::Int64)
-    # Returns C2 polynomial connecting two constant mass functions
-    x = Float64(xp)
-    a = f1
-    d = (10* (f1 - f2))/(x1 - x2)^3
-    e = (15 *(f1 - f2))/(x1 - x2)^4
-    g = (6 *(f1 - f2))/(x1 - x2)^5
-    return  a  + d* (x - x1)^3 + e* (x - x1)^4 + g* (x - x1)^5
-end
 
 end
