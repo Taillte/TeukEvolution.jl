@@ -8,7 +8,7 @@ using CSV
 using DataFrames
 
 #df = CSV.read("./medpsi0/lin_f_re_2.csv", DataFrame)
-df = CSV.File("./evol_med/lin_f_re_2.csv") |> Tables.matrix
+df = CSV.File("./evol_low/lin_f_re_2.csv") |> Tables.matrix
 
 println(size(df))
 times_local = df[:,1]
@@ -121,7 +121,6 @@ function save_mode( times::Vector{Union{Missing, Float64}}, nt::Int64, ny::Int64
     for tim in 1:nt
 	t = times[tim]
 	ft = f[tim]
-	#println(t,ft,"   ")
         open("./$(filename)_$(mv)_$(lv).csv", "a") do out
             write(out, "$t,")
 	    write(out, "$ft")
@@ -134,25 +133,36 @@ end
 function modes_from_source(filename::String,mv::Integer,lv::Integer)
     df = CSV.File("./$(filename)") |> Tables.matrix
     times = df[:,1]
+    println("df shape = ",size(df))
+    println("time10 = ",times[10])
     data_Ylm = zeros(Float64, trunc(Int,nt))
     ny_here = trunc(Int, df[1,3])
     println("index = ", ny_here)
-
+    
+    yv_t,wv_t = FGQ.gausslegendre(25)
     yv, wv = FGQ.gausslegendre(ny_here)
-    nl = num_l(ny_here)
+    #angular_slice =  Vector{Float64}(df[1000, 3+ (2-1)*ny_here + 1 : 3+ (2-1)*ny_here + ny_here])
+    #println("t = ",times[1000])
+    #nl = num_l(ny_here)
     for tim = 1:nt
-        f_Ylm = zeros(2,ny_here)
-	for i in [2]
-            for j = 1:ny_here
-                f_Ylm[i, j] = 0.0
-                for k = 1:ny_here
-                    f_Ylm[i, j] +=df[tim, 3+ (i-1)*ny_here+ k ] * swal(spin, mv, lv, yv[k])*wv[k]
-                end
-		data_Ylm[tim] +=f_Ylm[j]/ny_here
+        f_Ylm = zeros(2)
+	# NOTE i=1 -- null inf, i=2 -- horizon
+	for i in [1]
+            f_Ylm[i] = 0.0
+            for k = 1:ny_here
+                data_Ylm[tim] +=df[tim, 3+ (i-1)*ny_here+ k ] * swal(spin, mv, lv, yv[k])*wv[k]
             end
+	    #println(yv[Int64((ny_here+1)/2)])
+	    #data_Ylm[tim] =df[tim, 3+ (i-1)*ny_here + Int64((ny_here+1)/2)]
+            #df[tim, 3+ (i-1)*ny_here + 1 + Int64((ny_here-1)/4)]
+	    #angular_slice =  Vector{Float64}(df[tim, 3+ (i-1)*ny_here + 1:3+ (i-1)*ny_here + ny_here])
+	    #println("ang_slice = ",angular_slice)
+	    #println("yv = ",yv)
+	    # Note: no higher than linear interp for not evenly separated points
+	    #interp = Interpolations.linear_interpolation(yv, angular_slice, extrapolation_bc=Line())
+            #data_Ylm[tim] = interp(yv_t[10]) 
+	    #df[tim, 3+ (i-1)*ny_here + 1]
         end
-        #println(f_Ylm)
-        #println(" ")
     end
     return ny,times,data_Ylm
 end
@@ -330,13 +340,46 @@ function testing_read_in()
 end
 
 
-#filenames = ["evol_med/lin_f_re_2.csv","evol_med/lin_f_im_2.csv"]
-#outputs = ["evol_med/2_Harm_re", "evol_med/2_Harm_im"]
+function test_mode_convergence()
+    mv = 2
+    lv = 2
+    spin = 2
+    data_Ylm = zeros(10)
+    points = [12,23,45,89,Int64(22*4+1),Int64(22*5+1),Int64(22*6+1),Int64(22*7+1),Int64(22*8+1),Int64(22*1000+1)]
+    for res = 1:10
+	n_points= points[res]
+        data = zeros(Float64, trunc(Int,n_points))
+	yv, wv = FGQ.gausslegendre(n_points)
+        for i= 1:n_points
+	    data[i] = exp(acos(yv[i])) * swal(2, 2, 2, yv[i])
+	end
+	#println(data[n_points])
+        for k = 1:n_points
+            data_Ylm[res] +=data[k] * swal(spin, mv, lv, yv[k])*wv[k]
+        end
+    end
+    return data_Ylm
+end
 
-filenames = ["evol_med_nodm/lin_f_re_2.csv","evol_med_nodm/lin_f_im_2.csv","evol_high_nodm/lin_f_re_2.csv","evol_high_nodm/lin_f_im_2.csv","evol_xhigh_nodm/lin_f_re_2.csv","evol_xhigh_nodm/lin_f_im_2.csv"]
-outputs = ["evol_med_nodm/2_Harm_re","evol_med_nodm/2_Harm_im","evol_high_nodm/2_Harm_re","evol_high_nodm/2_Harm_im","evol_xhigh_nodm/2_Harm_re","evol_xhigh_nodm/2_Harm_im"]
+#println(test_mode_convergence())
 
-nt = 2001
+filenames = ["evol_low_t/lin_f_re_2.csv","evol_low_t/lin_f_im_2.csv","evol_med_t/lin_f_re_2.csv","evol_med_t/lin_f_im_2.csv","evol_high_t/lin_f_re_2.csv","evol_high_t/lin_f_im_2.csv"]
+outputs = ["evol_low_t/2_Harm_re", "evol_low_t/2_Harm_im","evol_med_t/2_Harm_re","evol_med_t/2_Harm_im","evol_high_t/2_Harm_re","evol_high_t/2_Harm_im"]
+
+#filenames = ["evol_high/lin_f_re_2.csv","evol_high/lin_f_im_2.csv"]
+#outputs = ["evol_high_t/2_Harm_re_sp","evol_high_t/2_Harm_im_sp"]
+
+#filenames = ["evol_med/lin_f_re_2.csv","evol_med/lin_f_im_2.csv","evol_high/lin_f_re_2.csv","evol_high/lin_f_im_2.csv","evol_xhigh/lin_f_re_2.csv","evol_xhigh/lin_f_im_2.csv"]
+#outputs = ["evol_med/2_Harm_re","evol_med/2_Harm_im","evol_high/2_Harm_re","evol_high/2_Harm_im","evol_xhigh/2_Harm_re","evol_xhigh/2_Harm_im"]
+
+
+#yv, wv = FGQ.gausslegendre(25)
+#println(yv[1])
+#yv, wv = FGQ.gausslegendre(49)
+#println(yv[1])
+
+#nt = 1141
+nt = 200
 
 for i =1:6
     ny_save,times,mode = modes_from_source(filenames[i],2,2)
@@ -347,20 +390,24 @@ end
 
 #compare_modes("evol_full_xrange/lin_f_re_2.csv","evol_full_xrange/lin_f_im_2.csv",2)
 
-#test_mode_projection_data(2,2)
-#test_mode_projection_data(3,2)
-
-#test_mode_projection(2,2,2,2)
-
-#test_mode_projection(3,3,3,3)
-#test_mode_projection(3,2,3,2)
-
-#test_mode_projection(2,2,3,2)
-#test_mode_projection(2,2,4,2)
-
 #test_mode_projection(2,2,3,3)
 #test_mode_projection(3,3,3,2)
 #test_mode_projection(2,2,4,2)
+
+include("src/Id.jl")
+
+#for i in 1:nt
+#    t = times_local[i]
+#    bhs = Id.BHs(t)
+#    bhm = Id.BHm(t)
+#    open("./test.csv", "a") do out
+#        write(out, "$t,")
+#        write(out, "$bhm,")
+#        write(out, "$bhs")
+#        write(out, "\n")
+#    end
+#
+#end
 
 #print(times)
 #println(" ")
