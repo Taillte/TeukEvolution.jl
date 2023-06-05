@@ -145,8 +145,17 @@ function set_qnm!(
     @assert f.mv == mv
     @assert p.mv == mv
     nx, ny = f.nx, f.ny
-    # TEMP SETTING a 
-    aval = 0.7
+    # TEMP SETTING a
+
+    physical = 0
+    if physical == 1
+    	aval = 0.7
+        Mval = 1.0
+    end
+    if physical == 0
+        aval =  (0.7+0.0884848)/(1+0.020245)
+        Mval = 1+0.020245
+    end
     lin = 2
 
     # qnmpath = dirname(pwd()) * "/qnm/"
@@ -175,23 +184,22 @@ function set_qnm!(
 		    # CHANGED FOR -1^l FACTOR
                 ])
                 max_val = max(abs(f.n[i, j]), max_val)
-		#if j==1
-                #    println(rpoly[i].re)
-                #end
+		if i==1
+                    println(f.n[i, j])
+                end
             end
         end
-
+	println("max val = ",max_val)
 	
         for j = 1:ny
             for i = 1:nx
-                f.n[i, j] *= amp
-		#/ max_val
+                #f.n[i, j] *= amp / max_val
                 f.np1[i, j] = f.n[i, j]
             end
         end
 	#println("rs = ", Rv)
         ## p = f,t = -iωf  
-        omega = h5f["omega"]
+        omega = h5f["omega"]/Mval
         for j = 1:ny
             for i = 1:nx
                 p.n[i, j] = -im * omega * f.n[i, j]
@@ -208,7 +216,7 @@ function BHm_test(t::Float64)
     BHmi = Float64(1.0)
     BHmf = 1.1
     t1 = 0.0
-    t2 = 1.0
+    t2 = 10.0
     if t<t1
 	return BHmi
     end
@@ -226,7 +234,7 @@ function BHs_test(t::Float64)
     BHmi = Float64(1.0)
     BHmf = 1.1
     t1 = 0.0
-    t2 = 1.0
+    t2 = 10.0
     if t<t1
         return 0.7*BHmi
     end
@@ -241,12 +249,14 @@ function BHs_test(t::Float64)
 end
 
 function BHm(t::Float64)
-    BHmi = Float64(1.0)
-    return BHmi + 0.020245021274727132 * physical_change(t)
+    BHmi = 1.0
+    #+0.020245
+    return BHmi+ 0.020245021274727132 * physical_change(t)
 end
 
 function BHs(t::Float64)
-    BHsi = Float64(0.7)
+    BHsi = 0.7
+    #+0.0884848
     return BHsi + 0.08848482252508819 * physical_change(t)
 end
 

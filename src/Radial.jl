@@ -12,6 +12,7 @@ Computes array of compactified radial points
 """
 function R_vals(nx::Integer, dr::Real)::Vector{<:Real}
     return [dr * (i-1) for i = 1:nx]
+    #return [dr * (i) for i = 1:nx]
 end
 
 """

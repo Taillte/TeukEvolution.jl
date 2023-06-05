@@ -58,19 +58,23 @@ function launch(params::Dict{String,Any})::Nothing
     cfl = convert(prec, params["cfl"])
     bhs = convert(prec, params["bhs"])
     bhm = convert(prec, params["bhm"])
-
+    #bhs = 
+    #bhm = 
+    
     outdir = params["outdir"]
     ##===================
     ## Derived parameters
     ##===================
-    minr = bhm * (1 + sqrt(1 - (bhs / bhm)^2) ) # horizon (uncompactified)
+    minr = Id.BHm(0.0) * (1 + sqrt(1 - (Id.BHs(0.0) /Id.BHm(0.0))^2) )
+    #bhm * (1 + sqrt(1 - (bhs / bhm)^2) ) # horizon (uncompactified)
     maxR = 1 / minr # dt should not depend on cl
     # NOTE: Included extra point at null infinity -- see also Radial.R_vals
     dr = maxR / (nx - 1)
+    #dr = maxR / (nx )
     println("maxR = ",maxR)
     dt = min(cfl * dr * bhm^2, 6 / ny^2) # make the time step roughly proportional to mass instead of inversely proportional
     # added for convergence tests
-    dt = cfl * dr * bhm^2
+    #dt = cfl * dr * bhm^2
     println("dt = ",dt)
     println("Number of threads: $(Threads.nthreads())")
 
@@ -455,14 +459,17 @@ function launch(params::Dict{String,Any})::Nothing
         end
         if tc % ts == 0
 	    # Choosing units where initial black hole mass is 1
-            t = tc * dt / Id.BHm(Float64(0.0))
+            t = tc * dt / bhm
+	    #Id.BHm(Float64(0.0))
             println("time/bhm ", t)
 	    #println(lin_f[2].sph_lap)
             Threads.@threads for mv in Mv
 		# For some reason getting a problem w/ Threads command when accessing sph_lap
                 #print(lin_fi[mv].sph_lap)
+		#println("f")
 		Io.save_csv(t = t, mv = mv, outdir = outdir, f = lin_f[mv])
-                Io.save_csv(t = t, mv = mv, outdir = outdir, f = lin_p[mv])
+                #println("p")
+		Io.save_csv(t = t, mv = mv, outdir = outdir, f = lin_p[mv])
 
                 if runtype == "reconstruction"
                     #=Set_independent_residuals!(
