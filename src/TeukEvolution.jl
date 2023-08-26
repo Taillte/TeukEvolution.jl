@@ -58,14 +58,14 @@ function launch(params::Dict{String,Any})::Nothing
     cfl = convert(prec, params["cfl"])
     bhs = convert(prec, params["bhs"])
     bhm = convert(prec, params["bhm"])
-    #bhs = 
-    #bhm = 
+    id_spin = convert(prec, params["id_spin"])
     
     outdir = params["outdir"]
     ##===================
     ## Derived parameters
     ##===================
-    minr = Id.BHm(0.0) * (1 + sqrt(1 - (Id.BHs(0.0) /Id.BHm(0.0))^2) )
+    minr = bhm * (1 + sqrt(1 - (bhs / bhm)^2) )
+    #Id.BHm(0.0) * (1 + sqrt(1 - (Id.BHs(0.0) /Id.BHm(0.0))^2) )
     #bhm * (1 + sqrt(1 - (bhs / bhm)^2) ) # horizon (uncompactified)
     maxR = 1 / minr # dt should not depend on cl
     # NOTE: Included extra point at null infinity -- see also Radial.R_vals
@@ -314,6 +314,9 @@ function launch(params::Dict{String,Any})::Nothing
                 params["id_filename"],
                 params["id_amp"],
                 params["id_m"],
+		id_spin,
+		bhm,
+		bhs,
                 Rv,
                 Yv,
             )
@@ -458,7 +461,7 @@ function launch(params::Dict{String,Any})::Nothing
             throw(DomainError(runtype, "Unsupported `runtype` in parameter file"))
         end
         if tc % ts == 0
-	    # Choosing units where initial black hole mass is 1
+	    # Choosing units defined by grid
             t = tc * dt / bhm
 	    #Id.BHm(Float64(0.0))
             println("time/bhm ", t)

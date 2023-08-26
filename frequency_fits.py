@@ -9,38 +9,46 @@ from scipy.integrate import simpson as simps
 #BHm = np.loadtxt("test.csv",delimiter=",", dtype=float)[:,1]
 #BHs = np.loadtxt("test.csv",delimiter=",", dtype=float)[:,2]
 
-file1 = np.loadtxt("evol_physical_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
+#file1 = np.loadtxt("evol_physical_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
+#times_LR = file1[:,0]
+#Ref_LR = file1[:,1]
+#Imf_LR = np.loadtxt("evol_physical_hr_long/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+
+file1 = np.loadtxt("a=0_evol_phys/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
 times_LR = file1[:,0]
 Ref_LR = file1[:,1]
-Imf_LR = np.loadtxt("evol_physical_hr_long/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_LR = np.loadtxt("a=0_evol_phys/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-times_XLR = np.loadtxt("evol_final/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
-Ref_XLR = np.loadtxt("evol_final/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
-Imf_XLR = np.loadtxt("evol_final/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-times_MR = np.loadtxt("evol_physical_xhigh/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
-Ref_MR = np.loadtxt("evol_physical_xhigh/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
-Imf_MR = np.loadtxt("evol_physical_xhigh/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+#file1 = np.loadtxt("evol_physical_xxhr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
+#times_MR = file1[:,0]
+#Ref_MR = file1[:,1]
+#Imf_MR = np.loadtxt("evol_physical_xxhr_long/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-times_HR = np.loadtxt("evol_final_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
-Ref_HR = np.loadtxt("evol_final_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
-Imf_HR = np.loadtxt("evol_final_hr_long/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+file1 = np.loadtxt("evol_0.5physical_lr/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
+times_MR = file1[:,0]
+Ref_MR = file1[:,1]
+Imf_MR = np.loadtxt("evol_0.5physical_lr/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-times_XHR = np.loadtxt("evol_physical/2_Harm_re_2_5.csv",delimiter=",", dtype=float)[:,0]
-Ref_XHR = np.loadtxt("evol_physical/2_Harm_re_2_5.csv",delimiter=",", dtype=float)[:,1]
-Imf_XHR = np.loadtxt("evol_physical/2_Harm_im_2_5.csv",delimiter=",", dtype=float)[:,1]
+times_25 = np.loadtxt("evol_0.25physical_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
+Ref_25 = np.loadtxt("evol_0.25physical_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_25 = np.loadtxt("evol_0.25physical_hr_long/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-times_XLR3 = np.loadtxt("evol_final/2_Harm_re_2_3.csv",delimiter=",", dtype=float)[:,0]
-Ref_XLR3 = np.loadtxt("evol_final/2_Harm_re_2_3.csv",delimiter=",", dtype=float)[:,1]
-Imf_XLR3 = np.loadtxt("evol_final/2_Harm_im_2_3.csv",delimiter=",", dtype=float)[:,1]
+times_50 = np.loadtxt("evol_0.5physical_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
+Ref_50 = np.loadtxt("evol_0.5physical_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_50 = np.loadtxt("evol_0.5physical_hr_long/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-times_XLR4 = np.loadtxt("evol_final/2_Harm_re_2_4.csv",delimiter=",", dtype=float)[:,0]
-Ref_XLR4 = np.loadtxt("evol_final/2_Harm_re_2_4.csv",delimiter=",", dtype=float)[:,1]
-Imf_XLR4 = np.loadtxt("evol_final/2_Harm_im_2_4.csv",delimiter=",", dtype=float)[:,1]
+times_75 = np.loadtxt("evol_0.75physical_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
+Ref_75 = np.loadtxt("evol_0.75physical_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_75 = np.loadtxt("evol_0.75physical_hr_long/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-times_XLR5 = np.loadtxt("evol_final/2_Harm_re_2_5.csv",delimiter=",", dtype=float)[:,0]
-Ref_XLR5 = np.loadtxt("evol_final/2_Harm_re_2_5.csv",delimiter=",", dtype=float)[:,1]
-Imf_XLR5 = np.loadtxt("evol_final/2_Harm_im_2_5.csv",delimiter=",", dtype=float)[:,1]
+#times_HR = np.loadtxt("evol_final_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
+#Ref_HR = np.loadtxt("evol_final_hr_long/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
+#Imf_HR = np.loadtxt("evol_final_hr_long/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+
+times_HR = np.loadtxt("a=0_evol_final/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
+Ref_HR = np.loadtxt("a=0_evol_final/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
+Imf_HR = np.loadtxt("a=0_evol_final/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
 file1 = np.loadtxt("mode_comparison_full_xrange/2_Harm_2_2.csv",delimiter=",", dtype=float)
 f_22 = file1[:,1]
@@ -110,8 +118,15 @@ def find_omegaI(dataR,dataI,times):
     print('omegaI = ', slope)
     return Amp,slope
 
-def self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3):
+def self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3,times1=np.array([0]),times2=np.array([0])):
+    from scipy import stats
     nt = dataR3.size
+    if times1.size!=1:
+        from scipy.interpolate import CubicSpline
+        spl = CubicSpline(times2, dataR2)
+        dataR2 = spl(times1)
+        spl = CubicSpline(times2, dataI2)
+        dataI2 = spl(times1)
     #nt =1
     if dataR1.size != dataR2.size or dataR1.size != dataR3.size:
         print('Error: times not aligned')
@@ -128,11 +143,21 @@ def self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3):
         diffR23[i] = np.abs(dataR2[i+1]-dataR3[i+1])
         diffI12[i] = np.abs(dataI1[i+1]-dataI2[i+1])
         diffI23[i] = np.abs(dataI3[i+1]-dataI2[i+1])
-        err[i] = np.abs((dataR1[i+1]-dataR3[i+1])**2+(dataI1[i+1]-dataI3[i+1])**2)**0.5 / np.sqrt(dataR3[i+1]**2+dataI3[i+1]**2)
+        err[i] = np.abs(np.sqrt(dataR2[i+1]**2+dataI2[i+1]**2)-np.sqrt(dataR1[i+1]**2+dataI1[i+1]**2))/np.sqrt(dataR2[i+1]**2+dataI2[i+1]**2)
+        #np.abs((dataR1[i+1]-dataR2[i+1])**2+(dataI1[i+1]-dataI2[i+1])**2)**0.5 / np.sqrt(dataR2[i+1]**2+dataI2[i+1]**2)
     convA = np.log(np.abs((Amp1-Amp2)/(Amp2-Amp3)))/np.log(2)
     convR = np.log(diffR12 /diffR23)/np.log(2)
     convI = np.log(diffI12 /diffI23)/np.log(2)
-    err = (1.0/120.0)**4* err /((1.0/120.0)**4-(1.0/(120.0*4))**4)
+    err = (1.0/120.0)**4* err /((1.0/120.0)**4-(1.0/(120.0*2))**4)
+    err =  err /(2.0**4)
+    #spl = CubicSpline(times1[int(4*times1.size/5)+1:], err[int(4*times1.size/5):])
+    #extrap_err = spl(np.linspace(times1[int(3*times1.size/4)],400))
+    spl = stats.linregress(times1[int(4*times1.size/5)+1:], np.log10(err[int(4*times1.size/5):]))
+    #extrap_err = np.interp(np.linspace(times1[int(3*times1.size/4)],400),times1[int(3*times1.size/4)+1:],np.log10(err[int(3*times1.size/4):]))
+    wi220 = -0.07582831597057399
+    wi221 = -0.22887254833789544
+    # Two factors -- one for relative amplitude, the other for winding back to t=0
+    overtone_prop = np.exp((wi221-wi220)*times_LR[1:nt])*np.exp(wi221*times_LR[1:nt])
     print('self convergence = ',np.mean(convA[10000:])," ",np.mean(convI[10000:]))
     from matplotlib.backends.backend_pdf import PdfPages
     pp = PdfPages('./plots/convergence.pdf')
@@ -149,13 +174,23 @@ def self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3):
     #plt.plot(times_MR,Amp2)
     #plt.plot(times_MR,Amp3)
     #plt.plot(times_MR[1:nt],convI,'.',label='im')
-    plt.plot(times_MR[1:nt],err,label='Richardson extrapolated')
-    #plt.plot(times,dataR3,label='HR')
-    plt.legend()
-    plt.ylabel('relative error')
+    #plt.plot(times_LR[1:nt],np.log10(err),'b',label='Richardson extrapolated')
+    #plt.plot(np.linspace(times1[int(3*times1.size/4)],400),np.log10(extrap_err),'-.',label='Error extrapolated')
+    #plt.plot(np.linspace(times1[int(3*times1.size/4)],400),spl.intercept+spl.slope*np.linspace(times1[int(3*times1.size/4)],400),'r',linestyle='dotted', linewidth=1.0,label='Error extrapolated')
+    #plt.plot(np.ones((50))*(-2-spl.intercept)/spl.slope,np.linspace(-13,-1),'k--',linewidth=0.5)
+    #plt.plot(np.linspace(0,400),np.ones((50))*-2,'k--',linewidth=0.5)
+    plt.plot(np.linspace(0,60),np.ones((50))*-2,'k--',linewidth=0.5)
+    plt.plot(times_LR[:int(nt/3)],np.log10(err/overtone_prop)[:int(nt/3)],'--',linewidth=0.5,label=r"221 $A(t_0)$ relative error")
+    plt.legend(loc="best")
+    plt.tight_layout()
+    plt.ylabel('log$_{10}$ Amplitude relative error')
     plt.xlabel('t')
     pp.savefig()
     pp.close()
+    #np.savetxt('Amp_error.txt',err)
+    print('percent level accuracy at t=',(-2-spl.intercept)/spl.slope,'M')
+    #return err/overtone_prop
+    return err
 
 def ddata_dt(data, times): 
     dt = times[1]-times[0]
@@ -278,11 +313,14 @@ def fit_Mismatch(times,Ref,Imf,num_modes=1,free_freq=False):
     wr224 = -0.47615327668715995
     wi224 = -0.7003447583956841
     wr230 = -0.7766201565755281
-    wi230 = -0.07914344599446581 
-    wr = np.array([wr220,wr221,wr222,wr223,wr224])
-    wi = np.array([wi220,wi221,wi222,wi223,wi224])
-    #wr = np.array([wr220,wr230,wr221,wr222,wr223,wr224])
-    #wi = np.array([wi220,wi230,wi221,wi222,wi223,wi224])
+    wi230 = -0.07914344599446581
+    # Including retrograde mode
+    wr_220 = 0.298980357300257
+    wi_220 = -0.08681315659319068
+    #wr = np.array([wr220,wr221,wr222,wr223,wr224])
+    #wi = np.array([wi220,wi221,wi222,wi223,wi224])
+    wr = np.array([wr220,wr_220,wr230,wr221,wr222,wr223,wr224])
+    wi = np.array([wi220,wi_220,wi230,wi221,wi222,wi223,wi224])
     def _fit_function(inp,final=False):
         #print(inp)
         psiR = np.zeros_like(times)
@@ -312,10 +350,10 @@ def fit_Mismatch(times,Ref,Imf,num_modes=1,free_freq=False):
                     psiR[i] += psi.real
                     psiI[i] += psi.imag
 
-        if num_modes == 5:
-            Ar = inp[:5]
-            Ai = inp[5:]
-            for mode in range(5):
+        if num_modes >= 3:
+            Ar = inp[:num_modes]
+            Ai = inp[num_modes:]
+            for mode in range(num_modes):
                 for i in range(times.size):
                     psi = (Ar[mode]+1j*Ai[mode])*cmath.exp((1j*wr[mode]+wi[mode])*(times[i]-times[0]))
                     psiR[i] += psi.real
@@ -339,8 +377,8 @@ def fit_Mismatch(times,Ref,Imf,num_modes=1,free_freq=False):
     # Initialising from rough fits
     if num_modes==1:
         initialParameters = [ -0.5,  -0.08, Ref[0],  Imf[0]]
-    if num_modes==5:
-        initialParameters = np.ones(10)
+    if num_modes>=3:
+        initialParameters = np.ones(2*num_modes)
     if num_modes==2:
         #initialParameters = np.ones(4)
         initialParameters = np.array([Ref[0],Ref[0]*0.01,Imf[0],Imf[0]*0.01],dtype=float)
@@ -374,13 +412,19 @@ def fit_Mismatch(times,Ref,Imf,num_modes=1,free_freq=False):
 #return fittedParameters,times[0],norm_fac,Ref/norm_fac
 #return fittedParameters,times[0],norm_fac,modelPredictions
 
-def vary_fit_time(times,Ref,Imf,num_modes=1):
-    step = 10000
-    AmpR = np.zeros((num_modes,int(times[:-10].size/step)))
-    AmpI = np.zeros((num_modes,int(times[:-10].size/step)))
-    final_mismatch = np.zeros(int(times[:-10].size/step))
+def vary_fit_time(times,Ref,Imf,num_modes=1,free_freq=False):
+    step = 30000
+    #times_to_fit = times[:-10].size/10
+    #times_to_fit = times[:-10].size/5
+    times_to_fit = times[:-10].size
+    AmpR = np.zeros((num_modes,int(times_to_fit/step)))
+    AmpI = np.zeros((num_modes,int(times_to_fit/step)))
+    final_mismatch = np.zeros(int(times_to_fit/step))
+    if free_freq==True:
+        wr_fit = np.zeros(int(times_to_fit/step))
+        wi_fit = np.zeros(int(times_to_fit/step))
     #time0s = times[:-10]
-    time0s = np.zeros(int(times[:-10].size/step))
+    time0s = np.zeros(int(times_to_fit/step))
     wr220 = -0.5581243938314899
     wi220 = -0.07582831597057399
     wr221 = -0.5492302322490616
@@ -393,14 +437,22 @@ def vary_fit_time(times,Ref,Imf,num_modes=1):
     wi224 = -0.7003447583956841
     wr230 = -0.7766201565755281
     wi230 = -0.07914344599446581
-    wr = np.array([wr220,wr221,wr222,wr223,wr224])
-    wi = np.array([wi220,wi221,wi222,wi223,wi224])
-    #wr = np.array([wr220,wr230,wr221,wr222,wr223,wr224])
-    #wi = np.array([wi220,wi230,wi221,wi222,wi223,wi224])
-    for time0 in range(int(times[:-10].size/step)):
-        fittedParameters,timefit0,norm_fac,final_residual = fit_Mismatch(times[time0*step:],Ref[time0*step:],Imf[time0*step:],num_modes=num_modes)
+    wr_220 = 0.298980357300257
+    wi_220 = -0.08681315659319068
+    #wr = np.array([wr220,wr221,wr222,wr223,wr224])
+    #wi = np.array([wi220,wi221,wi222,wi223,wi224])
+    wr = np.array([wr220,wr_220,wr230,wr221,wr222,wr223,wr224])
+    wi = np.array([wi220,wi_220,wi230,wi221,wi222,wi223,wi224])
+    for time0 in range(int(times_to_fit/step)):
+        print(times[time0*step:].size,Ref[time0*step:].size,Imf[time0*step:].size)
+        fittedParameters,timefit0,norm_fac,final_residual = fit_Mismatch(times[time0*step:],Ref[time0*step:],Imf[time0*step:],num_modes=num_modes,free_freq=free_freq)
         AR = np.zeros((num_modes))
         AI = np.zeros((num_modes))
+        if free_freq==True:
+            wr[0] = fittedParameters[0]
+            wi[0] = fittedParameters[1]
+            wr_fit[time0] = fittedParameters[0]
+            wi_fit[time0] = fittedParameters[1]
         if num_modes==1:
             AR[0] = fittedParameters[2]
             AI[0] = fittedParameters[3]
@@ -415,9 +467,11 @@ def vary_fit_time(times,Ref,Imf,num_modes=1):
         #AmpI[time0]=(fittedParameters[3]*np.exp(wi*(-timefit0))*np.cos(wr*(-timefit0)) + fittedParameters[2]*np.exp(wi*(-timefit0))*np.sin(wr*(-timefit0)))/norm_fac
         final_mismatch[time0]=final_residual
         time0s[time0] = times[time0*step]
+    if free_freq==True:
+        return time0s,final_mismatch,AmpR,AmpI,wr_fit,wi_fit
     return time0s,final_mismatch,AmpR,AmpI
 
-def plot_vary_fit(num_modes=1):
+def plot_vary_fit(time,ref,imf,time_fin,ref_fin,imf_fin,num_modes=1,free_freq=False,err=np.zeros(1)):
     wr220 = -0.5581243938314899
     wi220 = -0.07582831597057399
     wr221 = -0.5492302322490616
@@ -430,44 +484,109 @@ def plot_vary_fit(num_modes=1):
     wi224 = -0.7003447583956841
     wr230 = -0.7766201565755281
     wi230 = -0.07914344599446581
-    wr = np.array([wr220,wr221,wr222,wr223,wr224])
-    wi = np.array([wi220,wi221,wi222,wi223,wi224])
-
-    #wr = np.array([wr220,wr230,wr221,wr222,wr223,wr224])
-    #wi = np.array([wi220,wi230,wi221,wi222,wi223,wi224])
-    time0s,final_mismatch,AmpR,AmpI = vary_fit_time(times_HR[:],Ref_HR[:],Imf_HR[:],num_modes=num_modes)
+    wr_220 = 0.298980357300257
+    wi_220 = -0.08681315659319068
+    #wr = np.array([wr220,wr221,wr222,wr223,wr224])
+    #wi = np.array([wi220,wi221,wi222,wi223,wi224])
+    wr = np.array([wr220,wr_220,wr230,wr221,wr222,wr223,wr224])
+    wi = np.array([wi220,wi_220,wi230,wi221,wi222,wi223,wi224])
+    if free_freq==True:
+        time0s,final_mismatch,AmpR,AmpI,wr_fit,wi_fit = vary_fit_time(time[:],ref[:],imf[:],num_modes=num_modes,free_freq=True)
+    else:
+        time0s,final_mismatch,AmpR,AmpI = vary_fit_time(time[:],ref[:],imf[:],num_modes=num_modes)
     AmpR22 = AmpR[0,:]
     AmpI22 = AmpI[0,:]
+    if err.size >1:
+        from scipy import interpolate
+        err_fit = interpolate.interp1d(time[:err.size],err)
     if num_modes>1:
-        AmpR221 = AmpR[1,:]
-        AmpI221 = AmpI[1,:]
-    #time0s5,final_mismatch5,AmpR5,AmpI5 = vary_fit_time(times_XLR,Ref_XLR,Imf_XLR,num_modes=1)
-    #time0s75,final_mismatch75,AmpR75,AmpI75 = vary_fit_time(times_MR,Ref_MR,Imf_MR,num_modes=1)
-    fittedParameters,timefit0,norm_fac,final_residual = fit_Mismatch(times_HR,Ref_HR,Imf_HR,num_modes=1)
-    AmpRfinal=(fittedParameters[2]*np.exp(wi[0]*(-timefit0))*np.cos(wr[0]*(-timefit0)) - fittedParameters[3]*np.exp(wi[0]*(-timefit0))*np.sin(wr[0]*(-timefit0)))/norm_fac
-    AmpIfinal=(fittedParameters[3]*np.exp(wi[0]*(-timefit0))*np.cos(wr[0]*(-timefit0)) + fittedParameters[2]*np.exp(wi[0]*(-timefit0))*np.sin(wr[0]*(-timefit0)))/norm_fac
+        AmpR_220 = AmpR[1,:]
+        AmpI_220 = AmpI[1,:]
+        if num_modes>2:
+            AmpR230 = AmpR[2,:]
+            AmpI230 = AmpI[2,:]
+            if num_modes>3:
+                AmpR221 = AmpR[3,:]
+                AmpI221 = AmpI[3,:]
+                if err.size >1:
+                    errbarsu = np.sqrt(AmpR221**2+AmpI221**2)+err_fit(time0s)/(np.exp((wi221-wi220)*time0s)*np.exp(wi221*time0s))
+                    errbarsl = np.sqrt(AmpR221[:]**2+AmpI221[:]**2)-err_fit(time0s)/(np.exp((wi221-wi220)*time0s)*np.exp(wi221*time0s))
+                    for n,er in enumerate(errbarsl):
+                        if er<0:
+                            errbarsl[n]=10**-4
+                    if num_modes>4:
+                        AmpR222 = AmpR[4,:]
+                        AmpI222 = AmpI[4,:]
+                        if err.size >1:
+                            errbarsu2 = np.sqrt(AmpR222**2+AmpI222**2)+err_fit(time0s)/(np.exp((wi222-wi220)*time0s)*np.exp(wi222*time0s))
+                            errbarsl2 = np.sqrt(AmpR222[:]**2+AmpI222[:]**2)-err_fit(time0s)/(np.exp((wi222-wi220)*time0s)*np.exp(wi222*time0s))
+                            for n,er in enumerate(errbarsl):
+                                if er<0:
+                                    errbarsl2[n]=10**-4
+
+    #print(times_MR[:50000].size,Ref_MR[:50000].size,Imf_MR[:50000].size)
+    #time0shr,final_mismatchhr,AmpRhr,AmpIhr = vary_fit_time(times_MR[:50000],Ref_MR[:50000],Imf_MR[:50000],num_modes=num_modes)
+    time0shr,final_mismatchhr,AmpRhr,AmpIhr = vary_fit_time(times_50[:],Ref_50[:],Imf_50[:],num_modes=num_modes)
+    AmpR220_hr = AmpRhr[0,:]
+    AmpI220_hr = AmpIhr[0,:]
+    if num_modes>=2:
+        AmpR_220_hr = AmpRhr[1,:]
+        AmpI_220_hr = AmpIhr[1,:]
+    if num_modes>=3:
+        AmpR230_hr = AmpRhr[2,:]
+        AmpI230_hr = AmpIhr[2,:]
+    if num_modes>=4:
+        AmpR221_hr = AmpRhr[3,:]
+        AmpI221_hr = AmpIhr[3,:]
+
+    #time0s5,final_mismatch5,AmpR5,AmpI5 = vary_fit_time(times_50,Ref_50,Imf_50,num_modes=1)
+    #AmpR22_5 = AmpR5[0,:]
+    #AmpI22_5 = AmpI5[0,:]
+    #time0s75,final_mismatch75,AmpR75,AmpI75 = vary_fit_time(times_75,Ref_75,Imf_75,num_modes=1)
+    #AmpR22_75 = AmpR75[0,:]
+    #AmpI22_75 = AmpI75[0,:]
+    #time0s25,final_mismatch25,AmpR25,AmpI25 = vary_fit_time(times_25,Ref_25,Imf_25,num_modes=1)
+    #AmpR22_25 = AmpR25[0,:]
+    #AmpI22_25 = AmpI25[0,:]
     
-    pp = PdfPages('./plots/Amp_fit_vary_to.pdf')
+    #fittedParameters,timefit0,norm_fac,final_residual = fit_Mismatch(time_fin,ref_fin,imf_fin,num_modes=1)
+    #AmpRfinal=(fittedParameters[2]*np.exp(wi[0]*(-timefit0))*np.cos(wr[0]*(-timefit0)) - fittedParameters[3]*np.exp(wi[0]*(-timefit0))*np.sin(wr[0]*(-timefit0)))/norm_fac
+    #AmpIfinal=(fittedParameters[3]*np.exp(wi[0]*(-timefit0))*np.cos(wr[0]*(-timefit0)) + fittedParameters[2]*np.exp(wi[0]*(-timefit0))*np.sin(wr[0]*(-timefit0)))/norm_fac
+    time0shr,final_mismatchhr,AmpRhr,AmpIhr = vary_fit_time(time_fin,ref_fin,imf_fin,num_modes=num_modes)
+    AmpRfinal = AmpRhr[0,:]
+    AmpIfinal = AmpIhr[0,:]
+    if num_modes>=2:
+        AmpRfinal_220 = AmpRhr[1,:]
+        AmpIfinal_220 = AmpIhr[1,:]
+    if num_modes>=3:
+        AmpRfinal230 = AmpRhr[2,:]
+        AmpIfinal230 = AmpIhr[2,:]
+    if num_modes>=4:
+        AmpRfinal221 = AmpRhr[3,:]
+        AmpIfinal221 = AmpIhr[3,:]
+
+    pp = PdfPages('./plots/Amp_fit_vary_to2.pdf')
     plt.figure()
     plt.plot(time0s,np.abs(AmpRfinal)*np.ones_like(time0s),'b--',label='Re(Amp) fixed')
     plt.plot(time0s,np.abs(AmpIfinal)*np.ones_like(time0s),'g--',label='Im(Amp) fixed')
     plt.plot(time0s,np.abs(AmpR22),'b',label='Re(Amp) changing')
     plt.plot(time0s,np.abs(AmpI22),'g',label='Im(Amp) changing')
     if num_modes>1:
-        plt.plot(time0s,np.abs(AmpR221),'b-.',label='Re(Amp 221) changing')
-        plt.plot(time0s,np.abs(AmpI221),'g-.',label='Im(Amp 221) changing')
+        plt.plot(time0s,np.abs(AmpR_220),'b-.',label='Re(Amp -220) changing')
+        plt.plot(time0s,np.abs(AmpI_220),'g-.',label='Im(Amp -220) changing')
     plt.legend()
     plt.ylabel('Amp fitted')
     plt.xlabel('$t_0$')
     plt.title('Fixed freq single Amp fit')
     pp.savefig()
     pp.close()
-    pp = PdfPages('./plots/phases_vary_to.pdf')
+    pp = PdfPages('./plots/phases_vary_to3.pdf')
     plt.figure()
-    plt.plot(time0s,np.arctan(AmpI22/AmpR22)-np.arctan(AmpIfinal/AmpRfinal),label='changing 1.0')
-    #plt.plot(time0s,np.arctan(AmpI75/AmpR75)-np.arctan(AmpIfinal/AmpRfinal),label='changing 0.75')
-    #plt.plot(time0s,np.arctan(AmpI5/AmpR5)-np.arctan(AmpIfinal/AmpRfinal),label='changing 0.5')
-    plt.ylabel('$\phi_{physical}-\phi_{fixed}$')
+    plt.plot(time0s,np.arctan(AmpI22/AmpR22)-np.arctan(AmpIfinal/AmpRfinal),label='changing $1.0\\times dM$')
+    #plt.plot(time0s,np.arctan(AmpI22_75/AmpR22_75)-np.arctan(AmpIfinal/AmpRfinal),label='changing $0.75\\times dM$')
+    plt.plot(time0s,2*(np.arctan(AmpI220_hr/AmpR220_hr)-np.arctan(AmpIfinal/AmpRfinal)),label='changing $0.5\\times dM$')
+    #plt.plot(time0s,np.arctan(AmpI22_25/AmpR22_25)-np.arctan(AmpIfinal/AmpRfinal),label='changing $0.25\\times dM$')
+    plt.ylabel('$dM(\phi_{physical}-\phi_{fixed})$')
     plt.xlabel('$t_0$')
     plt.legend()
     plt.title('Fixed freq single Amp fit -- phase')
@@ -475,28 +594,67 @@ def plot_vary_fit(num_modes=1):
     pp.close()
     pp = PdfPages('./plots/Amp_vary_to.pdf')
     plt.figure()
-    #plt.plot(time0s,np.zeros_like(time0s),'--',label='fixed')
-    plt.plot(time0s,np.log10(np.sqrt(AmpR22**2+AmpI22**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2)),label='220 mode')
+    #plt.plot(time0s,np.ones_like(time0s),'--',label='fixed')
+    #plt.plot(time0s,np.sqrt(AmpR22**2+AmpI22**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2),label='changing $1\\times dM$')
+    #plt.plot(time0shr,np.log10(2*np.abs(np.sqrt(AmpR220_hr**2+AmpI220_hr**2)-np.sqrt(AmpRfinal**2+AmpIfinal**2))),'b:',label='changing $0.5\\times dM$')
+    #plt.plot(time0s,np.log10(np.abs(np.sqrt(AmpRfinal**2+AmpIfinal**2)-np.sqrt(AmpR22**2+AmpI22**2))),'b',label='220 mode')
+    plt.plot(time0shr,(np.sqrt(AmpR220_hr**2+AmpI220_hr**2)-np.sqrt(AmpRfinal**2+AmpIfinal**2))/(-np.sqrt(AmpRfinal**2+AmpIfinal**2)+np.sqrt(AmpR22**2+AmpI22**2)),'b',label='220')
     if num_modes>1:
-        plt.plot(time0s,np.log10(np.sqrt(AmpR221**2+AmpI221**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2)),label='221 mode')
-    #plt.plot(time0s,np.sqrt(AmpR75**2+AmpI75**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2),label='changing 0.75')
-    #plt.plot(time0s,np.sqrt(AmpR5**2+AmpI5**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2),label='changing 0.5')
-    #plt.ylim(-1,4)
-    plt.ylabel('log $Amp_{physical}/Amp_{fixed}$')
+        #plt.plot(time0s,np.log10(np.abs(np.sqrt(AmpRfinal_220**2+AmpIfinal_220**2)-np.sqrt(AmpR_220**2+AmpI_220**2))),'g',label='-220 mode')
+        #plt.plot(time0shr,np.log10(2*np.abs(np.sqrt(AmpRfinal_220**2+AmpIfinal_220**2)-np.sqrt(AmpR_220_hr**2+AmpI_220_hr**2))),'g:')
+        plt.plot(time0shr,(-np.sqrt(AmpRfinal_220**2+AmpIfinal_220**2)+np.sqrt(AmpR_220_hr**2+AmpI_220_hr**2))/(-np.sqrt(AmpRfinal_220**2+AmpIfinal_220**2)+np.sqrt(AmpR_220**2+AmpI_220**2)),label='-220')
+        if num_modes>2:
+            #plt.plot(time0s,np.log10(np.sqrt(AmpR230**2+AmpI230**2)),'y',label='320 mode')
+            #plt.plot(time0shr,np.log10(2*(np.sqrt(AmpR230_hr**2+AmpI230_hr**2))),'y:')
+            plt.plot(time0shr,(np.sqrt(AmpR230_hr**2+AmpI230_hr**2))/np.sqrt(AmpR230**2+AmpI230**2),label='320')
+            if num_modes>3:
+                #plt.plot(time0s,np.log10(np.sqrt(AmpR221**2+AmpI221**2)),'r',label='221 mode')
+                #plt.plot(time0shr,np.log10(2*(np.sqrt(AmpR221_hr**2+AmpI221_hr**2))),'r:')
+                plt.plot(time0shr,(np.sqrt(AmpR221_hr**2+AmpI221_hr**2))/np.sqrt(AmpR221**2+AmpI221**2),label='221')
+                #if err.size >1:
+                    #plt.plot(time0s,np.log10(errbarsu/np.sqrt(AmpRfinal**2+AmpIfinal**2)),'r--',linewidth=0.5,label='error on 221')
+                    #plt.plot(time0s,np.log10(errbarsl/np.sqrt(AmpRfinal**2+AmpIfinal**2)),'r--',linewidth=0.5)
+                if num_modes>4:
+                    plt.plot(time0s,np.log10(np.sqrt(AmpR222**2+AmpI222**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2)),'k',label='222 mode')
+                    if err.size >1:
+                        plt.plot(time0s,np.log10(errbarsu2/np.sqrt(AmpRfinal**2+AmpIfinal**2)),'k--',linewidth=0.5,label='error on 221')
+                        plt.plot(time0s,np.log10(errbarsl2/np.sqrt(AmpRfinal**2+AmpIfinal**2)),'k--',linewidth=0.5)
+    #plt.plot(time0s,np.sqrt(AmpR22_75**2+AmpI22_75**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2),label='changing $0.75\\times dM$')
+    #plt.plot(time0s,np.sqrt(AmpR22_5**2+AmpI22_5**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2),label='changing $0.5\\times dM$')
+    #plt.plot(time0s,np.sqrt(AmpR22_25**2+AmpI22_25**2)/np.sqrt(AmpRfinal**2+AmpIfinal**2),label='changing $0.25\\times dM$')
+    #plt.plot(time0s,np.ones_like(time0s),'--')
+    #plt.ylim(0.985,1.05)
+    #plt.ylabel('$log Amp_{physical}/Amp_{fixed}$')
+    plt.ylabel('$(A_{0.5 dM}-A_{fixed})/(A_{dM}-A_{fixed})$')
     plt.xlabel('$t_0$')
     plt.legend()
     plt.title('Fixed freq single Amp fit')
     pp.savefig()
     pp.close()
 
-    pp = PdfPages('./plots/Mismatch_vary_to.pdf')
+    pp = PdfPages('./plots/Mismatch_vary_to2.pdf')
     plt.figure()
-    plt.plot(time0s,np.log10(final_mismatch),label='Re(Amp)')
+    plt.plot(time0s,np.log10(final_mismatch))
     plt.ylabel('log Mismatch')
     plt.xlabel('$t_0$')
     plt.title('Fixed freq single Amp fit')
     pp.savefig()
     pp.close()
+
+    if free_freq == True:
+        pp = PdfPages('./plots/w_vary_to2.pdf')
+        plt.figure()
+        plt.scatter(x=wr_fit, y=wi_fit, c=time0s, cmap="plasma")
+        plt.colorbar(label="$time_0$", orientation="horizontal")
+        #plt.plot([wr220,wr221,wr230],[wi220,wi221,wi230],'o',label='QNMs')
+        plt.scatter([wr220,wr221,wr230,wr_220], [wi220,wi221,wi230,wi_220], s=80, facecolors='none', edgecolors='b')
+        plt.ylabel('$\omega_i$')
+        plt.xlabel('$\omega_r$')
+        plt.title('Free freq residual fit')
+        pp.savefig()
+        pp.close()
+
+        np.savetxt('free_freq_fit.txt',np.array([time0s,wr_fit,wi_fit,AmpR22,AmpI22]).flatten)
 
 
 def reconstruct(fittedParameters,time0,norm_fac,times,num_modes=1,free_freq=False):
@@ -513,8 +671,14 @@ def reconstruct(fittedParameters,time0,norm_fac,times,num_modes=1,free_freq=Fals
     wi223 = -0.5450923374738451
     wr224 = -0.47615327668715995
     wi224 = -0.7003447583956841
-    wr = np.array([wr220,wr221,wr222,wr223,wr224])
-    wi = np.array([wi220,wi221,wi222,wi223,wi224])
+    wr230 = -0.7766201565755281
+    wi230 = -0.07914344599446581
+    wr_220 = 0.298980357300257
+    wi_220 = -0.08681315659319068
+    #wr = np.array([wr220,wr221,wr222,wr223,wr224])
+    #wi = np.array([wi220,wi221,wi222,wi223,wi224])
+    wr = np.array([wr220,wr_220,wr230,wr221,wr222,wr223,wr224])
+    wi = np.array([wi220,wi_220,wi230,wi221,wi222,wi223,wi224])
     if num_modes==1:
         #fitR = (fittedParameters[2]*np.exp(fittedParameters[1]*(times-time0))*np.cos(fittedParameters[0]*(times-time0)) - fittedParameters[3]*np.exp(fittedParameters[1]*(times-time0))*np.sin(fittedParameters[0]*(times-time0)))
         #fitI = (fittedParameters[3]*np.exp(fittedParameters[1]*(times-time0))*np.cos(fittedParameters[0]*(times-time0)) + fittedParameters[2]*np.exp(fittedParameters[1]*(times-time0))*np.sin(fittedParameters[0]*(times-time0)))
@@ -534,14 +698,14 @@ def reconstruct(fittedParameters,time0,norm_fac,times,num_modes=1,free_freq=Fals
                 fitR[i] += psi.real
                 fitI[i] += psi.imag
             
-    if num_modes==5:
-        for mode in range(5):
+    if num_modes>=3:
+        for mode in range(num_modes):
             #fittedParameters[mode] = 1
             #fittedParameters[5+mode]=1
             #print('exp fac = ',wi[mode]*(times[0]-time0))
             #print(wr)
             for i in range(times.size):
-                psi = (fittedParameters[mode]+1j*fittedParameters[5+mode])*cmath.exp((1j*wr[mode]+wi[mode])*(times[i]-time0))
+                psi = (fittedParameters[mode]+1j*fittedParameters[num_modes+mode])*cmath.exp((1j*wr[mode]+wi[mode])*(times[i]-time0))
                 fitR[i] += psi.real
                 fitI[i] += psi.imag
             #fitR += (fittedParameters[mode]*np.exp(wi[mode]*(times-time0))*np.cos(wr[mode]*(times-time0)) - fittedParameters[5+mode]*np.exp(wi[mode]*(times-time0))*np.sin(wr[mode]*(times-time0)))/norm_fac
@@ -579,11 +743,11 @@ plt.rcParams.update({'figure.autolayout': True})
 #data_MR,slope_MR = find_period(phases_MR,times[300:])
 #amp_MR,wi_MR = find_omegaI(Ref_MR[300:],Imf_MR[300:],times[300:])
 
-#frequency_evolution(times_LR,Ref_LR,Imf_LR)
+#frequency_evolution(times_MR,Ref_MR,Imf_MR)
 
 #print('num time steps = ',times_LR.size, ' real ',Ref_LR.size,)
 
-#self_convergence(Ref_LR[:1900],Ref_MR[:1900],Ref_HR[:1900],Imf_LR[:1900],Imf_MR[:1900],Imf_HR[:1900])
+#overtone_errs = self_convergence(Ref_LR[:97252],Ref_MR[:97252],Ref_HR[:97252],Imf_LR[:97252],Imf_MR[:97252],Imf_HR[:97252],times1=times_LR[:97252],times2=times_MR[:97252])
 
 #phases_MR = omega_from_f(Ref_MR,Imf_MR,times_MR)
 #data_MR,slope_MR = find_period(phases_MR,times_MR)
@@ -594,18 +758,29 @@ plt.rcParams.update({'figure.autolayout': True})
 #amp_LR,wi_LR = find_omegaI(Ref_LR,Imf_LR,times_LR)
 
 #vary_fit_time(times_LR,Ref_LR,Imf_LR,num_modes=1)
-plot_vary_fit(num_modes=2)
 
-#fit,time0,norm,fitR = fit_Mismatch(times_LR[100000:],Ref_LR[100000:],Imf_LR[100000:],num_modes=1,free_freq=True)
+#fit,time0,norm,fitR = fit_Mismatch(times_HR[100000:],Ref_HR[100000:],Imf_HR[100000:],num_modes=1,free_freq=False)
+#fit,time0,norm,fitR = fit_Mismatch(times_LR[80000:],Ref_LR[80000:],Imf_LR[80000:],num_modes=2,free_freq=False)
+#fit,time0,norm,fitR = fit_Mismatch(times_LR[int(times_LR[:-10].size/20):],Ref_LR[int(times_LR[:-10].size/20):],Imf_LR[int(times_LR[:-10].size/20):],num_modes=3,free_freq=False)
 #fit_Mismatch(times_LR[35000:],Ref_LR[30000:],Imf_LR[35000:],num_modes=1)
 
 #data,slope_LR = find_period(phases_LR[63000:],times_LR[63000:])
 #amp,wi_LR = find_omegaI(Ref_LR[63000:],Imf_LR[63000:],times_LR[63000:])
 
-#Re22_LRff, Im22_LRff = reconstruct(fit,time0,norm,times_LR[:],num_modes=1,free_freq=True)
+#Re22_LR, Im22_LR = reconstruct(fit,time0,norm,times_HR[:],num_modes=1,free_freq=False)
+
+#nt = times_LR.size
+#plot_vary_fit(times_LR,Ref_LR,Imf_LR,times_HR,Ref_HR,Imf_HR,num_modes=1,free_freq=False)
+#plot_vary_fit(times_LR[:60000],Ref_LR[:60000],Imf_LR[:60000],times_HR[:60000],Ref_HR[:60000],Imf_HR[:60000],num_modes=4,free_freq=False)
+#plot_vary_fit(times_LR[:],Ref_LR[:],Imf_LR[:],times_HR[:],Ref_HR[:],Imf_HR[:],num_modes=4,free_freq=False)
+#plot_vary_fit(times_MR[:],Ref_MR[:],Imf_MR[:],times_HR[:times_MR.size],Ref_HR[:times_MR.size],Imf_HR[:times_MR.size],num_modes=5,free_freq=False,err = overtone_errs)
+
+#plot_vary_fit(times_HR,Ref_HR-Re22_LR,Imf_HR-Im22_LR,times_HR,Ref_HR,Imf_HR,num_modes=1,free_freq=True)
+#plot_vary_fit(times_LR[:],Ref_LR[:],Imf_LR[:],times_HR[:times_MR.size],Ref_HR[:times_MR.size],Imf_HR[:times_MR.size],num_modes=5,free_freq=False,err = overtone_errs)
+
 
 #fit,time0,norm,fitR = fit_Mismatch(times_LR[100000:],Ref_LR[100000:],Imf_LR[100000:],num_modes=1,free_freq=True)
-#Re22_LR, Im22_LR = reconstruct(fit,time0,norm,times_LR[:],num_modes=1,free_freq=False)
+#Re22_LR, Im22_LR = reconstruct(fit,time0,norm,times_LR[:],num_modes=3,free_freq=False)
 #fit,time0,norm = fit_Mismatch(times_LR[5000:],(Ref_LR-Re22_LR)[5000:],(Imf_LR-Im22_LR)[5000:],num_modes=1)
 #reconstruct_mode(times_LR,wi_LR,slope_LR,phases_LR,amp_LR)
 #phases22_LR = omega_from_f(Re22_LR,Im22_LR,times_LR)
@@ -676,11 +851,12 @@ pp.close()
 
 pp = PdfPages('./plots/Repsi0.pdf')
 plt.figure()
-plt.plot(times_LR[:],np.log(np.abs(Ref_LR[:])),label='data')
-plt.plot(times_LR[:],np.log(np.abs(Re22_LR[:])),'--',label='reconstructed')
+plt.plot(times_LR[:20000],Ref_LR[:20000],label='changing background')
+plt.plot(times_LR[:20000],((Ref_HR[:20000])),label='fixed background')
+#plt.plot(times_LR[:],np.log(np.abs(Re22_LR[:])),'--',label='reconstructed')
 #plt.plot(times_LR[:],np.log(np.abs(Re22_LRff[:])),label='reconstructed free w')
 #plt.plot(times_LR[160000:],fitR,'--',label='fit')
-plt.plot(times_LR,np.log(np.abs(Ref_LR-Re22_LR)),label='residual')
+#plt.plot(times_LR,np.log(np.abs(Ref_LR-Re22_LR)),label='residual')
 #plt.plot(times_LR,np.log(np.abs(Ref_LR-Re22_LRff)),label='residual free w')
 #plt.plot(times_MR,(Ref_MR-Ref_HR)/np.sqrt(Ref_HR**2+Imf_HR**2),'--',label='$\Delta M/2$')
 #plt.plot(times_XLR,(Ref_XLR - Ref_HR)/np.sqrt(Ref_HR**2+Imf_HR**2),label='$\Delta M 3/4$')
@@ -693,7 +869,7 @@ plt.plot(times_LR,np.log(np.abs(Ref_LR-Re22_LR)),label='residual')
 #plt.plot(times_LR,np.log(np.sqrt(Ref_HR4**2+Imf_HR4**2)),label='Amp $\ell = 4$')
 #plt.plot(times_LR,np.log(np.sqrt(Ref_HR5**2+Imf_HR5**2)),label='Amp $\ell = 5$')
 plt.legend()
-plt.ylabel('Amp/ Amp fixed')
+plt.ylabel('Re($\psi_4$)')
 plt.xlabel('$t / M_0$')
 pp.savefig()
 pp.close()
