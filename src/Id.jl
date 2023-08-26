@@ -1,6 +1,7 @@
 module Id
 
 using Interpolations
+using Polynomials
 
 include("Sphere.jl")
 import .Sphere: swal
@@ -136,6 +137,9 @@ function set_qnm!(
     filename::String,
     amp::Real,
     idm::Int64,
+    aval::Real,
+    bhm::Real,
+    bhs::Real,
     Rv::Vector{<:Real},
     Yv::Vector{<:Real},
 )::Nothing
@@ -147,15 +151,25 @@ function set_qnm!(
     nx, ny = f.nx, f.ny
     # TEMP SETTING a
 
-    physical = 0
+    physical = 3
+    if physical == 3
+	#aval = 0.0
+	Mval = 1.0
+    end
+    if physical == 2
+	#aval = 0.0452044/(1+0.0089245 ) 
+	Mval = 1+0.0089245 
+    end
     if physical == 1
-    	aval = 0.7
-        Mval = 1.0
+    	#aval = 0.7
+	# Mass should be ID mass
+        Mval = 0.9856893331997661 
     end
     if physical == 0
-        aval =  (0.7+0.0884848)/(1+0.020245)
+        #aval =  (0.7+0.0884848)/(1+0.020245)
         Mval = 1+0.020245
     end
+
     lin = 2
 
     # qnmpath = dirname(pwd()) * "/qnm/"
@@ -173,19 +187,40 @@ function set_qnm!(
     
     # Prints twice for m = +-2
     #println("spherical harmonic ID = ",lpoly) 
-    
+   
+    ID_bh_R = 1/(Mval * (1 + sqrt(1 - (aval)^2) ))
+    index = 0
+    for i=1:nx
+    	if Rv[i] > ID_bh_R
+    	    index = index+1
+    	end
+    end
+    if index>0
+        Reyvals = [rpoly( (2 * Rv[i])/ID_bh_R -1 ).re for i = 1:(nx-index)] 
+        Imyvals = [rpoly( (2 * Rv[i])/ID_bh_R -1 ).im for i = 1:(nx-index)]
+        #Reinterp = linear_interpolation(Rv[1:(nx-index)], Reyvals,extrapolation_bc=Line())
+        #Iminterp = linear_interpolation(Rv[1:(nx-index)], Imyvals,extrapolation_bc=Line())
+        Reinterp = fit(Rv[(nx-index-5):(nx-index)], Reyvals[(nx-index-5):(nx-index)], 4) 
+        Iminterp = fit(Rv[(nx-index-5):(nx-index)], Imyvals[(nx-index-5):(nx-index)], 4)
+    end
     # only set the field if an evolution m matches the m mode in initial data
     if mv==idm
         for j = 1:ny
             for i = 1:nx
                 f.n[i, j] = rpoly( (2 * Rv[i])/maximum(Rv) -1 )
-                f.n[i, j] *= sum([
+                #if Rv[i] <= ID_bh_R
+		#    f.n[i, j] = rpoly( (2 * Rv[i])/ID_bh_R -1 ) 
+		#end
+		#if Rv[i] > ID_bh_R
+                #    f.n[i, j] = Reinterp(Rv[i])+ im*Iminterp(Rv[i])
+                #end
+		f.n[i, j] *= sum([
                     (-1)^l * lpoly[l+1] * swal(spin, mv, l + lmin, Yv[j]) for l = 0:(length(lpoly)-1)
 		    # CHANGED FOR -1^l FACTOR
                 ])
                 max_val = max(abs(f.n[i, j]), max_val)
-		if i==1
-                    println(f.n[i, j])
+		if j==1
+                    println()
                 end
             end
         end
@@ -249,20 +284,30 @@ function BHs_test(t::Float64)
 end
 
 function BHm(t::Float64)
-    BHmi = 1.0
-    #+0.020245
-    return BHmi+ 0.020245021274727132 * physical_change(t)
+    # remnant 0.7
+    total_change = 0.00670992
+    dM_val = 0.5
+    BHmi = 1.0 - dM_val*total_change
+    return BHmi + dM_val*total_change * physical_change(t)
 end
 
 function BHs(t::Float64)
-    BHsi = 0.7
-    #+0.0884848
-    return BHsi + 0.08848482252508819 * physical_change(t)
+    # a =0.7
+    #total_change = 0.08848482252508819
+    # remnant 0.7
+    total_change = 0.029327
+    dM_val = 0.5
+    BHsi = 0.7 - dM_val*total_change
+    #/(ID bhm)+0.0*total_change
+    return BHsi + dM_val* total_change* physical_change(t)
 end
 
 
 function physical_change(x::Float64)
-    return (1-exp(-0.1615859254814962*x))
+    # Exponent == 2 x imaginary freq.
+    # remnant 0.7 qnm
+    wi = 0.1615859254814962
+    return (1-exp(-wi*x))
 end
 
 function connect_constants(f1::Float64, f2::Float64, x1::Float64, x2::Float64, x::Float64)
