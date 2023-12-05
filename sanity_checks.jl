@@ -8,17 +8,17 @@ using CSV
 using DataFrames
 
 #df = CSV.read("./medpsi0/lin_f_re_2.csv", DataFrame)
-df = CSV.File("./evol_low/lin_f_re_2.csv") |> Tables.matrix
+#df = CSV.File("./evol_low/lin_f_re_2.csv") |> Tables.matrix
 
-println(size(df))
-times_local = df[:,1]
-ny = trunc(Int, df[1,3])
-nx = trunc(Int, df[1,2])
+#println(size(df))
+#times_local = df[:,1]
+#ny = trunc(Int, df[1,3])
+#nx = trunc(Int, df[1,2])
 nt = trunc(Int,1001)
-spin = 2
-println("nx = ",nx)
-println("ny = ",ny)
-println("nt = ",size(times_local))
+spin = trunc(Int,-2)
+#println("nx = ",nx)
+#println("ny = ",ny)
+#println("nt = ",size(times_local))
 
 """Gives number of ls that can be consistent with other mode numbers ?"""
 function num_l(ny::Integer,max_s::Integer=2,max_m::Integer=6)::Integer
@@ -33,15 +33,17 @@ function swal(spin::Integer, m_ang::Integer, l_ang::Integer, y::Real)::Real
     al = abs(m_ang - spin)
     be = abs(m_ang + spin)
     @assert((al + be) % 2 == 0)
-    n = l_ang - (al + be) / 2
+    n = trunc(Int,l_ang - (al + be) / 2)
 
     if n < 0
         return convert(Float64, 0)
     end
-
+    
+    #println(n," ",al," ",be)
+    #println(typeof(n)," ",typeof(al)," ",typeof(be))
     norm = sqrt(
-        (2 * n + al + be + 1) * (2^(-al - be - 1.0)) * factorial(n + al + be) /
-        factorial(n + al) * factorial(n) / factorial(n + be),
+		(2 * n + al + be + 1) * (2^(-al - be - 1.0)) * factorial(big(n + al + be)) /
+		factorial(big(n + al)) * factorial(n) / factorial(big(n + be)),
     )
     norm *= (-1)^(max(m_ang, -spin))
 
@@ -148,7 +150,7 @@ function modes_from_source(filename::String,mv::Integer,lv::Integer)
         f_Ylm = zeros(2)
 	# NOTE i=1 -- null inf, i=2 -- horizon
 	for i in [1]
-            f_Ylm[i] = 0.0
+            #f_Ylm[i] = 0.0
             for k = 1:ny_here
                 data_Ylm[tim] +=df[tim, 3+ (i-1)*ny_here+ k ] * swal(spin, mv, lv, yv[k])*wv[k]
             end
@@ -164,8 +166,51 @@ function modes_from_source(filename::String,mv::Integer,lv::Integer)
 	    #df[tim, 3+ (i-1)*ny_here + 1]
         end
     end
-    return ny,times,data_Ylm
+    return ny_here,times,data_Ylm
 end
+
+function save_all_modes( times::Vector{Union{Missing, Float64}}, nt::Int64, ny::Int64, mv::Int64, filename::String, f::Matrix{<:Real})
+    nx = 2
+    for tim in 1:nt
+        t = times[tim]
+        open("./$(filename)_$(mv).csv", "a") do out
+	    write(out, "$t, ")
+	end
+	for mode in 1:18
+	    ft = f[tim,mode]
+	    open("./$(filename)_$(mv).csv", "a") do out
+		write(out, "$ft, ")
+	    end
+	end
+	ft = f[tim,19]
+        open("./$(filename)_$(mv).csv", "a") do out
+            write(out, "$ft")
+	    write(out, "\n")
+        end
+    end
+    return nothing
+end
+
+function all_modes_from_source(filename::String,mv::Integer)
+    df = CSV.File("./$(filename)") |> Tables.matrix
+    times = df[:,1]
+    data_Ylm = zeros(Float64, trunc(Int,nt),19)
+    ny_here = trunc(Int, df[1,3])
+    ells = [ 2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20]
+    yv_t,wv_t = FGQ.gausslegendre(25)
+    yv, wv = FGQ.gausslegendre(ny_here)
+    for tim = 1:nt
+        # NOTE i=1 -- null inf, i=2 -- horizon
+        i = 1
+	for ell =1:19
+            for k = 1:ny_here
+                data_Ylm[tim,ell] +=df[tim, 3+ (i-1)*ny_here+ k ] * swal(spin, mv, ells[ell], yv[k])*wv[k]
+            end
+        end
+    end
+    return ny_here,times,data_Ylm
+end
+
 
 function compare_modes(filename1::String,filename2::String,mv::Integer)
     df = CSV.File("./$(filename1)") |> Tables.matrix
@@ -224,15 +269,11 @@ function compare_modes(filename1::String,filename2::String,mv::Integer)
    
 end
 
-function test_mode_projection(lv1::Integer,mv1::Integer,lv2::Integer,mv2::Integer)
-	f_Ylm = zeros(ny)
+function test_mode_projection(ny::Integer,lv1::Integer,mv1::Integer,lv2::Integer,mv2::Integer)
 	result = 0
 	yv, wv = FGQ.gausslegendre(ny)
-        for j = 1:ny
-                for k = 1:ny
-                        f_Ylm[j] +=swal(spin, mv1, lv1, yv[k])* swal(spin, mv2, lv2, yv[k])*wv[k]
-                end
-                result +=f_Ylm[j]/ny
+        for k = 1:ny
+        	result +=swal(spin, mv1, lv1, yv[k])* swal(spin, mv2, lv2, yv[k])*wv[k]
         end
         println(result)
 end
@@ -274,13 +315,11 @@ function test_mode_projection_data(lv::Integer,mv::Integer)
         result = zeros(nx_here)
 
 	for i = 1:nx_here
-		f_Ylm = zeros(ny_here)
-		for j = 1:ny_here
-                	for k = 1:ny_here
-                        	f_Ylm[j] +=fn[i,k] * swal(spin, mv, lv, yv[k])*wv[k]
-                	end
-                	result[i] +=f_Ylm[j]/ny_here
-        	end
+		f_Ylm = 0
+                for k = 1:ny_here
+                       	f_Ylm +=fn[i,k] * swal(spin, mv, lv, yv[k])*wv[k]
+               	end
+               	result[i] = f_Ylm
 	end
 	println(" ")
         println(result)
@@ -345,29 +384,34 @@ function test_mode_convergence()
     lv = 2
     spin = 2
     data_Ylm = zeros(10)
-    points = [12,23,45,89,Int64(22*4+1),Int64(22*5+1),Int64(22*6+1),Int64(22*7+1),Int64(22*8+1),Int64(22*1000+1)]
+    points = [12,24,48,96,Int64(24*4),Int64(24*5),Int64(24*6),Int64(24*7),Int64(24*8),Int64(24*1000)]/3 .+1
     for res = 1:10
 	n_points= points[res]
         data = zeros(Float64, trunc(Int,n_points))
-	yv, wv = FGQ.gausslegendre(n_points)
-        for i= 1:n_points
-	    data[i] = exp(acos(yv[i])) * swal(2, 2, 2, yv[i])
+	yv, wv = FGQ.gausslegendre(Int(n_points))
+        for i= 1:Int(n_points)
+	    data[i] = exp(yv[i])*swal(2, 2, 2, yv[i])
+	    #exp(acos(yv[i])) * swal(2, 2, 2, yv[i])
 	end
-	#println(data[n_points])
-        for k = 1:n_points
+405355	#println(data[n_points])
+        for k = 1:Int(n_points)
             data_Ylm[res] +=data[k] * swal(spin, mv, lv, yv[k])*wv[k]
         end
+	test_mode_projection(Int(n_points),2,2,3,2)
     end
     return data_Ylm
 end
 
 #println(test_mode_convergence())
 
-filenames = ["evol_low_t/lin_f_re_2.csv","evol_low_t/lin_f_im_2.csv","evol_med_t/lin_f_re_2.csv","evol_med_t/lin_f_im_2.csv","evol_high_t/lin_f_re_2.csv","evol_high_t/lin_f_im_2.csv"]
-outputs = ["evol_low_t/2_Harm_re", "evol_low_t/2_Harm_im","evol_med_t/2_Harm_re","evol_med_t/2_Harm_im","evol_high_t/2_Harm_re","evol_high_t/2_Harm_im"]
+#filenames = ["evol_low/lin_f_re_2.csv","evol_low/lin_f_im_2.csv","evol_med/lin_f_re_2.csv","evol_med/lin_f_im_2.csv","evol_high/lin_f_re_2.csv","evol_high/lin_f_im_2.csv"]
+#outputs = ["evol_low/2_Harm_re", "evol_low/2_Harm_im","evol_med/2_Harm_re","evol_med/2_Harm_im","evol_high/2_Harm_re","evol_high/2_Harm_im"]
 
-#filenames = ["evol_high/lin_f_re_2.csv","evol_high/lin_f_im_2.csv"]
-#outputs = ["evol_high_t/2_Harm_re_sp","evol_high_t/2_Harm_im_sp"]
+#filenames = ["evol_physical_low/lin_f_re_2.csv","evol_physical_low/lin_f_im_2.csv","evol_physical_med/lin_f_re_2.csv","evol_physical_med/lin_f_im_2.csv","evol_physical_high/lin_f_re_2.csv","evol_physical_high/lin_f_im_2.csv"]
+#outputs = ["evol_physical_low/2_Harm_re","evol_physical_low/2_Harm_im","evol_physical_med/2_Harm_re","evol_physical_med/2_Harm_im","evol_physical_high/2_Harm_re","evol_physical_high/2_Harm_im"]
+
+filenames = ["a=0.0_proj_reltoextremal/lin_f_re_0.csv","a=0.0_proj_reltoextremal/lin_f_im_0.csv"]
+outputs = ["a=0.0_proj_reltoextremal/2_Harm_re","a=0.0_proj_reltoextremal/2_Harm_im"]
 
 #filenames = ["evol_med/lin_f_re_2.csv","evol_med/lin_f_im_2.csv","evol_high/lin_f_re_2.csv","evol_high/lin_f_im_2.csv","evol_xhigh/lin_f_re_2.csv","evol_xhigh/lin_f_im_2.csv"]
 #outputs = ["evol_med/2_Harm_re","evol_med/2_Harm_im","evol_high/2_Harm_re","evol_high/2_Harm_im","evol_xhigh/2_Harm_re","evol_xhigh/2_Harm_im"]
@@ -378,12 +422,24 @@ outputs = ["evol_low_t/2_Harm_re", "evol_low_t/2_Harm_im","evol_med_t/2_Harm_re"
 #yv, wv = FGQ.gausslegendre(49)
 #println(yv[1])
 
-#nt = 1141
-nt = 200
+#nt = 28724
+#nt = 5611
+#nt = 15000
+nt = 87079
+#nt = 190583
 
-for i =1:6
+for i =1:2
+    #ny_save,times,mode = all_modes_from_source(filenames[i],2)
+    #save_all_modes(times,nt,ny_save,2,outputs[i],mode)
+    #print(filenames[i])
     ny_save,times,mode = modes_from_source(filenames[i],2,2)
     save_mode(times,nt,ny_save,2,2,outputs[i],mode)
+    #ny_save,times,mode = modes_from_source(filenames[i],2,3)
+    #save_mode(times,nt,ny_save,2,3,outputs[i],mode)
+    #ny_save,times,mode = modes_from_source(filenames[i],2,4)
+    #save_mode(times,nt,ny_save,2,4,outputs[i],mode)
+    #ny_save,times,mode = modes_from_source(filenames[i],2,5)
+    #save_mode(times,nt,ny_save,2,5,outputs[i],mode)
 end
 
 #testing_read_in()
@@ -391,10 +447,8 @@ end
 #compare_modes("evol_full_xrange/lin_f_re_2.csv","evol_full_xrange/lin_f_im_2.csv",2)
 
 #test_mode_projection(2,2,3,3)
-#test_mode_projection(3,3,3,2)
-#test_mode_projection(2,2,4,2)
 
-include("src/Id.jl")
+#include("src/Id.jl")
 
 #for i in 1:nt
 #    t = times_local[i]

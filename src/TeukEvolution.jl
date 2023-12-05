@@ -324,6 +324,10 @@ function launch(params::Dict{String,Any})::Nothing
             	Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lin_f[mv])
             	Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lin_p[mv])
 	    end
+	    if mv==0
+                 Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lin_f[mv])
+                 Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lin_p[mv])
+	    end
             if runtype == "reconstruction"
                 Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = res_bianchi3_f[mv])
                 Io.save_csv(t = 0.0, mv = mv, outdir = outdir, f = lam_f[mv])
@@ -338,8 +342,12 @@ function launch(params::Dict{String,Any})::Nothing
     ## Time evolution 
     ##===================
     println("Beginning evolution")
-
-    Io.save_csv(t = 0.0, mv = 2, outdir = outdir, f = lin_f[2])
+    if mv==2
+        Io.save_csv(t = 0.0, mv = 2, outdir = outdir, f = lin_f[2])
+    end
+    if mv==0	
+	Io.save_csv(t = 0.0, mv = 0, outdir = outdir, f = lin_f[0])
+    end
     for tc = 1:nt
 	step1_evo_psi4 = Initialize_Evo_lin_f(
         	Rvals = Rv,

@@ -154,7 +154,9 @@ function set_qnm!(
     physical = 3
     if physical == 3
 	#aval = 0.0
-	Mval = 1.0
+	#Mval = (1.0-0.00670992)
+	#Mval = 1.0-3*0.00711759
+    	Mval = 1.0
     end
     if physical == 2
 	#aval = 0.0452044/(1+0.0089245 ) 
@@ -203,6 +205,9 @@ function set_qnm!(
         Reinterp = fit(Rv[(nx-index-5):(nx-index)], Reyvals[(nx-index-5):(nx-index)], 4) 
         Iminterp = fit(Rv[(nx-index-5):(nx-index)], Imyvals[(nx-index-5):(nx-index)], 4)
     end
+    
+    step_R = 0.35
+    #0.496689
     # only set the field if an evolution m matches the m mode in initial data
     if mv==idm
         for j = 1:ny
@@ -214,6 +219,12 @@ function set_qnm!(
 		#if Rv[i] > ID_bh_R
                 #    f.n[i, j] = Reinterp(Rv[i])+ im*Iminterp(Rv[i])
                 #end
+		if Rv[i] <= step_R
+                    f.n[i, j] = 0.0
+                end
+                if Rv[i] > step_R
+                    f.n[i, j] = (Rv[i]-step_R)^3 *(maximum(Rv)-Rv[i])
+                end
 		f.n[i, j] *= sum([
                     (-1)^l * lpoly[l+1] * swal(spin, mv, l + lmin, Yv[j]) for l = 0:(length(lpoly)-1)
 		    # CHANGED FOR -1^l FACTOR
@@ -228,7 +239,8 @@ function set_qnm!(
 	
         for j = 1:ny
             for i = 1:nx
-                #f.n[i, j] *= amp / max_val
+		# DISABLE FOR CONVERGENCE
+                f.n[i, j] *= amp / max_val
                 f.np1[i, j] = f.n[i, j]
             end
         end
@@ -285,28 +297,68 @@ end
 
 function BHm(t::Float64)
     # remnant 0.7
-    total_change = 0.00670992
-    dM_val = 0.5
+    #total_change = 0.00670992
+    # remnant 0.6
+    #total_change = 0.00785871
+    # remnant 0.5
+    #total_change = 0.00767942
+    # remnant 0.4
+    #total_change = 0.00751678
+    # remnant 0.0
+    #total_change = 0.00695778
+    # remnant 0.8
+    #total_change = 0.00850202
+    # remnant 0.9
+    #total_change = 0.00957486
+    # spher
+    total_change = 0.00711759
+    dM_val = 3.0
     BHmi = 1.0 - dM_val*total_change
-    return BHmi + dM_val*total_change * physical_change(t)
+    #return BHmi+ dM_val*total_change * physical_change(t)
+    return 1.0
 end
 
 function BHs(t::Float64)
-    # a =0.7
-    #total_change = 0.08848482252508819
     # remnant 0.7
-    total_change = 0.029327
-    dM_val = 0.5
-    BHsi = 0.7 - dM_val*total_change
-    #/(ID bhm)+0.0*total_change
-    return BHsi + dM_val* total_change* physical_change(t)
+    #total_change = 0.029327
+    # remnant 0.6
+    #total_change = 0.03564
+    # remnant 0.5
+    #total_change = 0.0358423
+    # remnant 0.4
+    #total_change = 0.0359026
+    # remnant 0.0
+    #total_change = 0.0352425
+    # remnant 0.8
+    #total_change = 0.0353425
+    # remnant 0.9
+    #total_change = 0.0368668
+    # spher
+    total_change = 0.0
+    dM_val = 1.0
+    BHsi = 0.0 - dM_val*total_change
+    #/(ID bhm -- here using final bh (M=1)  qnm)+0.0*total_change
+    #return BHsi + dM_val* total_change* physical_change(t)
+    return 0.7
 end
 
 
 function physical_change(x::Float64)
     # Exponent == 2 x imaginary freq.
-    # remnant 0.7 qnm
-    wi = 0.1615859254814962
+    # remnant a=0.7 qnm
+    #wi = 0.1615859254814962
+    # remnant a=0.6
+    #wi = 2*0.08376520216104322
+    # remnant a=0.5
+    #wi = 2*0.08563883498806525
+    # remnant a=0.4
+    #wi = 2*0.08688196202939805
+    # remnant a=0.0
+    wi = 2*0.08896231568893546
+    # remnant a=0.8
+    #wi = 2*0.07562955235606075
+    # remnant a=0.9
+    #wi = 2*0.06486923587579635
     return (1-exp(-wi*x))
 end
 
