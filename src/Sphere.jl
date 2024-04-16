@@ -108,8 +108,8 @@ function swal(spin::Integer, m_ang::Integer, l_ang::Integer, y::Real)::Real
     end
 
     norm = sqrt(
-        (2 * n + al + be + 1) * (2^(-al - be - 1.0)) * factorial(n + al + be) /
-        factorial(n + al) * factorial(n) / factorial(n + be),
+        (2 * n + al + be + 1) * (2^(-al - be - 1.0)) * factorial(big(n + al + be)) /
+        factorial(big(n + al)) * factorial(big(n)) / factorial(big(n + be)),
     )
     norm *= (-1)^(max(m_ang, -spin))
 
