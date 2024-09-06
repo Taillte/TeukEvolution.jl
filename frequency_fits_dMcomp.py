@@ -10,25 +10,25 @@ from scipy.integrate import simpson as simps
 #BHm = np.loadtxt("test.csv",delimiter=",", dtype=float)[:,1]
 #BHs = np.loadtxt("test.csv",delimiter=",", dtype=float)[:,2]
 
-#file1 = np.loadtxt("a=0.7_evol_reltoextremal/filtered_tinit0/allmodes_filtered_data.csv",delimiter=",", dtype=float)
+#file1 = np.loadtxt("a=0.4_3evol_30/filtered_data_LR/except220_filtered_data.csv",delimiter=",", dtype=float)
 #times_LR = file1[:,0]
 #Ref_LR = file1[:,1]
 #Imf_LR = file1[:,2]
 
-file1 = np.loadtxt("a=0.7_evol_reltoextremal/filtered_data/except3overtones_filtered_data.csv",delimiter=",", dtype=float)
+#file1 = np.loadtxt("spher_3evolinit_30/filtered_changing_freq_model/except3overtones_filtered_data.csv",delimiter=",", dtype=float)
+#times_LR = file1[:,0]
+#Ref_LR = file1[:,1]
+#Imf_LR = file1[:,2]
+
+file1 = np.loadtxt("a=0.7_evol_reltoextremal/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
 times_LR = file1[:,0]
 Ref_LR = file1[:,1]
-Imf_LR = file1[:,2]
+Imf_LR = np.loadtxt("a=0.7_evol_reltoextremal/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-#file1 = np.loadtxt("spher_3evolinit_30/2_Harm_re_0_2.csv",delimiter=",", dtype=float)
+#file1 = np.loadtxt("a=0.7_proj_LRresstudy/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
 #times_LR = file1[:,0]
 #Ref_LR = file1[:,1]
-#Imf_LR = np.loadtxt("spher_3evolinit_30/2_Harm_im_0_2.csv",delimiter=",", dtype=float)[:,1]
-
-#file1 = np.loadtxt("a=0.8_3evol_30/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
-#times_LR = file1[:,0]
-#Ref_LR = file1[:,1]
-#Imf_LR = np.loadtxt("a=0.8_3evol_30/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+#Imf_LR = np.loadtxt("a=0.7_proj_LRresstudy/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
 #file1 = np.loadtxt("a=0.7_evolinit_reltoextremal/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
 #times_evoinit = file1[:,0]
@@ -40,10 +40,21 @@ Imf_LR = file1[:,2]
 #Ref_proj = file1[:,1]
 #Imf_proj = np.loadtxt("a=0.7_proj_reltoextremal/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-file1 = np.loadtxt("a=0.7_proj_MRresstudy/2_Harm_re_2_2.csv",delimiter=",", dtype=float)
-times_MR = file1[:,0]
-Ref_MR = file1[:,1]
-Imf_MR = np.loadtxt("a=0.7_proj_MRresstudy/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+#file1 = np.loadtxt("a=0.4_3evol_30_MR/filtered_data_LR/except220_filtered_data.csv",delimiter=",", dtype=float)
+#times_MR = file1[:,0]
+#Ref_MR = file1[:,1]
+#Imf_MR = file1[:,2]
+#print(np.mean(np.abs(Ref_LR)),np.mean(np.abs(Ref_MR)))
+
+#file1 = np.loadtxt("a=0.4_3evol_30_HR/filtered_data_LR/except220_filtered_data.csv",delimiter=",", dtype=float)
+#times_HR = file1[:,0]
+#Ref_HR = file1[:,1]
+#Imf_HR = file1[:,2]
+
+#file1 = np.loadtxt("a=0.4_3evol_30_MR/2_Harm_re_LR_2_2.csv",delimiter=",", dtype=float)
+#times_MR = file1[:,0]
+#Ref_MR = file1[:,1]
+#Imf_MR = np.loadtxt("a=0.4_3evol_30_MR/2_Harm_im_LR_2_2.csv",delimiter=",", dtype=float)[:,1]
 
 times_2 = np.loadtxt("a=0.7_2evol_reltoextremal/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
 Ref_2 = np.loadtxt("a=0.7_2evol_reltoextremal/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
@@ -53,9 +64,9 @@ times_3 = np.loadtxt("a=0.7_3evol_reltoextremal/2_Harm_re_2_2.csv",delimiter=","
 Ref_3 = np.loadtxt("a=0.7_3evol_reltoextremal/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
 Imf_3 = np.loadtxt("a=0.7_3evol_reltoextremal/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
 
-times_HR = np.loadtxt("a=0.7_proj_HRresstudy/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
-Ref_HR = np.loadtxt("a=0.7_proj_HRresstudy/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
-Imf_HR = np.loadtxt("a=0.7_proj_HRresstudy/2_Harm_im_2_2.csv",delimiter=",", dtype=float)[:,1]
+#times_HR = np.loadtxt("a=0.4_3evol_30_HR/2_Harm_re_LR_2_2.csv",delimiter=",", dtype=float)[:,0]
+#Ref_HR = np.loadtxt("a=0.4_3evol_30_HR/2_Harm_re_LR_2_2.csv",delimiter=",", dtype=float)[:,1]
+#Imf_HR = np.loadtxt("a=0.4_3evol_30_HR/2_Harm_im_LR_2_2.csv",delimiter=",", dtype=float)[:,1]
 
 #times_XLR = np.loadtxt("a=0.7_lrevol_reltoextremal/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,0]
 #Ref_XLR = np.loadtxt("a=0.7_lrevol_reltoextremal/2_Harm_re_2_2.csv",delimiter=",", dtype=float)[:,1]
@@ -78,7 +89,7 @@ Imf_fix = np.loadtxt("a=0.7_fixed_reltoextremal/2_Harm_im_2_2.csv",delimiter=","
 #Imf_34 = np.loadtxt("mode_comparison/2_Harm_im_3_4.csv",delimiter=",", dtype=float)[:,1]
 
 
-print(Ref_LR.shape)
+#print(Ref_LR.shape)
 #print(Ref_MR.shape)
 #print(Ref_HR.shape)
 
@@ -448,8 +459,8 @@ def _freqs(spin):
     #wi = np.array([wi220,wi221,wr222,wi223,wi224])
     wr = np.array([wr220,wr_220,wr221,wr222,wr230,wr223,wr224])
     wi = np.array([wi220,wi_220,wi221,wi222,wi230,wi223,wi224])
-    #wr = np.array([wr230])
-    #wi = np.array([wi230])
+    #wr = np.array([wr221])
+    #wi = np.array([wi221])
     return wr,wi
 
 
@@ -511,13 +522,15 @@ def find_omegaI(dataR,dataI,times):
 
 def self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3,times1=np.array([0]),times2=np.array([0])):
     from scipy import stats
-    nt = int(dataR1.size*(5/6))
+    nt = dataR3.size
+    print(times_LR[1000],times_MR[1000],times_HR[1000])
+    #int(dataR3.size/4)-3
     if times1.size!=1:
         from scipy.interpolate import CubicSpline
         spl = CubicSpline(times2, dataR2)
-        dataR2 = spl(times1)
+        #dataR2 = spl(times1)
         spl = CubicSpline(times2, dataI2)
-        dataI2 = spl(times1)
+        #dataI2 = spl(times1)
     #nt =1
     if dataR1.size != dataR2.size or dataR1.size != dataR3.size:
         print('Error: times not aligned')
@@ -538,166 +551,171 @@ def self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3,times1=np.array([
     diffA23 = np.zeros(nt)
     err = np.zeros(nt)
     for i in range(nt):
-        diffA12[i] = (np.sqrt(dataR1[i]**2+dataI1[i]**2)-np.sqrt(dataR2[2*i+1]**2+dataI2[2*i+1]**2))
-        diffA23[i] = -(np.sqrt(dataR3[4*i+3]**2+dataI3[4*i+3]**2)-np.sqrt(dataR2[2*i+1]**2+dataI2[2*i+1]**2))
-        #diffA12[i] = np.abs(np.sqrt(dataR1[i]**2+dataI1[i]**2)-np.sqrt(dataR2[i]**2+dataI2[i]**2))
-        #diffA23[i] = np.abs(np.sqrt(dataR3[i]**2+dataI3[i]**2)-np.sqrt(dataR2[i]**2+dataI2[i]**2))
-        Amp1[i] = np.sqrt(dataR1[i]**2+dataI1[i]**2)
-        Amp2[i] = np.sqrt(dataR2[2*i+1]**2+dataI2[2*i+1]**2)
-        Amp3[i] = np.sqrt(dataR3[4*i+3]**2+dataI3[4*i+3]**2)
-        phase1[i] = cmath.phase(dataR1[i]+1j*dataI1[i])
-        phase2[i] = cmath.phase(dataR2[2*i+1]+1j*dataI2[2*i+1])
-        phase3[i] = cmath.phase(dataR3[4*i+3]+1j*dataI3[4*i+3])
-        diffR12[i] = (dataR1[i]-dataR2[2*i+1])
-        diffR23[i] = (dataR2[2*i+1]-dataR3[4*i+3])
-        diffI12[i] = (dataI1[i]-dataI2[2*i+1])
-        diffI23[i] = (dataI3[4*i+3]-dataI2[2*i+1])
+        #diffA12[i] = (np.sqrt(dataR1[i]**2+dataI1[i]**2)-np.sqrt(dataR2[2*i+1]**2+dataI2[2*i+1]**2))
+        #diffA23[i] = -(np.sqrt(dataR3[4*i+3]**2+dataI3[4*i+3]**2)+np.sqrt(dataR2[2*i+1]**2+dataI2[2*i+1]**2))
+        diffA12[i] = (np.sqrt(dataR1[i]**2+dataI1[i]**2)-np.sqrt(dataR2[i]**2+dataI2[i]**2))
+        diffA23[i] = (-np.sqrt(dataR3[i]**2+dataI3[i]**2)+np.sqrt(dataR2[i]**2+dataI2[i]**2))
+        #diffA23[i] = (-np.sqrt(dataR3[i]**2+dataI3[i]**2)+np.sqrt(dataR1[i]**2+dataI1[i]**2))
+        #Amp1[i] = np.sqrt(dataR1[i]**2+dataI1[i]**2)
+        #Amp2[i] = np.sqrt(dataR2[2*i+1]**2+dataI2[2*i+1]**2)
+        #Amp3[i] = np.sqrt(dataR3[4*i+3]**2+dataI3[4*i+3]**2)
+        #phase1[i] = cmath.phase(dataR1[i]+1j*dataI1[i])
+        #phase2[i] = cmath.phase(dataR2[2*i+1]+1j*dataI2[2*i+1])
+        #phase3[i] = cmath.phase(dataR3[4*i+3]+1j*dataI3[4*i+3])
+        diffR12[i] = (dataR1[i]-dataR2[i])
+        diffR23[i] = (dataR2[i]-dataR3[i])
+        #diffR12[i] = (dataR1[i]-dataR2[2*i+1])
+        #diffR23[i] = (dataR2[2*i+1]-dataR3[4*i+3])
+        #diffI12[i] = (dataI1[i]-dataI2[2*i+1])
+        #diffI23[i] = (dataI3[4*i+3]-dataI2[2*i+1])
         err[i] = np.abs(np.sqrt(dataR2[i]**2+dataI2[i]**2)-np.sqrt(dataR1[i]**2+dataI1[i]**2))/np.sqrt(dataR2[i]**2+dataI2[i]**2)
-        #np.abs((dataR1[i+1]-dataR2[i+1])**2+(dataI1[i+1]-dataI2[i+1])**2)**0.5 / np.sqrt(dataR2[i+1]**2+dataI2[i+1]**2)
-    #convA = np.log(np.abs((Amp1-Amp2)/(Amp2-Amp3)))/np.log(2)
-    #convA = np.log(diffA12 /diffA23)/np.log(2)
-    #convR = np.log(diffR12 /diffR23)/np.log(2)
-    #convI = np.log(diffI12 /diffI23)/np.log(2)
-    #err = (1.0/120.0)**4* err /((1.0/120.0)**4-(1.0/(120.0*2))**4)
-    #err =  err /(2.0**4)
-    
-    #spl = CubicSpline(times1[int(4*times1.size/5)+1:], err[int(4*times1.size/5):])
-    #extrap_err = spl(np.linspace(times1[int(3*times1.size/4)],400))
-    #spl = stats.linregress(times1[int(4*times1.size/5)+1:], np.log10(err[int(4*times1.size/5):]))
-    #extrap_err = np.interp(np.linspace(times1[int(3*times1.size/4)],400),times1[int(3*times1.size/4)+1:],np.log10(err[int(3*times1.size/4):]))
-    #wi220 = -0.07582831597057399
-    #wi221 = -0.22887254833789544
-    # Two factors -- one for relative amplitude, the other for winding back to t=0
-    #overtone_prop = np.exp((wi221-wi220)*times_LR[1:nt])*np.exp(wi221*times_LR[1:nt])
-    #print('self convergence = ',np.mean(convA[:])," ",np.mean(convA[:]))
+            #np.abs((dataR1[i+1]-dataR2[i+1])**2+(dataI1[i+1]-dataI2[i+1])**2)**0.5 / np.sqrt(dataR2[i+1]**2+dataI2[i+1]**2)
+        #convA = np.log(np.abs((Amp1-Amp2)/(Amp2-Amp3)))/np.log(2)
+        #convA = np.log(diffA12 /diffA23)/np.log(2)
+        #convR = np.log(diffR12 /diffR23)/np.log(2)
+        #convI = np.log(diffI12 /diffI23)/np.log(2)
+        #err = (1.0/120.0)**4* err /((1.0/120.0)**4-(1.0/(120.0*2))**4)
+        #err =  err /(2.0**4)
+        
+        #spl = CubicSpline(times1[int(4*times1.size/5)+1:], err[int(4*times1.size/5):])
+        #extrap_err = spl(np.linspace(times1[int(3*times1.size/4)],400))
+        #spl = stats.linregress(times1[int(4*times1.size/5)+1:], np.log10(err[int(4*times1.size/5):]))
+        #extrap_err = np.interp(np.linspace(times1[int(3*times1.size/4)],400),times1[int(3*times1.size/4)+1:],np.log10(err[int(3*times1.size/4):]))
+        #wi220 = -0.07582831597057399
+        #wi221 = -0.22887254833789544
+        # Two factors -- one for relative amplitude, the other for winding back to t=0
+        #overtone_prop = np.exp((wi221-wi220)*times_LR[1:nt])*np.exp(wi221*times_LR[1:nt])
+        #print('self convergence = ',np.mean(convA[:])," ",np.mean(convA[:]))
     from matplotlib.backends.backend_pdf import PdfPages
     pp = PdfPages('./plots/convergence.pdf')
     plt.figure()
-    #plt.plot(times_LR[:],convR,label='R')
-    #plt.plot(times_LR[:],convI,label='I')
-    #plt.plot(times_LR[:nt],convA,label='A')
-    #plt.plot(times_LR[:nt],np.ones_like(times_LR[:nt])*4,'--')
-    plt.plot(times_LR[:nt],diffA12*(16/15)/Amp1,label='$\Delta A(t)/A(t)$')
-    #plt.plot(times_LR[:nt],((-2**4+4**4)/(2**4-1))*diffA23[:],label='16*(A_{MR}-A_{HR})')
-    #plt.plot(times_LR[:nt],diffA12[:],label='(A_{LR}-A_{MR})')
-    #plt.plot(times_LR[:nt],((-2**4+4**4)/(2**4-1))*diffR23,label='$16*Re(\psi_4^{MR}-\psi_4^{HR})$')
-    #plt.plot(phase1-phase2,label='LR-MR')
-    #plt.plot(np.ones_like(convA)*4)
-    #plt.plot((phase2-phase3)*((1-0.5**4)/(0.5**4-0.25**4)),label='fac*(MR-HR)')
-    #plt.plot(times_LR,np.log(Amp2)+times_LR*0.08079287315500867,label='MR')
-    #plt.plot(times_LR,np.log(Amp3)+times_LR*0.08079287315500867,label='HR')
-    #plt.plot(times_LR,np.log(Amp1)+times_LR*0.08079287315500867,label='LR')
-    #plt.plot(times_MR[1:nt],convI,'.',label='im')
-    #plt.plot(times_LR[1:nt],np.log10(err),'b',label='Richardson extrapolated')
-    #plt.plot(np.linspace(times1[int(3*times1.size/4)],400),np.log10(extrap_err),'-.',label='Error extrapolated')
-    #plt.plot(np.linspace(times1[int(3*times1.size/4)],400),spl.intercept+spl.slope*np.linspace(times1[int(3*times1.size/4)],400),'r',linestyle='dotted', linewidth=1.0,label='Error extrapolated')
-    #plt.plot(np.ones((50))*(-2-spl.intercept)/spl.slope,np.linspace(-13,-1),'k--',linewidth=0.5)
-    #plt.plot(np.linspace(0,400),np.ones((50))*-2,'k--',linewidth=0.5)
-    #plt.plot(np.linspace(0,60),np.ones((50))*-2,'k--',linewidth=0.5)
-    #plt.plot(times_LR[:int(nt/3)],np.log10(err/overtone_prop)[:int(nt/3)],'--',linewidth=0.5,label=r"221 $A(t_0)$ relative error")
-    #plt.ylim(-10**0,10**0)
+        #plt.plot(times_LR[:],convR,label='R')
+        #plt.plot(times_LR[:],convI,label='I')
+        #plt.plot(times_LR[:nt],convA,label='A')
+        #plt.plot(times_LR[:nt],np.ones_like(times_LR[:nt])*4,'--')
+    #plt.plot(times_LR[:nt],diffA12*(16/15)/Amp1,label='$\Delta A(t)/A(t)$')
+        #plt.plot(times_LR[:nt],((-2**4+4**4)/(2**4-1))*diffA23[:],label='16*(A_{MR}-A_{HR})')
+        #plt.plot(times_LR[:nt],diffA12[:],label='(A_{LR}-A_{MR})')
+    plt.plot(times_LR[index_cutofft(times_LR,6):index_cutofft(times_LR,100)],diffR12,label='$\Delta = Re(\Psi_4^{LR}-\Psi_4^{MR})$')
+    plt.plot(times_LR[index_cutofft(times_LR,6):index_cutofft(times_LR,100)],16*diffR23,'--',label='$\Delta = 16\\times Re(\Psi_4^{MR}-\Psi_4^{HR})$')
+        #plt.plot(phase1-phase2,label='LR-MR')
+        #plt.plot(np.ones_like(convA)*4)
+        #plt.plot((phase2-phase3)*((1-0.5**4)/(0.5**4-0.25**4)),label='fac*(MR-HR)')
+        #plt.plot(times_LR,np.log(Amp2)+times_LR*0.08079287315500867,label='MR')
+        #plt.plot(times_LR,np.log(Amp3)+times_LR*0.08079287315500867,label='HR')
+        #plt.plot(times_LR,np.log(Amp1)+times_LR*0.08079287315500867,label='LR')
+        #plt.plot(times_MR[1:nt],convI,'.',label='im')
+        #plt.plot(times_LR[1:nt],np.log10(err),'b',label='Richardson extrapolated')
+        #plt.plot(np.linspace(times1[int(3*times1.size/4)],400),np.log10(extrap_err),'-.',label='Error extrapolated')
+        #plt.plot(np.linspace(times1[int(3*times1.size/4)],400),spl.intercept+spl.slope*np.linspace(times1[int(3*times1.size/4)],400),'r',linestyle='dotted', linewidth=1.0,label='Error extrapolated')
+        #plt.plot(np.ones((50))*(-2-spl.intercept)/spl.slope,np.linspace(-13,-1),'k--',linewidth=0.5)
+        #plt.plot(np.linspace(0,400),np.ones((50))*-2,'k--',linewidth=0.5)
+        #plt.plot(np.linspace(0,60),np.ones((50))*-2,'k--',linewidth=0.5)
+        #plt.plot(times_LR[:int(nt/3)],np.log10(err/overtone_prop)[:int(nt/3)],'--',linewidth=0.5,label=r"221 $A(t_0)$ relative error")
+    #plt.ylim(-10**-8,10**-8)
+    plt.xlim(0,100)
     plt.legend(loc="best")
     plt.tight_layout()
-    #plt.ylabel('$\log(A)-\omega_i^{220}t$')
-    #plt.ylabel('$\log_{10}(A_1)/\log_{10}(A_2)$ Amplitude relative error')
-    plt.ylabel('Relative Error')
-    plt.xlabel('t/M')
+        #plt.ylabel('$\log(A)-\omega_i^{220}t$')
+        #plt.ylabel('$\log_{10}(A_1)/\log_{10}(A_2)$ Amplitude relative error')
+    plt.ylabel('$\left[\Delta(t)\\right]/Re(\Psi_4(0))$')
+    plt.xlabel('$t/M$')
     pp.savefig()
     pp.close()
-    #np.savetxt('Amp_error.txt',err)
-    #print('percent level accuracy at t=',(-2-spl.intercept)/spl.slope,'M')
-    #return err/overtone_prop
-    #return err
+        #np.savetxt('Amp_error.txt',err)
+        #print('percent level accuracy at t=',(-2-spl.intercept)/spl.slope,'M')
+        #return err/overtone_prop
+        #return err
 
-def ddata_dt(data, times): 
-    dt = times[1]-times[0]
-    inv_dt = 1 / dt
-    print('1/dt = ',inv_dt)
-    nt = times.size
-    ddata = np.zeros_like(data)
-    for k in range(nt-4):
-        i = k+2
-        ddata[i] =(
-                -(1 / 12.0) * data[i+2] + (2 / 3.0) * data[i+1] -
-                (2 / 3.0) * data[i-1] + (1 / 12.0) * data[i-2]
-            ) * inv_dt
-        #print(ddata[i])
-    
-    ddata[0] =(
-            -3 * data[4] + 16 * data[3] - 36 * data[2] + 48 * data[1] -
-            25 * data[0]) *(1 / 12.0) *inv_dt
-    ddata[1] =(
-            +1 * data[4] - 6 * data[3] + 18 * data[2] - 10 * data[1] -
-            3 * data[0]) *(1 / 12.0) *inv_dt
-    ddata[nt-1] =-(
-            -3 * data[nt-5] + 16 * data[nt-4] - 36 * data[nt-3] +
-            48 * data[nt-2] - 25 * data[nt-1]) *(1 / 12.0) *inv_dt
-    ddata[nt-2] =-(
-            +1 * data[nt-5] - 6 * data[nt-4] + 18 * data[nt-3] -
-            10 * data[nt-2] - 3 * data[nt-1]) *(1 / 12.0) *inv_dt
-    print(ddata)
-    return ddata
+    def ddata_dt(data, times): 
+        dt = times[1]-times[0]
+        inv_dt = 1 / dt
+        print('1/dt = ',inv_dt)
+        nt = times.size
+        ddata = np.zeros_like(data)
+        for k in range(nt-4):
+            i = k+2
+            ddata[i] =(
+                    -(1 / 12.0) * data[i+2] + (2 / 3.0) * data[i+1] -
+                    (2 / 3.0) * data[i-1] + (1 / 12.0) * data[i-2]
+                ) * inv_dt
+            #print(ddata[i])
+        
+        ddata[0] =(
+                -3 * data[4] + 16 * data[3] - 36 * data[2] + 48 * data[1] -
+                25 * data[0]) *(1 / 12.0) *inv_dt
+        ddata[1] =(
+                +1 * data[4] - 6 * data[3] + 18 * data[2] - 10 * data[1] -
+                3 * data[0]) *(1 / 12.0) *inv_dt
+        ddata[nt-1] =-(
+                -3 * data[nt-5] + 16 * data[nt-4] - 36 * data[nt-3] +
+                48 * data[nt-2] - 25 * data[nt-1]) *(1 / 12.0) *inv_dt
+        ddata[nt-2] =-(
+                +1 * data[nt-5] - 6 * data[nt-4] + 18 * data[nt-3] -
+                10 * data[nt-2] - 3 * data[nt-1]) *(1 / 12.0) *inv_dt
+        print(ddata)
+        return ddata
 
 
-def frequency_evolution(time,dataR,dataI):
-    npoint = time.size
-    #wr = []
-    #wi_list = []
-    #time_list = []
-    #for i in range(npoint-500):
-    #    phases = omega_from_f(dataR[i:i+500],dataI[i:i+500],time[i:i+500])
-    #    data,slope = find_period(phases,time[i:i+500])
-    #    amp,wi = find_omegaI(dataR[i:i+500],dataI[i:i+500],time[i:i+500])
-    #    wr.append(slope)
-    #    wi_list.append(wi)
-    #    time_list.append(time[i+250])
+    def frequency_evolution(time,dataR,dataI):
+        npoint = time.size
+        #wr = []
+        #wi_list = []
+        #time_list = []
+        #for i in range(npoint-500):
+        #    phases = omega_from_f(dataR[i:i+500],dataI[i:i+500],time[i:i+500])
+        #    data,slope = find_period(phases,time[i:i+500])
+        #    amp,wi = find_omegaI(dataR[i:i+500],dataI[i:i+500],time[i:i+500])
+        #    wr.append(slope)
+        #    wi_list.append(wi)
+        #    time_list.append(time[i+250])
 
-    phases = omega_from_f(dataR,dataI,time)
-    data,slope = find_period(phases,time)
-    amp,wi = find_omegaI(dataR,dataI,time)
+        phases = omega_from_f(dataR,dataI,time)
+        data,slope = find_period(phases,time)
+        amp,wi = find_omegaI(dataR,dataI,time)
 
-    wr = ddata_dt(phases, time)
-    wi_list = ddata_dt(np.log(amp),time)
+        wr = ddata_dt(phases, time)
+        wi_list = ddata_dt(np.log(amp),time)
 
-    print('wr = ',wr)
-    pp = PdfPages('./plots/freq_evol.pdf')
-    plt.figure()
-    #plt.plot(times,convR,label='R')
-    #plt.plot(times,convI,label='I')
-    plt.plot(time,-wr,label='wr')
-    #plt.plot(time,-wi_list,label='wi')
-    #plt.plot(time,0.5325999583183444*np.ones(npoint),'--',label='final wr')
-    #plt.plot(time,0.07584132636225223*np.ones(npoint),'--',label='final wi')
-    #plt.plot(time,0.08079287315500867*np.ones(npoint),'--',label='initial wi')
-    #plt.plot(times,dataR3,label='HR')
-    plt.legend()
-    #plt.ylim(0.3,0.45)
-    #plt.ylim(0.05,0.12)
-    #plt.xlim(0,80)
-    plt.ylabel('freq')
-    plt.xlabel('t')
-    pp.savefig()
-    pp.close()
-    print('finished tracking frequency')
+        print('wr = ',wr)
+        pp = PdfPages('./plots/freq_evol.pdf')
+        plt.figure()
+        #plt.plot(times,convR,label='R')
+        #plt.plot(times,convI,label='I')
+        plt.plot(time,-wr,label='wr')
+        #plt.plot(time,-wi_list,label='wi')
+        #plt.plot(time,0.5325999583183444*np.ones(npoint),'--',label='final wr')
+        #plt.plot(time,0.07584132636225223*np.ones(npoint),'--',label='final wi')
+        #plt.plot(time,0.08079287315500867*np.ones(npoint),'--',label='initial wi')
+        #plt.plot(times,dataR3,label='HR')
+        plt.legend()
+        #plt.ylim(0.3,0.45)
+        #plt.ylim(0.05,0.12)
+        #plt.xlim(0,80)
+        plt.ylabel('freq')
+        plt.xlabel('t')
+        pp.savefig()
+        pp.close()
+        print('finished tracking frequency')
 
-def convergence_with_interp():
-    yv_LR = [-0.9955569697904981, -0.9766639214595175, -0.9429745712289743, -0.8949919978782754, -0.833442628760834, -0.7592592630373576, -0.6735663684734683, -0.577662930241223, -0.473002731445715, -0.3611723058093878, -0.24386688372098844, -0.1228646926107104, 0.0, 0.1228646926107104, 0.24386688372098844, 0.3611723058093878, 0.473002731445715, 0.577662930241223, 0.6735663684734683, 0.7592592630373576, 0.833442628760834, 0.8949919978782754, 0.9429745712289743, 0.9766639214595175, 0.9955569697904981]
-    angular_slice_LR = [2.9620109539167647e-8, 8.153787342387705e-7, 4.850020986092783e-6, 1.635026536260084e-5, 4.0810699624049724e-5, 8.439351146466565e-5, 0.00015319752725534175, 0.00025246680020984567, 0.0003858155000032404, 0.0005545577385330061, 0.0007572341950667718, 0.000989418459333886, 0.001243862754461075, 0.0015110051367828918, 0.0017798111399828195, 0.0020388679426781363, 0.0022775972008362536, 0.002487414403501295, 0.0026626488341369905, 0.002801057254733289, 0.0029038190124653774, 0.0029749851681427557, 0.003020455598693936, 0.0030466553183033105, 0.0030591538930230906]
-    yv_MR = [-0.998866404420071, -0.9940319694320907, -0.9853540840480058, -0.972864385106692, -0.9566109552428079, -0.936656618944878, -0.9130785566557919, -0.8859679795236131, -0.8554297694299461, -0.821582070859336, -0.7845558329003993, -0.7444943022260685, -0.7015524687068222, -0.6558964656854394, -0.6077029271849502, -0.5571583045146501, -0.5044581449074642, -0.44980633497403877, -0.39341431189756515, -0.33550024541943735, -0.276288193779532, -0.21600723687604176, -0.1548905899981459, -0.09317470156008614, -0.031098338327188873, 0.031098338327188873, 0.09317470156008614, 0.1548905899981459, 0.21600723687604176, 0.276288193779532, 0.33550024541943735, 0.39341431189756515, 0.44980633497403877, 0.5044581449074642, 0.5571583045146501, 0.6077029271849502, 0.6558964656854394, 0.7015524687068222, 0.7444943022260685, 0.7845558329003993, 0.821582070859336, 0.8554297694299461, 0.8859679795236131, 0.9130785566557919, 0.936656618944878, 0.9566109552428079, 0.972864385106692, 0.9853540840480058, 0.9940319694320907, 0.998866404420071]
-    angular_slice_MR = [1.7923128927178684e-9, 4.9650636282329424e-8, 2.987247215169929e-7, 1.0239978545683006e-6, 2.613138190823197e-6, 5.556241088214156e-6, 1.0432643276571963e-5, 1.78950022535039e-5, 2.8650894294687452e-5, 4.344224930014449e-5, 6.302300986414049e-5, 8.813547340967848e-5, 0.00011948584691588386, 0.0001577196101397145, 0.00020339734132601643, 0.00025697170483493, 0.0003187663286050806, 0.0003889573069414963, 0.00046755804713102296, 0.0005544081339532743, 0.000649166812358728, 0.0007513115844924008, 0.0008601422832038644, 0.0009747908220375459, 0.0010942366347230059, 0.0012173276103022656, 0.001342806109869487, 0.0014693394256119416, 0.0015955538220534563, 0.001720071093982039, 0.00184154639708457, 0.0019587059676549395, 0.002070383258333135, 0.0021755519878296626, 0.002273354642077942, 0.002363125077400708, 0.002444404064438304, 0.0025169468717899397, 0.0025807223128549214, 0.0026359030556078744, 0.002682847405889932, 0.002722073199357977, 0.002754224851802948, 0.002780034997182501, 0.0028002824629568294, 0.0028157485709444565, 0.0028271738913143094, 0.0028352176089577723, 0.00284042161323752, 0.0028431818558712126]
-    yv_HR = [-0.9997137267734413, -0.9984919506395958, -0.9962951347331251, -0.9931249370374434, -0.9889843952429918, -0.983877540706057, -0.9778093584869183, -0.9707857757637063, -0.9628136542558156, -0.9539007829254917, -0.944055870136256, -0.9332885350430795, -0.921609298145334, -0.9090295709825297, -0.895561644970727, -0.8812186793850184, -0.8660146884971647, -0.8499645278795913, -0.8330838798884008, -0.8153892383391763, -0.7968978923903145, -0.7776279096494956, -0.7575981185197073, -0.7368280898020207, -0.7153381175730565, -0.693149199355802, -0.6702830156031411, -0.6467619085141293, -0.6226088602037078, -0.5978474702471789, -0.5725019326213813, -0.5465970120650943, -0.5201580198817632, -0.493210789208191, -0.4657816497733582, -0.43789740217203155, -0.40958529167830166, -0.38087298162462996, -0.3517885263724217, -0.32236034390052926, -0.292617188038472, -0.26258812037150336, -0.23230248184497404, -0.20178986409573646, -0.1710800805386034, -0.1402031372361141, -0.10918920358006115, -0.07806858281343654, -0.046871682421591974, -0.015628984421543188, 0.015628984421543188, 0.046871682421591974, 0.07806858281343654, 0.10918920358006115, 0.1402031372361141, 0.1710800805386034, 0.20178986409573646, 0.23230248184497404, 0.26258812037150336, 0.292617188038472, 0.32236034390052926, 0.3517885263724217, 0.38087298162462996, 0.40958529167830166, 0.43789740217203155, 0.4657816497733582, 0.493210789208191, 0.5201580198817632, 0.5465970120650943, 0.5725019326213813, 0.5978474702471789, 0.6226088602037078, 0.6467619085141293, 0.6702830156031411, 0.693149199355802, 0.7153381175730565, 0.7368280898020207, 0.7575981185197073, 0.7776279096494956, 0.7968978923903145, 0.8153892383391763, 0.8330838798884008, 0.8499645278795913, 0.8660146884971647, 0.8812186793850184, 0.895561644970727, 0.9090295709825297, 0.921609298145334, 0.9332885350430795, 0.944055870136256, 0.9539007829254917, 0.9628136542558156, 0.9707857757637063, 0.9778093584869183, 0.983877540706057, 0.9889843952429918, 0.9931249370374434, 0.9962951347331251, 0.9984919506395958, 0.9997137267734413]
-    angular_slice_HR = [1.1029713758640485e-10, 3.060375717181062e-9, 1.8466384884082954e-8, 6.356764884941657e-8, 1.6311624562055977e-7, 3.4921456720207833e-7, 6.611038469008745e-7, 1.1449042621872858e-6, 1.8533074265403314e-6, 2.8452224375253043e-6, 4.185376607539799e-6, 5.9438723516514955e-6, 8.195701999978998e-6, 1.1020222359937881e-5, 1.4500591332905648e-5, 1.8723168821184317e-5, 2.377688465883826e-5, 2.9752576775892047e-5, 3.674230255295517e-5, 4.4838626985422165e-5, 5.413389155403563e-5, 6.471946780478684e-5, 7.668500009365596e-5, 9.01176420244179e-5, 0.0001051012915151461, 0.00012171582959462118, 0.00014003636816879356, 0.0001601325123074633, 0.00018206764258708592, 0.00020589822320708892, 0.00023167314169410242, 0.00025943308594382925, 0.000289209964334087, 0.0003210263746109066, 0.0003548951270656064, 0.0003908188273014499, 0.0004287895237310467, 0.0004687884245203356, 0.0005107856883677279, 0.0005547402931129853, 0.0006005999856037676, 0.0006483013157537844, 0.0006977697570680006, 0.0007489199152998977, 0.000801655826150321, 0.0008558713421663539, 0.0009114506082537659, 0.0009682686242743237, 0.0010261918924505506, 0.0010850791463663386, 0.0011447821574432407, 0.0012051466139479188, 0.0012660130666126825, 0.001327217934162512, 0.0013885945611649437, 0.001449974319824061, 0.0015111877466277013, 0.0015720657040397704, 0.001632440556864822, 0.0016921473523694836, 0.001751024992877764, 0.0018089173892098798, 0.0018656745831678043, 0.001921153827259216, 0.0019752206098663087, 0.0020277496143689274, 0.0020786256010587225, 0.002127744201218513, 0.002175012613444975, 0.002220350193070618, 0.0022636889265635744, 0.0023049737838449335, 0.0023441629427293485, 0.0023812278810378907, 0.00241615333337996, 0.002448937111170742, 0.002479589786014324, 0.002508134238297516, 0.0025346050744819285, 0.00255904791828471, 0.0025815185826111205, 0.0026020821306916575, 0.0026208118364710337, 0.0026377880556821983, 0.0026530970204171663, 0.0026668295711594083, 0.0026790798412499274, 0.0026899439096267253, 0.002699518438236163, 0.0027078993109950766, 0.0027151802912986868, 0.002721451715051696, 0.0027267992359137345, 0.0027313026388636435, 0.0027350347375609037, 0.002738060369954071, 0.0027404355057567826, 0.002742206479582535, 0.002743409372967668, 0.002744069724259361]
-    fLR = interpolate.make_interp_spline(yv_LR, angular_slice_LR, k=5, t=None, bc_type=None, axis=0, check_finite=True)
-    fMR = interpolate.make_interp_spline(yv_MR, angular_slice_MR, k=5, t=None, bc_type=None, axis=0, check_finite=True)
-    fHR = interpolate.make_interp_spline(yv_HR, angular_slice_HR, k=5, t=None, bc_type=None, axis=0, check_finite=True)
-    print(fLR(0),fMR(0),fHR(0))
-    x = -0.995
-    print(np.log((fHR(x)-fMR(x))/(fMR(x)-fLR(x)))/np.log(2))
-    x = 0.2
-    print(np.log((fHR(x)-fMR(x))/(fMR(x)-fLR(x)))/np.log(2))
-    x = 0.4
-    print(np.log((fHR(x)-fMR(x))/(fMR(x)-fLR(x)))/np.log(2))
-    #self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3)
+    def convergence_with_interp():
+        yv_LR = [-0.9955569697904981, -0.9766639214595175, -0.9429745712289743, -0.8949919978782754, -0.833442628760834, -0.7592592630373576, -0.6735663684734683, -0.577662930241223, -0.473002731445715, -0.3611723058093878, -0.24386688372098844, -0.1228646926107104, 0.0, 0.1228646926107104, 0.24386688372098844, 0.3611723058093878, 0.473002731445715, 0.577662930241223, 0.6735663684734683, 0.7592592630373576, 0.833442628760834, 0.8949919978782754, 0.9429745712289743, 0.9766639214595175, 0.9955569697904981]
+        angular_slice_LR = [2.9620109539167647e-8, 8.153787342387705e-7, 4.850020986092783e-6, 1.635026536260084e-5, 4.0810699624049724e-5, 8.439351146466565e-5, 0.00015319752725534175, 0.00025246680020984567, 0.0003858155000032404, 0.0005545577385330061, 0.0007572341950667718, 0.000989418459333886, 0.001243862754461075, 0.0015110051367828918, 0.0017798111399828195, 0.0020388679426781363, 0.0022775972008362536, 0.002487414403501295, 0.0026626488341369905, 0.002801057254733289, 0.0029038190124653774, 0.0029749851681427557, 0.003020455598693936, 0.0030466553183033105, 0.0030591538930230906]
+        yv_MR = [-0.998866404420071, -0.9940319694320907, -0.9853540840480058, -0.972864385106692, -0.9566109552428079, -0.936656618944878, -0.9130785566557919, -0.8859679795236131, -0.8554297694299461, -0.821582070859336, -0.7845558329003993, -0.7444943022260685, -0.7015524687068222, -0.6558964656854394, -0.6077029271849502, -0.5571583045146501, -0.5044581449074642, -0.44980633497403877, -0.39341431189756515, -0.33550024541943735, -0.276288193779532, -0.21600723687604176, -0.1548905899981459, -0.09317470156008614, -0.031098338327188873, 0.031098338327188873, 0.09317470156008614, 0.1548905899981459, 0.21600723687604176, 0.276288193779532, 0.33550024541943735, 0.39341431189756515, 0.44980633497403877, 0.5044581449074642, 0.5571583045146501, 0.6077029271849502, 0.6558964656854394, 0.7015524687068222, 0.7444943022260685, 0.7845558329003993, 0.821582070859336, 0.8554297694299461, 0.8859679795236131, 0.9130785566557919, 0.936656618944878, 0.9566109552428079, 0.972864385106692, 0.9853540840480058, 0.9940319694320907, 0.998866404420071]
+        angular_slice_MR = [1.7923128927178684e-9, 4.9650636282329424e-8, 2.987247215169929e-7, 1.0239978545683006e-6, 2.613138190823197e-6, 5.556241088214156e-6, 1.0432643276571963e-5, 1.78950022535039e-5, 2.8650894294687452e-5, 4.344224930014449e-5, 6.302300986414049e-5, 8.813547340967848e-5, 0.00011948584691588386, 0.0001577196101397145, 0.00020339734132601643, 0.00025697170483493, 0.0003187663286050806, 0.0003889573069414963, 0.00046755804713102296, 0.0005544081339532743, 0.000649166812358728, 0.0007513115844924008, 0.0008601422832038644, 0.0009747908220375459, 0.0010942366347230059, 0.0012173276103022656, 0.001342806109869487, 0.0014693394256119416, 0.0015955538220534563, 0.001720071093982039, 0.00184154639708457, 0.0019587059676549395, 0.002070383258333135, 0.0021755519878296626, 0.002273354642077942, 0.002363125077400708, 0.002444404064438304, 0.0025169468717899397, 0.0025807223128549214, 0.0026359030556078744, 0.002682847405889932, 0.002722073199357977, 0.002754224851802948, 0.002780034997182501, 0.0028002824629568294, 0.0028157485709444565, 0.0028271738913143094, 0.0028352176089577723, 0.00284042161323752, 0.0028431818558712126]
+        yv_HR = [-0.9997137267734413, -0.9984919506395958, -0.9962951347331251, -0.9931249370374434, -0.9889843952429918, -0.983877540706057, -0.9778093584869183, -0.9707857757637063, -0.9628136542558156, -0.9539007829254917, -0.944055870136256, -0.9332885350430795, -0.921609298145334, -0.9090295709825297, -0.895561644970727, -0.8812186793850184, -0.8660146884971647, -0.8499645278795913, -0.8330838798884008, -0.8153892383391763, -0.7968978923903145, -0.7776279096494956, -0.7575981185197073, -0.7368280898020207, -0.7153381175730565, -0.693149199355802, -0.6702830156031411, -0.6467619085141293, -0.6226088602037078, -0.5978474702471789, -0.5725019326213813, -0.5465970120650943, -0.5201580198817632, -0.493210789208191, -0.4657816497733582, -0.43789740217203155, -0.40958529167830166, -0.38087298162462996, -0.3517885263724217, -0.32236034390052926, -0.292617188038472, -0.26258812037150336, -0.23230248184497404, -0.20178986409573646, -0.1710800805386034, -0.1402031372361141, -0.10918920358006115, -0.07806858281343654, -0.046871682421591974, -0.015628984421543188, 0.015628984421543188, 0.046871682421591974, 0.07806858281343654, 0.10918920358006115, 0.1402031372361141, 0.1710800805386034, 0.20178986409573646, 0.23230248184497404, 0.26258812037150336, 0.292617188038472, 0.32236034390052926, 0.3517885263724217, 0.38087298162462996, 0.40958529167830166, 0.43789740217203155, 0.4657816497733582, 0.493210789208191, 0.5201580198817632, 0.5465970120650943, 0.5725019326213813, 0.5978474702471789, 0.6226088602037078, 0.6467619085141293, 0.6702830156031411, 0.693149199355802, 0.7153381175730565, 0.7368280898020207, 0.7575981185197073, 0.7776279096494956, 0.7968978923903145, 0.8153892383391763, 0.8330838798884008, 0.8499645278795913, 0.8660146884971647, 0.8812186793850184, 0.895561644970727, 0.9090295709825297, 0.921609298145334, 0.9332885350430795, 0.944055870136256, 0.9539007829254917, 0.9628136542558156, 0.9707857757637063, 0.9778093584869183, 0.983877540706057, 0.9889843952429918, 0.9931249370374434, 0.9962951347331251, 0.9984919506395958, 0.9997137267734413]
+        angular_slice_HR = [1.1029713758640485e-10, 3.060375717181062e-9, 1.8466384884082954e-8, 6.356764884941657e-8, 1.6311624562055977e-7, 3.4921456720207833e-7, 6.611038469008745e-7, 1.1449042621872858e-6, 1.8533074265403314e-6, 2.8452224375253043e-6, 4.185376607539799e-6, 5.9438723516514955e-6, 8.195701999978998e-6, 1.1020222359937881e-5, 1.4500591332905648e-5, 1.8723168821184317e-5, 2.377688465883826e-5, 2.9752576775892047e-5, 3.674230255295517e-5, 4.4838626985422165e-5, 5.413389155403563e-5, 6.471946780478684e-5, 7.668500009365596e-5, 9.01176420244179e-5, 0.0001051012915151461, 0.00012171582959462118, 0.00014003636816879356, 0.0001601325123074633, 0.00018206764258708592, 0.00020589822320708892, 0.00023167314169410242, 0.00025943308594382925, 0.000289209964334087, 0.0003210263746109066, 0.0003548951270656064, 0.0003908188273014499, 0.0004287895237310467, 0.0004687884245203356, 0.0005107856883677279, 0.0005547402931129853, 0.0006005999856037676, 0.0006483013157537844, 0.0006977697570680006, 0.0007489199152998977, 0.000801655826150321, 0.0008558713421663539, 0.0009114506082537659, 0.0009682686242743237, 0.0010261918924505506, 0.0010850791463663386, 0.0011447821574432407, 0.0012051466139479188, 0.0012660130666126825, 0.001327217934162512, 0.0013885945611649437, 0.001449974319824061, 0.0015111877466277013, 0.0015720657040397704, 0.001632440556864822, 0.0016921473523694836, 0.001751024992877764, 0.0018089173892098798, 0.0018656745831678043, 0.001921153827259216, 0.0019752206098663087, 0.0020277496143689274, 0.0020786256010587225, 0.002127744201218513, 0.002175012613444975, 0.002220350193070618, 0.0022636889265635744, 0.0023049737838449335, 0.0023441629427293485, 0.0023812278810378907, 0.00241615333337996, 0.002448937111170742, 0.002479589786014324, 0.002508134238297516, 0.0025346050744819285, 0.00255904791828471, 0.0025815185826111205, 0.0026020821306916575, 0.0026208118364710337, 0.0026377880556821983, 0.0026530970204171663, 0.0026668295711594083, 0.0026790798412499274, 0.0026899439096267253, 0.002699518438236163, 0.0027078993109950766, 0.0027151802912986868, 0.002721451715051696, 0.0027267992359137345, 0.0027313026388636435, 0.0027350347375609037, 0.002738060369954071, 0.0027404355057567826, 0.002742206479582535, 0.002743409372967668, 0.002744069724259361]
+        fLR = interpolate.make_interp_spline(yv_LR, angular_slice_LR, k=5, t=None, bc_type=None, axis=0, check_finite=True)
+        fMR = interpolate.make_interp_spline(yv_MR, angular_slice_MR, k=5, t=None, bc_type=None, axis=0, check_finite=True)
+        fHR = interpolate.make_interp_spline(yv_HR, angular_slice_HR, k=5, t=None, bc_type=None, axis=0, check_finite=True)
+        print(fLR(0),fMR(0),fHR(0))
+        x = -0.995
+        print(np.log((fHR(x)-fMR(x))/(fMR(x)-fLR(x)))/np.log(2))
+        x = 0.2
+        print(np.log((fHR(x)-fMR(x))/(fMR(x)-fLR(x)))/np.log(2))
+        x = 0.4
+        print(np.log((fHR(x)-fMR(x))/(fMR(x)-fLR(x)))/np.log(2))
+        #self_convergence(dataR1,dataR2,dataR3,dataI1,dataI2,dataI3)
 
 
 def reconstruct_mode(times,wi,wr,phase,amp):
@@ -719,13 +737,16 @@ def Mismatch(times, Ref1, Imf1, Ref2, Imf2):
     psi_psistar = Ref1*Ref1 + Imf1*Imf1
     f_fstar = Ref2*Ref2+Imf2*Imf2
     intR = simps(psi_fstar_R,x=times)
+    #print(intR)
     intI = simps(psi_fstar_I,x=times)
     norm1 = simps(psi_psistar,x=times)
     norm2 = simps(f_fstar,x=times)
     result = intR/np.sqrt(norm1*norm2)
+    print(norm1)
+    #print(1-norm2/np.sqrt(norm1*norm2))
     return (1-result)
 
-def vary_w(times,Ref,Imf,num_modes=1,free_freq=False,tail=False,spin=0.0,ftol=1e-08):
+def vary_w(times,Ref,Imf,free_freq=False,tail=False,num_modes=1,spin=0.0,ftol=1e-08):
     # Maximize overlap?
     import scipy.optimize
     norm_fac = np.amax(np.sqrt(Ref**2+Imf**2))**-1
@@ -759,6 +780,27 @@ def vary_w(times,Ref,Imf,num_modes=1,free_freq=False,tail=False,spin=0.0,ftol=1e
                 psi = (Ar+1j*Ai)*(1+Q*dm/DM)*cmath.exp(-1j*phase.real-phase.imag)
                 psiR[i] = psi.real
                 psiI[i] = psi.imag
+        elif num_modes==2:
+            t0 = inp[0]
+            #t0 = 4.92716938
+            Q1 = inp[1] + 1j*inp[4]
+            #Q = 0
+            #Q = (1+4.19*DM*cmath.exp(1j*5.07*DM))*(cmath.exp(1j*(-wrf[0]-1j*wif[0])*(-t0)))/(cmath.exp(1j*(-wr[0]-1j*wi[0])*(-t0)))
+            #print(Q)
+            Ar1 = inp[2]
+            Ai1 = inp[3]
+            Q2 = inp[5] + 1j*inp[6]
+            Ar2 = inp[7]
+            Ai2 = inp[8]
+            for i in range(times.size):
+                dm = DM*(1-np.exp(2*wi[0]*(times[i]+t0)))
+                #psi = (Ar+1j*Ai)*(1+Q*dm/DM)*cmath.exp((1-DM)/(1-DM+dm)*(1j*wr[0]+wi[0])*(times[i]-times[0]))
+                phase1 = -(DM-1)*(wr[0]+1j*wi[0])*( cmath.log(-wi[0]*(cmath.exp(-2*wi[0]*times[i])-DM)) - cmath.log(-wi[0]*cmath.exp(-2*wi[0]*t0)+wi[0]*DM))/(2* wi[0])
+                phase2 = -(DM-1)*(wr[1]+1j*wi[1])*( cmath.log(-wi[1]*(cmath.exp(-2*wi[1]*times[i])-DM)) - cmath.log(-wi[1]*cmath.exp(-2*wi[1]*t0)+wi[1]*DM))/(2* wi[1])
+                #print(phase.real,phase.imag)
+                psi = (Ar1+1j*Ai1)*(1+Q1*dm/DM)*cmath.exp(-1j*phase1.real-phase1.imag) + (Ar2+1j*Ai2)*(1+Q2*dm/DM)*cmath.exp(-1j*phase2.real-phase2.imag)
+                psiR[i] = psi.real
+                psiI[i] = psi.imag
         if final==True:
             # Calculate mismatch to return final error
             psi_fstar_R = psiR*Ref + psiI*Imf
@@ -777,7 +819,10 @@ def vary_w(times,Ref,Imf,num_modes=1,free_freq=False,tail=False,spin=0.0,ftol=1e
 
     zData = np.ones_like(times)
     # Initialising from rough fits
-    initialParameters = [ 5,  -0.0, Ref[0],  Imf[0],0]
+    if num_modes==1:
+        initialParameters = [ 5,  -0.0, Ref[0],  Imf[0],0]
+    elif num_modes==2:
+        initialParameters = [ 5,  -0.0, Ref[0],  Imf[0],0,0,0,0.001*Ref[0],0.001*Imf[0]]
     #data = 0
     # here a non-linear surface fit is made with scipy's curve_fit()
     #fittedParameters, pcov = curve_fit(_fit_function, data, zData, p0=initialParameters)
@@ -931,7 +976,7 @@ def vary_fit_time(times,Ref,Imf,num_modes=1,free_freq=False,tail=False,spin=0.7,
     step =300
     times_to_fit = times[:-1000].size
     #times_to_fit = times[:-10].size/5
-    #times_to_fit = times[:index_cutofft(times_LR,times_HR[-1]/4)].size
+    #times_to_fit = times[:1000].size
     #times_to_fit = times[:index_cutofft(times,70)].size
     AmpR = np.zeros((num_modes,int(times_to_fit/step)))
     AmpI = np.zeros((num_modes,int(times_to_fit/step)))
@@ -1156,7 +1201,7 @@ def plot_vary_fit(time,ref,imf,time_fin,ref_fin,imf_fin,num_modes=1,free_freq=Fa
     #plt.plot(time0s,np.log10(np.abs(np.sqrt(AmpR22**2+AmpI22**2)-np.sqrt(AmpR22_f**2+AmpI22_f**2))/np.sqrt(AmpR22_f**2+AmpI22_f**2)),'b',label='$220$ mode')
     #plt.plot(time0s[index_cutofft(time0s,20)+fitA220]*np.ones(50),np.linspace(-2.5,0),'b:')
     #plt.plot(time0s,np.log10(np.abs(-np.sqrt(AmpR22**2+AmpI22**2)+np.sqrt(AmpR22_f[1]**2+AmpI22_f[1]**2)))/np.sqrt(AmpR22_f[1]**2+AmpI22_f[1]**2),label='$\Delta 220$ mode')
-    plt.plot(time0s,np.log10(np.abs(-np.sqrt(AmpR22**2+AmpI22**2))/np.sqrt(Ref_fix[1]**2+Imf_fix[1]**2)),label='$220$ mode')
+    plt.plot(time0s,np.log10(np.abs(np.sqrt(AmpR22**2+AmpI22**2))),label='$220$ mode')
     #plt.plot(time0shr,np.log10(np.sqrt(AmpR220_hr**2+AmpI220_hr**2)),'b:',label='lower tol')
     #plt.plot(time0slr,np.log10(np.sqrt(AmpR220_lr**2+AmpI220_lr**2)),'b--',label='Low res')
     #plt.plot(time0s,np.log10(np.sqrt(AmpR22**2+AmpI22**2)),'b',label='221 mode')
@@ -1217,12 +1262,12 @@ def plot_vary_fit(time,ref,imf,time_fin,ref_fin,imf_fin,num_modes=1,free_freq=Fa
     pp.close()
 
     if free_freq == True:
-        tinit = 4
+        tinit = 9
 
-        print(wr_fit[index_cutofft(time0s,10)]," ",wi_fit[index_cutofft(time0s,10)])
-        pp = PdfPages('./plots/w_vary_to2.pdf')
+        print(wr_fit[index_cutofft(time0s,19)]," ",wi_fit[index_cutofft(time0s,19)])
+        pp = PdfPages('./plots/w_vary_to.pdf')
         plt.figure()
-        plt.scatter(x=-wr_fit[1:], y=wi_fit[1:], c=time0s[1:]-tinit, cmap="plasma")
+        plt.scatter(x=-wr_fit[1:index_cutofft(time0s,59)], y=wi_fit[1:index_cutofft(time0s,59)], c=time0s[1:index_cutofft(time0s,59)]-tinit, cmap="plasma")
         plt.colorbar(label="$t_0/M$", orientation="horizontal")
         #plt.plot([wr220,wr221,wr230],[wi220,wi221,wi230],'o',label='QNMs')
         plt.scatter(-wr[:1],wi[:1], s=80, facecolors='none', edgecolors='k',label='220')
@@ -1230,8 +1275,9 @@ def plot_vary_fit(time,ref,imf,time_fin,ref_fin,imf_fin,num_modes=1,free_freq=Fa
         #plt.scatter(-wr[2:4],wi[2:4], s=80, facecolors='none', edgecolors='r',label='22n')
         plt.scatter(-wr[2:3],wi[2:3], s=80, facecolors='none', edgecolors='r',label='221')
         #plt.scatter(-wr[4:5],wi[4:5], s=80, facecolors='none', edgecolors='c',label='320')
-        plt.ylim(-0.35,0)
-        plt.xlim(0.38,0.7)
+        plt.ylim(-0.252,-0.065)
+        plt.xlim(0.505,0.535)
+        #plt.axhline(y=3*wi[:1], color='k', linestyle=':',label='$3I\omega_{200} M$')
         plt.ylabel('$\omega_i M$')
         plt.xlabel('$\omega_r M$')
         plt.legend()
@@ -1342,7 +1388,7 @@ def fit_amps_22(foldername,tinit,spin,perturbing=1,filter_fac = np.ones((5))):
     to_save[:,4] = np.sqrt(AmpR_320**2+AmpI_320**2)/filter_fac[3]
     to_save[:,5] = np.sqrt(AmpR_320R**2+AmpI_320R**2)/filter_fac[4]
     
-    #np.savetxt('%s/amp_fits_newmode_w221.csv'%foldername, to_save, delimiter=',')
+    np.savetxt('%s/amp_fits.csv'%foldername, to_save, delimiter=',')
     #file1 = np.loadtxt("%s/amp_fits_newmode_w221.csv"%foldername,delimiter=",", dtype=float)
     #timesnm = file1[:,0]
     #Anm = file1[:,2]
@@ -1597,12 +1643,15 @@ def reconstruct(fittedParameters,time0,norm_fac,times,num_modes=1,free_freq=Fals
             t0 = fittedParameters[0]
             #Q = fittedParameters[1]
             Q = fittedParameters[1] + 1j*fittedParameters[4]
+            if num_modes==2:
+                Q2 = inp[5] + 1j*inp[6]
+                Ar2 = inp[7]
+                Ai2 = inp[8]
         #print('mode amp =',np.sqrt(Ar**2+Ai**2)*np.exp((wi[0])*(-time0)))
         for i in range(times.size):
             if changing_w:
                 dm = DM*(1-np.exp(2*wi[0]*(times[i]+t0)))
                 phase = -(DM-1)*(wr[0]+1j*wi[0])*( cmath.log(-wi[0]*(cmath.exp(-2*wi[0]*times[i])-DM)) - cmath.log(-wi[0]*cmath.exp(-2*wi[0]*t0)+wi[0]*DM))/(2* wi[0])
-                #print(phase.real,phase.imag)
                 psi = (Ar+1j*Ai)*(1+Q*dm/DM)*cmath.exp(-1j*phase.real-phase.imag)
             else:
                 psi = (Ar+1j*Ai)*cmath.exp((1j*wr[0]+wi[0])*(times[i]-time0))
@@ -1615,7 +1664,29 @@ def reconstruct(fittedParameters,time0,norm_fac,times,num_modes=1,free_freq=Fals
                 psi = (fittedParameters[mode]+1j*fittedParameters[2+mode])*cmath.exp((1j*wr[mode]+wi[mode])*(times[i]-time0))
                 fitR[i] += psi.real
                 fitI[i] += psi.imag
-            
+        if changing_w:
+            Ar = fittedParameters[2]
+            Ai = fittedParameters[3]
+            DM = 0.00711759
+            wr/=(1-DM)
+            wi/=(1-DM)
+            t0 = fittedParameters[0]
+            #Q = fittedParameters[1]
+            Q =0 
+            #fittedParameters[1] + 1j*fittedParameters[4]
+            Q2 =0
+            #fittedParameters[5] + 1j*fittedParameters[6]
+            Ar2 = fittedParameters[7]
+            Ai2 = fittedParameters[8]
+            #print('mode amp =',np.sqrt(Ar**2+Ai**2)*np.exp((wi[0])*(-time0)))
+            for i in range(times.size):
+                dm = DM*(1-np.exp(2*wi[0]*(times[i]+t0)))
+                phase = -(DM-1)*(wr[0]+1j*wi[0])*( cmath.log(-wi[0]*(cmath.exp(-2*wi[0]*times[i])-DM)) - cmath.log(-wi[0]*cmath.exp(-2*wi[0]*t0)+wi[0]*DM))/(2* wi[0])
+                phase2 = -(DM-1)*(wr[1]+1j*wi[1])*( cmath.log(-wi[1]*(cmath.exp(-2*wi[1]*times[i])-DM)) - cmath.log(-wi[1]*cmath.exp(-2*wi[1]*t0)+wi[1]*DM))/(2* wi[1])
+                #print(phase.real,phase.imag)
+                psi = (Ar+1j*Ai)*(1+Q*dm/DM)*cmath.exp(-1j*phase.real-phase.imag) + (Ar2+1j*Ai2)*(1+Q2*dm/DM)*cmath.exp(-1j*phase2.real-phase2.imag)
+                fitR[i] = psi.real
+                fitI[i] = psi.imag
     if num_modes>=3:
         for mode in range(num_modes):
             #fittedParameters[mode] = 1
@@ -1671,11 +1742,11 @@ plt.rcParams.update({'figure.autolayout': True})
 
 #fit_amps_20('spher_proj_30/filtered_data',4.39445,0.0,perturbing=1)
 #fit_amps_20('spher_reltoa0_proj/filtered_data',4.39445,0.0,perturbing=1)
-#fit_amps_20('spher_3evolinit_30/filtered_data',4.39445,0.0,perturbing=1)
+#fit_amps_20('spher_3evolinit_30/filtered_changing_freq_overtoneoptions',4.39445,0.0,perturbing=1)
 
 #print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2))
-#fit_amps_22('a=0.7_evol_reltoextremal/filtered_data',8.91205,0.7,perturbing=1,filter_fac =[0.08899300831198992,0.02634306705698163,0.13754482528767836,0.1601205490648968,0.2403656379655776])
-#fit_amps_22('a=0.7_proj_LRresstudy/filtered_data',8.912,0.7,perturbing=1,filter_fac =[0.08899300831198992,0.02634306705698163,0.13754482528767836,0.1601205490648968,0.2403656379655776])
+#fit_amps_22('a=0.8_3evol_30_MR/filtered_data_LR_allts',10.9638,0.8,perturbing=1,filter_fac =[0.09001133754301312, 0.02706393507139698,0.14719804607978063, 0.16300840918341233, 0.25586655959850024])
+#fit_amps_22('a=0.7_hrevol_reltoextremal/filtered_data',8.912,0.7,perturbing=1,filter_fac =[0.08899300831198992,0.02634306705698163,0.13754482528767836,0.1601205490648968,0.2403656379655776])
 #print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2))
 
 #tref = 8.91205
@@ -1684,19 +1755,26 @@ plt.rcParams.update({'figure.autolayout': True})
 
 #fit_amps_l('a=0.7_hrevol_reltoextremal/filtered_data_ls',8.91205,0.7,perturbing=1,filter_fac =[0.12437110980172982,0.1800715856587312,0.17825656069332882,0.23355923985323437,0.29547901724194564,0.3682357818336704,0.345641262622642,0.40687300378039126,0.3857681344780759,0.43547966655089226,0.41770199136022873,0.45726815098786816])
 
-file1 = np.loadtxt("a=0.7_evolinit_30/filtered_data/amp_fits.csv",delimiter=",", dtype=float)
-times = file1[:,0]
-A220 = file1[:,1]
-A221 = file1[:,2]
-A220R = file1[:,3]
+#file1 = np.loadtxt("a=0.4_3evol_30/filtered_data_LR_allts/amp_fits.csv",delimiter=",", dtype=float)
+#times_LR = file1[:,0]
+#A221_LR = file1[:,5]
+#file1 = np.loadtxt("a=0.4_3evol_30_HR/filtered_data/filtered_data/amp_fits.csv",delimiter=",", dtype=float)
+#times_HR = file1[:,0]
+#A221_HR = file1[:,5]
+
+#file1 = np.loadtxt("a=0.4_3evol_30_MR/filtered_data_LR_allts/amp_fits.csv",delimiter=",", dtype=float)
+#times_MR = file1[:,0]
+#A221_MR = file1[:,5]
+#A221 = file1[:,2]
+#A220R = file1[:,3]
 #A320 = file1[:,4]
 #A320R = file1[:,5]
-tref = 9+ 30
+tref = 11+5
 #print(A220[index_cutofft(times,tref)]," ",A221[index_cutofft(times,tref)]," ",A220R[index_cutofft(times,tref)]," ",A320[index_cutofft(times,tref)]," ",A320R[index_cutofft(times,tref)])
-print(A220[index_cutofft(times,tref)]," ",A221[index_cutofft(times,tref)]," ",A220R[index_cutofft(times,tref)])
+#print(A220[index_cutofft(times,tref)]," ",A221[index_cutofft(times,tref)]," ",A220R[index_cutofft(times,tref)])
 tref = 9
-wr,wi = _freqs(0.7)
-print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2)*np.abs(cmath.exp(wi[0]*(tref-times_LR[0]))))
+#wr,wi = _freqs(0.7)
+#print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2)*np.abs(cmath.exp(wi[0]*(tref-times_LR[0]))))
 
 #print((np.log(A221[index_cutofft(times,19)])-np.log(A221[index_cutofft(times,29)]))/(times[index_cutofft(times,19)]-times[index_cutofft(times,29)]))
 
@@ -1705,20 +1783,23 @@ print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2)*np.abs(cmath.exp(wi[0]*(tref-times_LR[0
 
 #print('Mismathc = ',Mismatch(times_LR, Ref_LR, Imf_LR, Ref_fix, Imf_fix)
 
-#fit,time0,norm,fitR = vary_w(times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],Ref_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],Imf_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],num_modes=1,free_freq=False,tail=False,spin=0.0,ftol=1e-08)
+#fit,time0,norm,fitR = vary_w(times_LR[index_cutofft(times_LR,2):index_cutofft(times_LR,100)],Ref_LR[index_cutofft(times_LR,2):index_cutofft(times_LR,100)],Imf_LR[index_cutofft(times_LR,2):index_cutofft(times_LR,100)],num_modes=1,free_freq=False,tail=False,spin=0.0,ftol=1e-08)
 
-#fit2,time02,norm2,fitR2 = fit_Mismatch(times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],Ref_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],Imf_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],num_modes=2,spin=0.0)
+#fit = np.array([4.0,0,0,1.0,1.0])
+#fit2,time02,norm2,fitR2 = fit_Mismatch(times_LR[index_cutofft(times_LR,100):],Ref_LR[index_cutofft(times_LR,100):],Imf_LR[index_cutofft(times_LR,100):],num_modes=1,spin=0.7)
+
+#fit2,time02,norm2,fitR2 = fit_Mismatch(times_LR[index_cutofft(times_LR,2):index_cutofft(times_LR,100)],Ref_LR[index_cutofft(times_LR,2):index_cutofft(times_LR,100)],Imf_LR[index_cutofft(times_LR,2):index_cutofft(times_LR,100)],num_modes=2,spin=0.0)
 
 #print(times_LR[10])
 #print(times_MR[10])
 #print(times_HR[10])
 
-#phases_XLR = omega_from_f(Ref_LR,Imf_LR,times_LR)
-#data_1,slope_XLR = find_period(phases_XLR,times_LR)
+#phases_LR = omega_from_f(Ref_LR,Imf_LR,times_LR)
+#data_1,slope_XLR = find_period(phases_LR,times_LR)
 #amp_XLR,wi_XLR = find_omegaI(Ref_XLR,Imf_XLR,times_XLR)
 
-#phases_HR = omega_from_f(Ref_2,Imf_2,times_2)
-#data_2,slope_HR = find_period(phases_HR,times_2)
+#phases_fix = omega_from_f(Ref_fix,Imf_fix,times_fix)
+#data_2,slope_HR = find_period(phases_fix,times_fix)
 #amp_HR,wi_HR = find_omegaI(Ref_HR,Imf_HR,times_HR)
 
 #phases_MR = omega_from_f(Ref_3,Imf_3,times_3)
@@ -1740,7 +1821,7 @@ print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2)*np.abs(cmath.exp(wi[0]*(tref-times_LR[0
 
 #print('num time steps = ',times_LR.size, ' real ',Ref_LR.size,)
 
-#overtone_errs = self_convergence(Ref_LR[:],Ref_MR[:],Ref_HR[:],Imf_LR[:],Imf_MR[:],Imf_HR[:])
+#overtone_errs = self_convergence(Ref_LR[index_cutofft(times_LR,6):index_cutofft(times_LR,100)],Ref_MR[index_cutofft(times_MR,6):index_cutofft(times_MR,100)],Ref_HR[index_cutofft(times_HR,6):index_cutofft(times_HR,100)],Imf_LR[index_cutofft(times_LR,6):index_cutofft(times_LR,100)],Imf_MR[index_cutofft(times_MR,6):index_cutofft(times_MR,100)],Imf_HR[index_cutofft(times_HR,6):index_cutofft(times_HR,100)])
 #print(times_LR[:10])
 #print(times_MR[:10])
 #print(times_HR[:10])
@@ -1750,8 +1831,8 @@ print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2)*np.abs(cmath.exp(wi[0]*(tref-times_LR[0
 #data_MR,slope_MR = find_period(phases_MR,times_MR)
 #amp_MR,wi_MR = find_omegaI(Ref_MR,Imf_MR,times_MR)
 
-#phases_LR = omega_from_f(Ref_LR,Imf_LR,times_LR)
-#data_LR,slope_LR = find_period(phases_LR,times_LR)
+phases_LR = omega_from_f(Ref_LR,Imf_LR,times_LR)
+data_LR,slope_LR = find_period(phases_LR,times_LR)
 #amp_LR,wi_LR = find_omegaI(Ref_LR,Imf_LR,times_LR)
 
 #vary_fit_time(times_LR,Ref_LR,Imf_LR,num_modes=1)
@@ -1764,18 +1845,19 @@ print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2)*np.abs(cmath.exp(wi[0]*(tref-times_LR[0
 #data,slope_LR = find_period(phases_LR[63000:],times_LR[63000:])
 #amp,wi_LR = find_omegaI(Ref_LR[63000:],Imf_LR[63000:],times_LR[63000:])
 
-#Re22_LR, Im22_LR = reconstruct(fit,time0,norm,times_LR[:index_cutofft(times_LR,101)],num_modes=1,changing_w=True,spin=0.0)
+#Re22_LR, Im22_LR = reconstruct(fit,time0,norm,times_LR[:],num_modes=1,changing_w=True,spin=0.0)
 #Re22_LRl, Im22_LRl = reconstruct(fit,time0,norm,times_LR[:],num_modes=1,changing_w=True,spin=0.0)
 #to_save1 = np.zeros((times_LR.size,2))
 #to_save2 = np.zeros((times_LR.size,2))
 #to_save1[:,0] = times_LR
-#to_save1[:,1] = Re22_LRl
+#to_save1[:,1] = Re22_LR
 #to_save2[:,0] = times_LR
-#to_save2[:,1] = Im22_LRl
-#np.savetxt("spher_proj_MR30/Re_changing_w.csv",to_save1,delimiter=",")
-#np.savetxt("spher_proj_MR30/Im_changing_w.csv",to_save2,delimiter=",")
+#to_save2[:,1] = Im22_LR
+#np.savetxt("spher_3evolinit_30/Re_201changing_w.csv",to_save1,delimiter=",")
+#np.savetxt("spher_3evolinit_30/Im_201changing_w.csv",to_save2,delimiter=",")
 
 #Re22_LR2, Im22_LR2 = reconstruct(fit2,time02,norm2,times_LR[:index_cutofft(times_LR,101)],num_modes=2,spin=0.0)
+#Re22_LR2, Im22_LR2 = reconstruct(fit2,time02,norm2,times_LR[:index_cutofft(times_LR,101)],num_modes=1,spin=0.7)
 
 #nt = times_LR.size
 #print(times_HR[-1]," ",times_LR[-1]," ",times_fix[-1])
@@ -1792,10 +1874,10 @@ print(np.sqrt(Imf_LR[0]**2+Ref_LR[0]**2)*np.abs(cmath.exp(wi[0]*(tref-times_LR[0
 #print(times_LR[index_cutofft(times_LR,0)],times_MR[index_cutofft(times_MR,0)+1],times_HR[index_cutofft(times_HR,0)+3])
 #Re22_LR, Im22_LR = reconstruct(fit,time0,norm,times_LR[:],num_modes=3,free_freq=False,spin=0.7)
 
-#t02, amp2 = plot_vary_fit(times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],Ref_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],Imf_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,100)],times_LR[:index_cutofft(times_LR,times_LR[-1])],Ref_LR[:index_cutofft(times_LR,times_LR[-1])],Imf_LR[:index_cutofft(times_LR,times_LR[-1])],num_modes=1,free_freq=True,tail=False,spin=0.0)
+#t02, amp2 = plot_vary_fit(times_LR[index_cutofft(times_LR,9):index_cutofft(times_LR,100)],Ref_LR[index_cutofft(times_LR,9):index_cutofft(times_LR,100)],Imf_LR[index_cutofft(times_LR,9):index_cutofft(times_LR,100)],times_LR[:index_cutofft(times_LR,times_LR[-1])],Ref_LR[:index_cutofft(times_LR,times_LR[-1])],Imf_LR[:index_cutofft(times_LR,times_LR[-1])],num_modes=1,free_freq=True,tail=False,spin=0.7)
 
 
-t02, amp2 = plot_vary_fit(times_LR[index_cutofft(times_LR,0):index_cutofft(times_LR,80)],Ref_LR[index_cutofft(times_LR,0):index_cutofft(times_LR,80)],Imf_LR[index_cutofft(times_LR,0):index_cutofft(times_LR,80)],times_LR[:index_cutofft(times_LR,times_LR[-1])],Ref_LR[:index_cutofft(times_LR,times_LR[-1])],Imf_LR[:index_cutofft(times_LR,times_LR[-1])],num_modes=1,free_freq=True,tail=False,spin=0.7)
+#t02, amp2 = plot_vary_fit(times_LR[index_cutofft(times_LR,0):index_cutofft(times_LR,80)],Ref_LR[index_cutofft(times_LR,0):index_cutofft(times_LR,80)],Imf_LR[index_cutofft(times_LR,0):index_cutofft(times_LR,80)],times_LR[:index_cutofft(times_LR,times_LR[-1])],Ref_LR[:index_cutofft(times_LR,times_LR[-1])],Imf_LR[:index_cutofft(times_LR,times_LR[-1])],num_modes=1,free_freq=True,tail=False,spin=0.7)
 
 #plot_vary_fit(times_LR[index_cutofft(times_LR,5):index_cutofft(times_LR,100)],Ref_LR[index_cutofft(times_LR,5):index_cutofft(times_LR,100)],Imf_LR[index_cutofft(times_LR,5):index_cutofft(times_LR,100)],times_fix[:index_cutofft(times_fix,10)],Ref_fix[:index_cutofft(times_fix,90)],Imf_fix[:index_cutofft(times_fix,90)],num_modes=3,free_freq=False,tail=False,spin=0.0)
 
@@ -1903,20 +1985,139 @@ plt.xlabel('t/M')
 pp.savefig()
 pp.close()
 
-#from scipy import interpolate
-#Ref_f = interpolate.interp1d(times_fix, Ref_fix)
-#Imf_f = interpolate.interp1d(times_fix, Imf_fix)
-#Ref_fix2 = Ref_f(times_3[:index_cutofft(times_2,90)])*np.sqrt(Ref_2[0]**2+Imf_2[0]**2)/np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)
-#Imf_fix2 = Imf_f(times_3[:index_cutofft(times_2,90)])*np.sqrt(Ref_2[0]**2+Imf_2[0]**2)/np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)
+from scipy import interpolate
+Ref_f = interpolate.interp1d(times_fix, Ref_fix)
+Imf_f = interpolate.interp1d(times_fix, Imf_fix)
+Ref_fix2 = Ref_f(times_LR[:index_cutofft(times_LR,80)])
+#*np.sqrt(Ref_LR[0]**2+Imf_LR[0]**2)/np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)
+Imf_fix2 = Imf_f(times_LR[:index_cutofft(times_LR,80)])
+#*np.sqrt(Ref_LR[0]**2+Imf_LR[0]**2)/np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)
+Ref_LR*=(np.sqrt(Ref_LR[0]**2+Imf_LR[0]**2)/np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2))**-1
+Imf_LR*=(np.sqrt(Ref_LR[0]**2+Imf_LR[0]**2)/np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2))**-1
 
-pp = PdfPages('./plots/Repsi0.pdf')
+
+Ref_f = interpolate.interp1d(times_2, Ref_2)
+Imf_f = interpolate.interp1d(times_2, Imf_2)
+Ref_2n = Ref_f(times_LR[:index_cutofft(times_LR,80)])*np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)/np.sqrt(Ref_2[0]**2+Imf_2[0]**2)
+Imf_2n = Imf_f(times_LR[:index_cutofft(times_LR,80)])*np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)/np.sqrt(Ref_2[0]**2+Imf_2[0]**2)
+
+Ref_f = interpolate.interp1d(times_3, Ref_3)
+Imf_f = interpolate.interp1d(times_3, Imf_3)
+Ref_3n = Ref_f(times_LR[:index_cutofft(times_LR,80)])*np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)/np.sqrt(Ref_3[0]**2+Imf_3[0]**2)
+Imf_3n = Imf_f(times_LR[:index_cutofft(times_LR,80)])*np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)/np.sqrt(Ref_3[0]**2+Imf_3[0]**2)
+
+#phases_LR = omega_from_f(Ref_fix2,Imf_fix2,times_LR[:index_cutofft(times_LR,80)])
+#data_fix,slope_LR = find_period(phases_LR,times_LR[:index_cutofft(times_LR,80)])
+
+#dR1 = ((Ref_fix2[:index_cutofft(times_LR,90)])-Ref_LR[:index_cutofft(times_LR,90)])*(1/0.67)/np.sqrt(Ref_LR[index_cutofft(times_LR,4)]**2+Imf_LR[index_cutofft(times_LR,4)]**2)
+#dI1 = ((Imf_fix2[:index_cutofft(times_LR,90)])-Imf_LR[:index_cutofft(times_LR,90)])*(1/0.67)/np.sqrt(Ref_LR[index_cutofft(times_LR,4)]**2+Imf_LR[index_cutofft(times_LR,4)]**2)
+#h12 = (dR1**2+ dI1**2)
+#result = np.trapz(h12[index_cutofft(times_LR,4):], x=times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,90)])
+#print('SNR 1 =',result**0.5)
+pp = PdfPages('./plots/Repsi02.pdf')
 plt.figure()
+# integrating twice for h
+from scipy import integrate
+#plt.plot(times_LR[:index_cutofft(times_LR,80)],Ref_fix2[:index_cutofft(times_LR,80)])
+analytic_int = np.zeros_like(times_LR[:index_cutofft(times_LR,80)])
+for i in range(index_cutofft(times_LR,80)):
+    h_t = -(Ref_fix2[i])/(-0.532600243551018 -1j*0.08079287315500867)**2
+    #(Ref_fix2[i]+1j*Imf_fix2[i])/(-0.532600243551018 -1j*0.08079287315500867)**2
+    analytic_int[i] = h_t.real
+plt.plot(times_LR[:index_cutofft(times_LR,80)],analytic_int,label='analytic twice int')
+Ref_fix2 = integrate.cumtrapz(Ref_fix2, times_LR[:index_cutofft(times_LR,80)], initial=0)
+Imf_fix2 = integrate.cumtrapz(Imf_fix2, times_LR[:index_cutofft(times_LR,80)], initial=0)
+Ref_fix2-=Ref_fix2[-1]
+Imf_fix2-=Imf_fix2[-1]
+#plt.plot(times_LR[:index_cutofft(times_LR,80)],Ref_fix2[:index_cutofft(times_LR,80)],label='once int')
+Ref_fix2 = integrate.cumtrapz(Ref_fix2, times_LR[:index_cutofft(times_LR,80)], initial=0)
+Imf_fix2 = integrate.cumtrapz(Imf_fix2, times_LR[:index_cutofft(times_LR,80)], initial=0)
+Ref_fix2-=Ref_fix2[-1]
+Imf_fix2-=Imf_fix2[-1]
+plt.plot(times_LR[:index_cutofft(times_LR,80)],Ref_fix2[:index_cutofft(times_LR,80)],label='twice int')
+
+Ref_LR = integrate.cumtrapz(Ref_LR[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Imf_LR = integrate.cumtrapz(Imf_LR[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Ref_LR-=Ref_LR[-1]
+Imf_LR-=Imf_LR[-1]
+#plt.plot(times_LR[:index_cutofft(times_LR,80)],Ref_LR[:index_cutofft(times_LR,80)],label='once int')
+
+Ref_LR = integrate.cumtrapz(Ref_LR[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Imf_LR = integrate.cumtrapz(Imf_LR[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Ref_LR-=Ref_LR[-1]
+Imf_LR-=Imf_LR[-1]
+plt.plot(times_LR[:index_cutofft(times_LR,80)],Ref_LR[:index_cutofft(times_LR,80)],label = 'dM twice int')
+
+
+Ref_2n = integrate.cumtrapz(Ref_2n[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Imf_2n = integrate.cumtrapz(Imf_2n[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Ref_2n-=Ref_2n[-1]
+Imf_2n-=Imf_2n[-1]
+Ref_2n = integrate.cumtrapz(Ref_2n[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Imf_2n = integrate.cumtrapz(Imf_2n[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Ref_2n-=Ref_2n[-1]
+Imf_2n-=Imf_2n[-1]
+
+Ref_3n = integrate.cumtrapz(Ref_3n[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Imf_3n = integrate.cumtrapz(Imf_3n[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Ref_3n-=Ref_3n[-1]
+Imf_3n-=Imf_3n[-1]
+Ref_3n = integrate.cumtrapz(Ref_3n[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Imf_3n = integrate.cumtrapz(Imf_3n[:index_cutofft(times_LR,80)], times_LR[:index_cutofft(times_LR,80)], initial=0)
+Ref_3n-=Ref_3n[-1]
+Imf_3n-=Imf_3n[-1]
+
+print(times_LR[-1],times_LR[-2600])
+
+fit2,time02,norm2,fitR2 = fit_Mismatch(times_LR[index_cutofft(times_LR,60):index_cutofft(times_LR,80)],Ref_LR[index_cutofft(times_LR,60):index_cutofft(times_LR,80)],Imf_LR[index_cutofft(times_LR,60):index_cutofft(times_LR,80)],num_modes=1,spin=0.7)
+Re22_LR2, Im22_LR2 = reconstruct(fit2,time02,norm2,times_LR[:index_cutofft(times_LR,101)],num_modes=1,spin=0.7)
+
+dR1 = ((Re22_LR2[:index_cutofft(times_LR,80)])-Ref_LR[:index_cutofft(times_LR,80)])*(1/0.67)/np.sqrt(Ref_LR[index_cutofft(times_LR,4)]**2+Imf_LR[index_cutofft(times_LR,4)]**2)
+dI1 = ((Im22_LR2[:index_cutofft(times_LR,80)])-Imf_LR[:index_cutofft(times_LR,80)])*(1/0.67)/np.sqrt(Ref_LR[index_cutofft(times_LR,4)]**2+Imf_LR[index_cutofft(times_LR,4)]**2)
+#dR1 = ((Ref_fix2[:index_cutofft(times_LR,90)])-Ref_LR[:index_cutofft(times_LR,90)])*(1/0.67)/np.sqrt(Ref_LR[index_cutofft(times_LR,9)]**2+Imf_LR[index_cutofft(times_LR,9)]**2)
+#dI1 = ((Imf_fix2[:index_cutofft(times_LR,90)])-Imf_LR[:index_cutofft(times_LR,90)])*(1/0.67)/np.sqrt(Ref_LR[index_cutofft(times_LR,9)]**2+Imf_LR[index_cutofft(times_LR,9)]**2)
+
+h12 = (dR1**2+ dI1**2)
+
+result0 = Mismatch(times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Ref_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Imf_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Ref_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Imf_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)])
+result1 = Mismatch(times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Ref_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Imf_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Ref_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Imf_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)])
+result2 = Mismatch(times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Ref_2n[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Imf_2n[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Ref_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Imf_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)])
+result3 = Mismatch(times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Ref_3n[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Imf_3n[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Ref_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)], Imf_fix2[index_cutofft(times_LR,4):index_cutofft(times_LR,60)])
+
+result = np.trapz(h12[index_cutofft(times_LR,4):index_cutofft(times_LR,80)], x=times_LR[index_cutofft(times_LR,4):index_cutofft(times_LR,80)])
+print('SNR integral = ',result)
+
+print('Mismatch =',result0, " ",result1, " ",result2, " ",result3)
+#print(result1)
+#print(index_cutofft(times_LR,6)-index_cutofft(times_LR,100))
+#print(index_cutofft(times_MR,6)-index_cutofft(times_MR,100))
+#Amr = interpolate.interp1d(times_MR, A221_MR)
+#Ahr = interpolate.interp1d(times_HR, A221_HR)
+
+#pp = PdfPages('./plots/Repsi02.pdf')
+#plt.figure()
+#plt.plot(times_LR[:index_cutofft(times_LR,79)],Ref_LR[:index_cutofft(times_LR,79)]-Ref_fix2[:index_cutofft(times_LR,79)],label='$dm=1$')
+#plt.plot(times_LR[:index_cutofft(times_LR,79)],Ref_2n[:index_cutofft(times_LR,79)]-Ref_fix2[:index_cutofft(times_LR,79)],label='$dm=2$')
+#plt.plot(times_LR[:index_cutofft(times_LR,79)],Ref_3n[:index_cutofft(times_LR,79)]-Ref_fix2[:index_cutofft(times_LR,79)],label='$dm=3$')
+#plt.plot(times_LR[:index_cutofft(times_LR,79)],0*times_LR[:index_cutofft(times_LR,79)])
+#plt.plot(times_LR[:index_cutofft(times_LR,79)],data_LR[:index_cutofft(times_LR,79)]-data_fix[:index_cutofft(times_LR,79)],label='$dm=1$')
+#plt.plot(times_LR[:index_cutofft(times_LR,79)],Ref_fix2[:index_cutofft(times_LR,79)],label='fix')
+#plt.plot(times_LR[1:-10],A221_LR[1:-10]-Amr(times_LR[1:-10]),label='LR')
+#plt.plot(times_LR[1:-10],-16*(Amr(times_LR[1:-10])-Ahr(times_LR[1:-10])),label='MR')
+#plt.plot(times_LR[1:-10],np.log(np.abs((A221_LR[1:-10]-Amr(times_LR[1:-10]))/(Amr(times_LR[1:-10])-Ahr(times_LR[1:-10])))))
+#plt.plot(times_HR,np.log10(A221_HR),label='HR')
+#plt.plot(times_LR[index_cutofft(times_LR,6):index_cutofft(times_LR,100)],Ref_LR[index_cutofft(times_LR,6):index_cutofft(times_LR,100)],label='LR')
+#plt.plot(times_LR[index_cutofft(times_MR,6):index_cutofft(times_MR,100)],Ref_MR[index_cutofft(times_MR,6):index_cutofft(times_MR,100)],label='MR')
+#plt.plot(times_LR[index_cutofft(times_HR,6):index_cutofft(times_HR,100)],Ref_HR[index_cutofft(times_HR,6):index_cutofft(times_HR,100)],label='HR')
 #plt.plot(times_3[:index_cutofft(times_2,80)],(np.sqrt((Ref_3[:index_cutofft(times_2,80)]-Ref_fix2[:index_cutofft(times_2,80)])**2+(Imf_3[:index_cutofft(times_2,80)]-Imf_fix2[:index_cutofft(times_2,80)])**2))/(np.sqrt(Ref_fix2[:index_cutofft(times_2,80)]**2+Imf_fix2[:index_cutofft(times_2,80)]**2)),label='residual')
 #plt.plot(times_2[:index_cutofft(times_2,80)], np.log(np.abs(Ref_fix2[:index_cutofft(times_2,80)])))
 #plt.plot(times_2[:index_cutofft(times_2,80)], np.log(np.abs(Ref_2[:index_cutofft(times_2,80)])))
-#plt.plot(times_LR[:index_cutofft(times_LR,100)],((Ref_LR[:index_cutofft(times_LR,100)])),label='changing bgd.')
+#plt.plot(times_LR[:index_cutofft(times_LR,100)],-((phases_LR[:index_cutofft(times_LR,100)]))+np.pi,label='changing bgd.')
 #plt.plot(times_fix[:index_cutofft(times_fix,100)],np.sqrt(Ref_LR[0]**2+Imf_LR[0]**2)/np.sqrt(Ref_fix[0]**2+Imf_fix[0]**2)*((Ref_fix[:index_cutofft(times_fix,100)])),'--',label='fixed remnant bgd.')
-#plt.plot(times_LR[:index_cutofft(times_LR,20)],(np.abs(Ref_LR[:index_cutofft(times_LR,20)])),label='fixed bgd.')
+#plt.plot(times_LR[:index_cutofft(times_LR,100)],np.sqrt(Ref_LR[0]**2+Imf_LR[0]**2)/np.sqrt(Re22_LR2[0]**2+Im22_LR2[0]**2)*((Re22_LR2[:index_cutofft(times_LR,100)])),'--',label='fixed remnant bgd. 2')
+#plt.plot(times_LR[:index_cutofft(times_LR,90)],((Ref_fix2[:index_cutofft(times_LR,90)])-Ref_LR[:index_cutofft(times_LR,90)])*(1/0.67)/np.sqrt(Ref_LR[index_cutofft(times_LR,9)]**2+Imf_LR[index_cutofft(times_LR,9)]**2),':',label='difference')
+#plt.plot(times_LR[:index_cutofft(times_LR,90)],((Re22_LR2[:index_cutofft(times_LR,90)])-Ref_LR[:index_cutofft(times_LR,90)])*(1/0.67)/np.sqrt(Ref_LR[index_cutofft(times_LR,9)]**2+Imf_LR[index_cutofft(times_LR,9)]**2),':',label='difference 2')
+#plt.plot(times_fix[:index_cutofft(times_fix,40)],-((phases_fix[:index_cutofft(times_fix,40)]))+np.pi,'--',label='fixed bgd.')
 #plt.plot(times_fix[:index_cutofft(times_fix,20)],(np.abs(np.sqrt(Ref_fix[:index_cutofft(times_fix,20)]**2+Imf_fix[:index_cutofft(times_fix,20)]**2)-np.sqrt(Ref_LR[:index_cutofft(times_LR,20)]**2+Imf_LR[:index_cutofft(times_LR,20)]**2)))/(np.sqrt(Ref_fix[:index_cutofft(times_fix,20)]**2+Ref_fix[:index_cutofft(times_fix,20)]**2)),label='changing bgd.')
 
 #plt.plot(times_fix[:index_cutofft(times_fix,100)],(np.sqrt(np.abs(Ref_fix[:index_cutofft(times_fix,100)]-Ref_LR[:index_cutofft(times_fix,100)])**2 + np.abs(Imf_fix[:index_cutofft(times_fix,100)]-Imf_LR[:index_cutofft(times_fix,100)])**2)/np.sqrt(Ref_fix[:index_cutofft(times_fix,100)]**2+Imf_fix[:index_cutofft(times_fix,100)]**2)),label='changing bgd.')
@@ -1927,9 +2128,13 @@ plt.figure()
 #plt.plot(times_2[:20000],Ref_2[:20000],label='changing background 2')
 #plt.plot(times_3[:20000],Ref_3[:20000],label='changing background 3')
 #plt.plot(times_HR[:20000],((Ref_HR[:20000])),label='fixed background')
-plt.plot(times_LR[:index_cutofft(times_LR,100)]-4,np.log10(np.abs(Re22_LR[:index_cutofft(times_LR,100)]-Ref_LR[:index_cutofft(times_LR,100)])),'--',label='changing freq')
-plt.plot(times_LR[:index_cutofft(times_LR,100)]-4,np.log10(np.abs(Re22_LR2[:index_cutofft(times_LR,100)]-Ref_LR[:index_cutofft(times_LR,100)])),label='200+201')
-#plt.plot(times_LR[:],np.log(np.abs(Re22_LRff[:])),label='reconstructed free w')
+
+#plt.plot(times_LR[:index_cutofft(times_LR,100)]-2,np.log10(np.abs(Re22_LR[:index_cutofft(times_LR,100)]-Ref_LR[:index_cutofft(times_LR,100)])),'--',label='changing freq')
+#plt.plot(times_LR[:index_cutofft(times_LR,100)]-2,np.log10(np.abs(Re22_LR2[:index_cutofft(times_LR,100)]-Ref_LR[:index_cutofft(times_LR,100)])),label='200+201')
+
+#plt.plot(times_LR[:],np.log(np.sqrt(Ref_LR**2+Imf_LR**2)),label='signal')
+#plt.axvline(x=5,ls=':',label='$t/M = 5$')
+#plt.plot(times_LR[:],np.log(np.abs(Ref_LR[:])),label='signal')
 #plt.plot(times_LR[160000:],fitR,'--',label='fit')
 
 #plt.plot(times_LR[:70000],Ref_LR[:70000]/np.sqrt(Ref_fix[:70000]**2+Imf_fix[:70000]**2),label='$h_{\\times}$')
@@ -1937,7 +2142,8 @@ plt.plot(times_LR[:index_cutofft(times_LR,100)]-4,np.log10(np.abs(Re22_LR2[:inde
 
 #plt.plot(times_proj,np.log(np.abs(Ref_proj-Re22_LR)),label='2fit residual')
 #plt.plot(times_LR,np.log(np.abs(Ref_LR-Re22_LRff)),label='residual free w')
-#plt.plot(times_MR,(Ref_MR-Ref_HR)/np.sqrt(Ref_HR**2+Imf_HR**2),'--',label='$\Delta M/2$')
+#plt.plot(times_MR,(Ref_LR-Ref_MR)/np.sqrt(Ref_HR[0]**2+Imf_HR[0]**2),label='$Re(\Psi_4^{LR}-\Psi_4^{MR})$')
+#plt.plot(times_MR,16*(Ref_MR-Ref_HR)/np.sqrt(Ref_HR[0]**2+Imf_HR[0]**2),'--',label='$16\\times Re(\Psi_4^{MR}-\Psi_4^{HR})$')
 #plt.plot(times_XLR,(Ref_XLR - Ref_HR)/np.sqrt(Ref_HR**2+Imf_HR**2),label='$\Delta M 3/4$')
 #plt.plot(times_MR,Ref_MR-Ref_LR,label='physical - 0.5$\Delta M$')
 #plt.plot(times_LR,np.sqrt(Ref_LR**2+Imf_LR**2)/np.sqrt(Ref_XLR**2+Imf_XLR**2),label='Amp $\ell = 2$')
@@ -1947,13 +2153,16 @@ plt.plot(times_LR[:index_cutofft(times_LR,100)]-4,np.log10(np.abs(Re22_LR2[:inde
 #plt.plot(times_LR,np.log(np.sqrt(Ref_HR**2+Imf_HR**2)),label='Amp $\ell = 3$')
 #plt.plot(times_LR,np.log(np.sqrt(Ref_HR4**2+Imf_HR4**2)),label='Amp $\ell = 4$')
 #plt.plot(times_LR,np.log(np.sqrt(Ref_HR5**2+Imf_HR5**2)),label='Amp $\ell = 5$')
-plt.legend()
-plt.xlim(0,35)
-plt.ylim(-7,-2)
+plt.legend(loc="upper left")
+plt.tight_layout()
+plt.xlim(0,65)
+#plt.ylim(-10**-3,10**-3)
+#plt.ylim(2,19)
 #plt.ylabel('$\\frac{\sqrt{\Delta h_+^2+\Delta h_{\\times}^2 }}{\sqrt{h_+^2+h_{\\times}^2}}$')
 #plt.ylabel('$h_{\\times}/A(t)$')
-plt.ylabel('$|$fit$-\Psi_4|$')
-#plt.ylabel('$Re(\Psi_4)$')
+#plt.ylabel('$\log_{10}|$fit$-\Psi_4|$')
+plt.ylabel('$\Delta\phi\left(\Psi_4 \\times rM\\right)$')
+#plt.ylabel('$\Delta Re(\Psi_4(t) \\times rM)/Re(\Psi_4(0) \\times rM)$')
 plt.xlabel('$t / M$')
 #plt.title('Change in signal $a=0.7$')
 pp.savefig()
